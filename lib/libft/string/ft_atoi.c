@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 05:07:00 by ebennix           #+#    #+#             */
-/*   Updated: 2023/04/20 02:43:29 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/07/22 23:07:54 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ int	ft_atoi(const char *str)
 	int			i;
 	int			sign;
 	long long	res;
-	long long	acc;
 	int			overflow;
 
 	i = 0;
 	sign = 1;
 	res = 0;
-	acc = 0;
 	overflow = 0;
 	i = skip(str, i);
 	i = signop(str, i, &sign);
