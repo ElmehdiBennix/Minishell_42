@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 21:05:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/22 03:16:49 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/07/22 03:17:44 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void minishell()
 
     while(1)
     {
-        content = readline("le minishit : ");
+        content = readline("le minishit : "); // should display corrent dir and exit msgs zith colors
         ft_fprintf(1,"%s\n",content);
     }
 }
