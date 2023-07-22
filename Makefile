@@ -6,35 +6,25 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/05/15 18:24:08 by ebennix          ###   ########.fr        #
+#    Updated: 2023/07/22 01:44:55 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-EXE := 
+EXE := Minishell
 
-EXE_B := 
-
-ARCH := utils/utils.a
+ARCH := lib/lib_42.a
 
 CC := cc
 
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -g -Wall -Wextra -Werror
 
-HEADER := 
+HEADER := Mandatory/inc/minishell.h
 
-HEADER := 
-
-FILES := 
-
-FILES_B := 
+FILES := Mandatory/minishell.c \
 
 SRC := $(FILES:=.c)
 
 OBJ := $(SRC:.c=.o)
-
-SRC_B := $(FILES_B:=.c)
-
-OBJ_B := $(SRC_B:.c=.o)
 
 RM := rm -rf
 
@@ -43,29 +33,22 @@ m := MakefileAutoPush
 
 all : $(EXE)
 
-bonus : $(EXE_B)
-
 library:
-	make -C utils
+	make -C lib
 
 $(EXE) : $(OBJ)
 	$(CC) $(OBJ) $(ARCH) $(EXE)
 
-$(EXE_B) : $(OBJ_B)
-	$(CC) $(OBJ_B) $(ARCH) $(EXE_B)
-
-%.o : %.c $(HEADER) $(HEADER_B) | library
+%.o : %.c $(HEADER) | library
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	make clean -C utils
+	make clean -C lib
 	$(RM) $(OBJ)
-	$(RM) $(OBJ_B)
 
 fclean : clean
-	make fclean -C utils
+	make fclean -C lib
 	$(RM) $(EXE)
-	$(RM) $(EXE_B)
 
 re : fclean all
 
@@ -75,4 +58,4 @@ git :
 	git commit -m "$(m)"
 	git push
 
-.PHONY : all clean fclean re git play
+.PHONY : all clean fclean re git
