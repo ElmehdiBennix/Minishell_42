@@ -6,20 +6,20 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/22 04:53:15 by ebennix           #+#    #+#              #
-#    Updated: 2023/05/11 00:25:26 by ebennix          ###   ########.fr        #
+#    Updated: 2023/07/22 01:42:47 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := utils.a
+NAME := lib_42.a
 
 CFLAGS := -g -Wall -Wextra -Werror
+
+CC := cc
 
 HEADER := /inc/utils.h
 COLORS := /inc/colors.h
 
 OBJ_DIR := obj_files
-
-CC := cc
 
 FILES := libft/string/ft_atoi		  libft/int/ft_itoa	               libft/int/ft_putnbr_fd	    \
 		 libft/int/ft_strlcpy		  libft/char/ft_tolower	           libft/errors/exit_msg        \
