@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
+#    By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/07/22 03:05:52 by ebennix          ###   ########.fr        #
+#    Updated: 2023/07/23 00:11:17 by otaraki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ CFLAGS := -g -Wall -Wextra -Werror
 
 HEADER := Mandatory/inc/minishell.h
 
-FILES := Mandatory/minishell
+FILES := Mandatory/minishell\
+		 Mandatory/lexer/tokenizer\
 
 SRC := $(FILES:=.c)
 
