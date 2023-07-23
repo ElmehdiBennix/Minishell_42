@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 21:05:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/22 23:45:17 by ebennix          ###   ########.fr       */
+/*   Created: 2023/07/22 23:26:24 by ebennix           #+#    #+#             */
+/*   Updated: 2023/07/23 03:45:19 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/minishell.h"
+#include "../inc/minishell.h"
 
-void minishell()
+int change_dir(char *path)
 {
-    char *prompt;
+    // const   char *absu = "/Users/ebennix"; //this is an example
+    // appand it the pwd command
+    // absolute path should go directly to it
+    // if its cd only it should go to last history
 
-    while(1)
-    {
-        prompt = readline("le minishit : "); // should display corrent dir and exit msgs zith colors
-        // ft_fprintf(1,"%s\n",prompt);
-        // parsing(prompt);
-    }
-}
-
-int main()
-{
-    extern char **environ;
-    minishell();
-
+    if (chdir(path) == 0) {
+        return (0);
+    } else {
+        perror("cd");
 }

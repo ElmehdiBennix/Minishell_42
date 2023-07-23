@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 21:05:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/22 23:45:17 by ebennix          ###   ########.fr       */
+/*   Created: 2023/07/22 23:26:31 by ebennix           #+#    #+#             */
+/*   Updated: 2023/07/22 23:55:59 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/minishell.h"
+#include "../inc/minishell.h"
 
-void minishell()
+int exit_bin(int exit_num)
 {
-    char *prompt;
-
-    while(1)
-    {
-        prompt = readline("le minishit : "); // should display corrent dir and exit msgs zith colors
-        // ft_fprintf(1,"%s\n",prompt);
-        // parsing(prompt);
-    }
+    // free all data allocated then exit with exit_num
+    exit(exit_num);
+}
+int main (int ac, char **av)
+{
+    (void)ac;
+    exit_bin(atoi(av[1]));
 }
 
-int main()
-{
-    extern char **environ;
-    minishell();
-
-}
