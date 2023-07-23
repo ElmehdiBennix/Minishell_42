@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/07/22 03:05:52 by ebennix          ###   ########.fr        #
+#    Updated: 2023/07/22 23:43:23 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ CFLAGS := -g -Wall -Wextra -Werror
 
 HEADER := Mandatory/inc/minishell.h
 
-FILES := Mandatory/minishell
+FILES := Mandatory/minishell	Mandatory/bin/cd	Mandatory/bin/echo	Mandatory/bin/pwd	\
+		 Mandatory/bin/env		Mandatory/bin/exit	Mandatory/bin/export	Mandatory/bin/unset
 
 SRC := $(FILES:=.c)
 

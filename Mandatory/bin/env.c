@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 21:05:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/22 23:45:17 by ebennix          ###   ########.fr       */
+/*   Created: 2023/07/22 23:26:28 by ebennix           #+#    #+#             */
+/*   Updated: 2023/07/23 00:53:05 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/minishell.h"
+#include "../inc/minishell.h"
 
-void minishell()
+int enva(char **vars)
 {
-    char *prompt;
-
-    while(1)
+    while(*vars)
     {
-        prompt = readline("le minishit : "); // should display corrent dir and exit msgs zith colors
-        // ft_fprintf(1,"%s\n",prompt);
-        // parsing(prompt);
+        printf("%s\n",*vars);
+        vars++;
     }
-}
+    return(1);
 
-int main()
+}
+int main (int ac ,char **av ,char **env)
 {
-    extern char **environ;
-    minishell();
+    enva(env);
 
 }
