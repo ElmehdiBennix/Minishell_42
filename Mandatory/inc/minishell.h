@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/23 00:25:38 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/07/24 01:40:11 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@ typedef struct s_lex
 	struct s_lex	*next;
 	struct s_lex	*prev;
 }	t_lex;
+
+typedef struct s_mini_data
+{
+    int     err_no;
+    char    **env_var;
+	char	**paths;
+    char    *PWD;
+    char    *OLDPWD;
+
+}   t_mini_data;
 
 
 void tokeni(char *f_line);

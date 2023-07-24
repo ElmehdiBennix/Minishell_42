@@ -3,43 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD
-/*   Created: 2023/06/14 21:05:35 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/23 04:26:56 by ebennix          ###   ########.fr       */
-=======
-/*   Created: 2023/07/22 23:17:11 by otaraki           #+#    #+#             */
-/*   Updated: 2023/07/23 04:14:23 by otaraki          ###   ########.fr       */
->>>>>>> e2d0acbf17adddfb21e38f42efc73376f5d42a49
+/*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
+/*   Updated: 2023/07/24 02:05:42 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
 
 
-void get_fstr()
+char	**parsing(char **env)
 {
-    char *content;
+	int		i;
+	char	*tmp;
+	char	**splitz;
+	char	*path;
+
+	i = 0;
+	path = NULL;
+	while (env[i] && path == NULL)
+	{
+		path = ft_strnstr(env[i], "PATH=", 5);
+		i++;
+	}
+	if (path == NULL)
+		return (NULL);
+	splitz = ft_split(path + 5, ':');
+	i = 0;
+	while (splitz[i])
+	{
+		tmp = ft_strjoin(splitz[i], "/");
+		free(splitz[i]);
+		splitz[i] = tmp;
+		i++;
+	}
+	return (splitz);
+}
+
+
+void shell_loop()
+{
+    char *prompt;
 
     while (1)
     {
-<<<<<<< HEAD
         prompt = readline("le minishit : "); // should display corrent dir and exit msgs zith colors
         // ft_fprintf(1,"%s\n",prompt);
         // parsing(prompt);
         // this is it le 
-=======
-        content= readline("Mininshell :");
-        // printf("%s\n", content);
-        content = ft_strtrim(content, " ");
-        tokeni(content);
->>>>>>> e2d0acbf17adddfb21e38f42efc73376f5d42a49
+        
     }
 }
 
-int main()
+int main(void)
 {
-    extern char **env;
-    get_fstr();
+    extern char **environ;
+    t_mini_data var;
+
+    get_env();
+    get_pwds();
+    get_path();
+    shell_loop();
 }
