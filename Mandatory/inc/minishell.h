@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/23 00:25:38 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/07/24 00:06:30 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_lex
 	struct s_lex	*prev;
 }	t_lex;
 
-
-void tokeni(char *f_line);
+void    valid_cmd(char *cmd);
+// void tokeni(char *f_line);
 
 #endif
