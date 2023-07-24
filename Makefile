@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+         #
+#    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/07/23 04:14:59 by otaraki          ###   ########.fr        #
+#    Updated: 2023/07/24 02:36:50 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ ARCH := lib/lib_42.a
 
 CC := cc 
 
-CFLAGS := -g -Wall -Wextra -Werror 
+CFLAGS := -g -Wall -Wextra 
+# -Werror 
 
 HEADER := Mandatory/inc/minishell.h
 
