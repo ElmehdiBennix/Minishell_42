@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/07/23 04:00:28 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/07/24 05:15:10 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,32 +44,32 @@ void    char_handle(t_token *token, char *line, int index)
 }
 
 
-void tokeni(char *f_line)
+void lexer(char *prompt)
 {
     int     i;
     t_token *token;
     
     token = (t_token *)malloc(sizeof(t_token));
     i = 0;
-    while (f_line[i])
+    while (prompt[i])
     {
-        if (f_line[i] ==  ' ')
+        if (prompt[i] ==  ' ')
         {
-            // space_handle(token, f_line, i);
+            // space_handle(token, prompt, i);
         
         }
-        else if(f_line[i] == '|' )
+        else if(prompt[i] == '|' )
         {
             // pipe_line();
             token = token->next;    
         }
-        else if(f_line[i] == 34)
+        else if(prompt[i] == 34)
         {
             // db_quote();
             printf(" ");
             token = token->next;    
         }
-        else if(f_line[i] == 39)
+        else if(prompt[i] == 39)
         {
             // sg_handle();
             printf(" ");
@@ -77,9 +77,9 @@ void tokeni(char *f_line)
         }
         else
         {
-            char_handle(token, f_line, i);
+            char_handle(token, prompt, i);
             token = token->next;
-            // printf("-%c", f_line[i]);    
+            // printf("-%c", prompt[i]);    
         }
         i++;
     }
