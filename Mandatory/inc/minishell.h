@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/24 01:40:11 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/07/25 04:11:19 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@
 
 typedef struct s_token
 {
-    int             flag_s;
     char            *content;
-    struct s_token  *next;
-    struct s_token  *prev;
+    bool            space_after;
+    struct s_token  *forward;
+    struct s_token  *backward;
 } t_token;
 
 
 typedef struct s_lex
 {
-	char            *str;
-	int             i;
+	int             id;
+	char            *key_word;
     t_token         *token;
-	struct s_lex	*next;
-	struct s_lex	*prev;
+	struct s_lex	*forward;
+	struct s_lex	*backward;
 }	t_lex;
 
 typedef struct s_mini_data
@@ -46,6 +46,6 @@ typedef struct s_mini_data
 }   t_mini_data;
 
 
-void tokeni(char *f_line);
+void tokenizer(char *prompt);
 
 #endif

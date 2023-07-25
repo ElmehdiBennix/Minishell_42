@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/24 05:18:17 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/07/25 03:44:12 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ typedef enum
 	PIPE = 1,
 	SINGLE_QUOTE = 2,
 	DOUBLE_QUOTE = 3,
-	REDIRECTION_BIG = 4,
-	REDIRECTION_SMALL = 5,
+	GREATE = 4,
+	LESS = 5,
+	GREATE_GREATE = 6,
+	LESS_LESS = 7,
 
 }	tokens;
 
@@ -77,7 +79,10 @@ void shell_loop(t_mini_data *var) // void for now might change it in the future
     {
         prompt = readline("le minishit : "); // should display corrent dir and exit msgs zith colors
         ft_fprintf(1,"%s\n",prompt);
-        // lexer(prompt);
+		prompt = ft_strtrim(prompt," ");
+		printf("*****************************\n");
+        ft_fprintf(1,"%s\n",prompt);
+        tokenizer(prompt);
         // parsing(prompt);
     }
 }
@@ -90,11 +95,11 @@ char **get_env(char **env)
 	i = 0;
     while(env[i])
 		i++;
-	env_ptr = calloc(i + 1,sizeof(char *));
+	env_ptr = ft_calloc(i + 1,sizeof(char *));
 	i = 0;
     while(env[i])
     {
-        env_ptr[i] = strdup(env[i]);
+        env_ptr[i] = ft_strdup(env[i]);
         i++;
     }
     return(env_ptr);
@@ -126,7 +131,7 @@ int main(int ac, char **av , char **env)
 		x++;
 	}
 	printf("%s\n",*x);
-	printf("==============================================================================");
+	printf("==============================================================================\n");
 
     shell_loop(&var);
 }
