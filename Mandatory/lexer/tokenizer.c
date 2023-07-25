@@ -6,81 +6,59 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/07/24 05:15:10 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/07/25 04:21:19 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-// void space_handle(t_token *token, char *line_bef, int len)
+// t_token *space_handler(t_token *token, char *line_bef, int len)
 // {
-//     // bisacaly i need to store all the line before the current W_space
-//     t_token *current;
-//     char *dst;
-    
-//     current = token;
-//     dst = malloc(sizeof(char) * (len + 1));
-//     if (current->flag_s == 0)
-//     {
-//         current->flag_s = 1;
-//         ft_strlcpy(dst, line_bef, len + 1);
-//         current->content = dst;
-//         printf(" {{{%s}}}\n", current->content);
-//     }
-// }
-// void    sp_handle(t_token *token, char *line);
-// void    db_quote_handle(t_token *token, char *line);
-// void    sg_quote_handle(t_token *token, char *line);
-void    char_handle(t_token *token, char *line, int index)
-{
-    int i;
 
-    i = 0;
-    while (i < index)
+
+// }
+
+t_token   *char_handler(char *prompt, int *i)
+{
+    // char *word = NULL;
+    int moves;
+    t_token *token = NULL;
+    
+    moves = 0;
+    token = (t_token *)malloc(sizeof(token));
+    while(ft_isalpha(prompt[*i]) == 1) // need to change it to smthing else its for tst now
     {
-        token->content[i] = line[i];
-        i++;
+        (*i)++;
+        moves++;
     }
+    printf("%d\n",moves);
+    token->content = ft_calloc(moves + 1, sizeof(char));
+    ft_strlcpy(token->content,prompt,moves + 1);
+    printf("%s\n",token->content);
+    printf("|||||%c|||||",prompt[*i]);
+    if (prompt[*i] == ' ')
+        token->space_after = 1;
+    else
+        token->space_after = 0;
+    printf("%d\n",token->space_after);
 }
 
 
-void lexer(char *prompt)
+void tokenizer(char *prompt)
 {
     int     i;
-    t_token *token;
+    t_token *tokens = NULL;
     
-    token = (t_token *)malloc(sizeof(t_token));
     i = 0;
     while (prompt[i])
     {
-        if (prompt[i] ==  ' ')
-        {
-            // space_handle(token, prompt, i);
-        
-        }
-        else if(prompt[i] == '|' )
-        {
-            // pipe_line();
-            token = token->next;    
-        }
-        else if(prompt[i] == 34)
-        {
-            // db_quote();
-            printf(" ");
-            token = token->next;    
-        }
-        else if(prompt[i] == 39)
-        {
-            // sg_handle();
-            printf(" ");
-            token = token->next;    
-        }
-        else
-        {
-            char_handle(token, prompt, i);
-            token = token->next;
-            // printf("-%c", prompt[i]);    
-        }
+        // if (prompt[i] ==  ' ')
+        //     // tokens = space_handler(token, prompt, i);
+        // else if(prompt[i] == '|')
+        //     // tokens = separateur_handler();
+        // else
+            char_handler(prompt, &i);
+        tokens = tokens->forward;   
         i++;
     }
 }

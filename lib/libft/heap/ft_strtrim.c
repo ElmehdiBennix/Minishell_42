@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:11:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/04/20 02:41:53 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/07/24 23:01:48 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static int	setcheck(char c, char *set)
 	}
 	return (0);
 }
+// s1 : the string to be trimed .
+// set : the refrence set of characters to be trimmed .
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
