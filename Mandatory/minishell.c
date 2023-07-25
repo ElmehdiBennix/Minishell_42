@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/25 03:44:12 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/07/25 05:56:21 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,27 @@ typedef enum
 
 }	tokens;
 
+void basic_parse_check(char *prompt)
+{
+	int i;
+	int allowed;
+
+	allowed = 0;
+	i = 0;
+	while (prompt[i])
+	{
+		if (prompt[i] == 34)
+		{
+			allowed++;
+			while (prompt[i] != 34)
+			{
+				i++;
+			}
+		}
+	}
+
+}
+
 void shell_loop(t_mini_data *var) // void for now might change it in the future
 {
     char *prompt;
@@ -82,7 +103,8 @@ void shell_loop(t_mini_data *var) // void for now might change it in the future
 		prompt = ft_strtrim(prompt," ");
 		printf("*****************************\n");
         ft_fprintf(1,"%s\n",prompt);
-        tokenizer(prompt);
+		basic_parse_check(prompt);
+        // tokenizer(prompt);
         // parsing(prompt);
     }
 }
