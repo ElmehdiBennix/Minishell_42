@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/07/27 05:32:20 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/07/27 05:52:16 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ t_token   *separateur_handler(char *prompt, int *i)
     backward = (*i) - moves;
     ft_strlcpy(token->content,&prompt[backward],moves + 1);
     if (strncmp(token->content,"||",2) == 0 || strncmp(token->content,"<|",2) == 0)
-        exit_msg(2,"parse error",RED , 52);
+        exit_msg(2,"parse error near zbi",RED , 52);
     printf("%s\n",token->content);
     printf("|||||%c|||||",prompt[*i]);
     if (prompt[*i] == ' ')
@@ -156,3 +156,4 @@ void tokenizer(char *prompt)
     }
     // need to lego it with the backward node
 }
+// fix data ttypes for better code too and leaks of course and manage his shit
