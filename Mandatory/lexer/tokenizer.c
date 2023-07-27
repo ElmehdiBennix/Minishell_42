@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/07/27 03:47:34 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/07/27 05:32:20 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,22 +98,24 @@ t_token   *separateur_handler(char *prompt, int *i)
     
     moves = 0;
     token = (t_token *)malloc(sizeof(token));
-    if (ft_is_separateur(prompt[*i]) == 1) // need to change it to smthing else its for tst now
+    while (ft_is_separateur(prompt[*i]) == 1) // need to change it to smthing else its for tst now eather pipe in token or diretions
     {
         (*i)++;
         moves++;
-        if (prompt[*i] == '>' || prompt[*i] == '<')
+        if (prompt[*i] == '>' || prompt[*i] == '<') // posible an error in some cases needs testing
         {
             (*i)++;
             moves++;
         }
     }
-    if (moves >= 2)
-        exit_msg(2,"paser error",RED , 2);
+    if (moves > 2) // strn cmp with all syntaxe errors
+        exit_msg(2,"parse error",RED , 52);
     printf("%d\n",moves);
     token->content = ft_calloc(moves + 1, sizeof(char));
     backward = (*i) - moves;
     ft_strlcpy(token->content,&prompt[backward],moves + 1);
+    if (strncmp(token->content,"||",2) == 0 || strncmp(token->content,"<|",2) == 0)
+        exit_msg(2,"parse error",RED , 52);
     printf("%s\n",token->content);
     printf("|||||%c|||||",prompt[*i]);
     if (prompt[*i] == ' ')
@@ -141,14 +143,9 @@ void tokenizer(char *prompt)
             tokens = separateur_handler(prompt, &i);
             tokens = tokens->forward;
         }
-        else if (prompt[i] == 34) // double quot
+        else if (prompt[i] == 34 || prompt[i] == 39) // quots
         {
-            tokens = QUOT_handler(prompt, &i , 34);
-            tokens = tokens->forward;
-        }
-        else if (prompt[i] == 39) // single qout
-        {
-            tokens = QUOT_handler(prompt, &i , 39);
+            tokens = QUOT_handler(prompt, &i , prompt[i]);
             tokens = tokens->forward;
         }
         else

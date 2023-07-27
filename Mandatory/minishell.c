@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/27 03:32:39 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/07/27 05:47:58 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,25 +70,28 @@ typedef enum
 
 }	tokens;
 
-void basic_parse_check(char *prompt)
+bool	basic_parse_check(char *prompt)
 {
 	int i;
-	int allowed;
+	bool status;
 
-	allowed = 0;
+	status = false;
 	i = 0;
 	while (prompt[i])
 	{
-		if (prompt[i] == 34)
+		if (prompt[i] == 34 || prompt[i] == 39)
 		{
-			allowed++;
-			while (prompt[i] != 34)
-			{
+			char quot = prompt[i];
+			status = true;
+			i++;
+			while (prompt[i] && prompt[i] != quot)
 				i++;
-			}
+			if (prompt[i] == quot)
+				status = false;
 		}
+		i++;
 	}
-
+	return (status);
 }
 
 void shell_loop(t_mini_data *var) // void for now might change it in the future
@@ -103,7 +106,8 @@ void shell_loop(t_mini_data *var) // void for now might change it in the future
 		prompt = ft_strtrim(prompt," ");
         ft_fprintf(1,"%s\n",prompt);
 		printf("*****************************\n");
-		// basic_parse_check(prompt);
+		if (basic_parse_check(prompt) == true)
+			exit_msg(1,"error",RED,41);
         tokenizer(prompt);
         // parsing(prompt);
     }
