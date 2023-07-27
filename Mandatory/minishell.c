@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/25 05:56:21 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/07/27 03:32:39 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,17 +99,17 @@ void shell_loop(t_mini_data *var) // void for now might change it in the future
     while (1)
     {
         prompt = readline("le minishit : "); // should display corrent dir and exit msgs zith colors
-        ft_fprintf(1,"%s\n",prompt);
+        // ft_fprintf(1,"%s\n",prompt);
 		prompt = ft_strtrim(prompt," ");
-		printf("*****************************\n");
         ft_fprintf(1,"%s\n",prompt);
-		basic_parse_check(prompt);
-        // tokenizer(prompt);
+		printf("*****************************\n");
+		// basic_parse_check(prompt);
+        tokenizer(prompt);
         // parsing(prompt);
     }
 }
 
-char **get_env(char **env)
+char **get_env(char **env) // add it as a linked list with key value makes job easier in future
 {
 	int i;
 	char **env_ptr;
