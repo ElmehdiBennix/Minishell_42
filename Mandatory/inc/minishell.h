@@ -14,7 +14,9 @@
 # define MINISHELL_H
 
 #include <readline/readline.h>
-#include "../../lib/inc/utils.h"
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
 
 
 typedef struct s_token
@@ -35,7 +37,17 @@ typedef struct s_lex
 	struct s_lex	*prev;
 }	t_lex;
 
-void    valid_cmd(char *cmd);
+typedef struct s_env
+{
+    char *key;
+    char *value;
+    struct s_env *next;
+
+}t_env;
+int get_env(t_env **Henv, char **env);
+t_env	*ft_lstnew_env(char *key, char *value);
+void	ft_lstadd_back(t_env **lst, t_env *new);
+
 // void tokeni(char *f_line);
 
 #endif
