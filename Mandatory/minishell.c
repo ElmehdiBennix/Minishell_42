@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:17:11 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/01 11:02:08 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/01 15:04:41 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,16 @@ int get_env(t_env **Henv, char **env)
 int main(int ac, char **av, char **env)
 {
     t_env *l_env;
-
+	char *content;
+	char **cmds;
     (void)ac;
-    // (void)av;
+    (void)av;
     get_env(&l_env, env);
-	ft_bultin(av, l_env);
+	while (1)
+	{
+		content = readline("MIMI :");
+		printf("------------------------------\n");
+		cmds = ft_split(content, ' ');
+		ft_bultin(cmds, l_env);
+	}
 }

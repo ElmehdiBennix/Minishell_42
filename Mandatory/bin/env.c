@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:11 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/01 11:07:32 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/01 15:04:00 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_env(t_env *env)
 {
-	// printf("env");
 	while(env)
     {
         printf("%s=%s\n", env->key, env->value);
