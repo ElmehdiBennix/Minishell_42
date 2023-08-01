@@ -6,16 +6,22 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:35 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/01 14:44:27 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/01 14:54:49 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void ft_unset(char *option, char *val, t_env *env)
+void ft_unset(char **arg, t_env *env)
 {
-	(void)option;
-	ft_remove_node(&env, val, ft_strcmp);
+	int i;
+
+	i = 2;
+	while(arg[i])
+	{
+		ft_remove_node(&env, arg[i], ft_strcmp);
+		i++;
+	}
 	while(env)
     {
         printf("%s=%s\n", env->key, env->value);
