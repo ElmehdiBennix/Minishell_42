@@ -3,21 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/22 23:26:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/23 00:33:12 by ebennix          ###   ########.fr       */
+/*   Created: 2023/08/01 09:53:30 by otaraki           #+#    #+#             */
+/*   Updated: 2023/08/01 09:53:31 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-
-int pwd(void)
-{
-    char *wd;
-
-    wd = getcwd(wd,sizeof(wd));
-    ft_fprintf(1,"%s\n",wd);
-    free(wd);
-    return (0);
-}

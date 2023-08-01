@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 21:06:46 by ebennix           #+#    #+#             */
-/*   Updated: 2023/04/25 01:40:42 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/01 11:07:17 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/minishell.h"
+#include "../inc/minishell.h"
 
 t_env *ft_lstlast_env(t_env *node)
 {
@@ -24,7 +24,7 @@ t_env *ft_lstlast_env(t_env *node)
 	}
 	return node;
 }
-void	ft_lstadd_back(t_env **lst, t_env *new)
+void	ft_lstadd_back_env(t_env **lst, t_env *new)
 {
 	t_env	*arrow;
 
