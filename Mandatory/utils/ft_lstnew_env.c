@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_lstnew_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/08 01:21:05 by ebennix           #+#    #+#             */
-/*   Updated: 2023/04/20 02:41:29 by ebennix          ###   ########.fr       */
+/*   Created: 2022/11/10 02:37:18 by ebennix           #+#    #+#             */
+/*   Updated: 2023/08/01 11:07:21 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/utils.h"
+#include "../inc/minishell.h"
 
-int	ft_tolower(char c)
+t_env	*ft_lstnew_env(char *key, char *value)
 {
-	if (c >= 65 && c <= 90)
-		c += 32;
-	return (c);
+	t_env	*node;
+
+	node = (t_env *)malloc(sizeof(t_env));
+	if (node == NULL)
+		return (NULL);
+	node->key = key;
+	node->value = value;
+	node->next = NULL;
+	return (node);
 }

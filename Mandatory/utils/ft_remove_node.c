@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bultins.c                                       :+:      :+:    :+:   */
+/*   ft_remove_node.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 09:50:58 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/01 13:09:16 by otaraki          ###   ########.fr       */
+/*   Created: 2023/08/01 11:25:30 by otaraki           #+#    #+#             */
+/*   Updated: 2023/08/01 11:35:24 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_bultin(char **arg, t_env *env)
+void ft_remove_node(t_env **begin_list, void *data_ref, int (*cmp)())
 {
-		
-	if (strcmp(arg[1], "env") == 0)
-		ft_env(env);
-	else if (strcmp(arg[1], "unset") == 0)
-		ft_unset(arg[2], arg[3], env);
+	if (begin_list == NULL || *begin_list == NULL)
+		return;
+
+	t_env *cur = *begin_list;
+
+	if (cmp(cur->key, data_ref) == 0)
+	{
+		*begin_list = cur->next;
+		free(cur);
+		ft_remove_node(begin_list, data_ref, cmp);
+	}
+	cur = *begin_list;
+	ft_remove_node(&cur->next, data_ref, cmp);
 }

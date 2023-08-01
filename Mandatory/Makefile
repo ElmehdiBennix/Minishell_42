@@ -3,25 +3,26 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
+#    By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/07/24 02:36:50 by ebennix          ###   ########.fr        #
+#    Updated: 2023/08/01 11:34:55 by otaraki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 EXE := Minishell
 
-# ARCH := lib/lib_42.a
+ARCH := libft/libft.a
 
 CC := cc 
 
-CFLAGS := -g -Wall -Wextra 
-# -Werror 
+CFLAGS := -g -Wall -Wextra -Werror 
 
 HEADER := inc/minishell.h
 
-FILES := minishell ft_lstnew_env ft_lstadd_back\
+FILES := minishell\
+		utils/ft_lstnew_env utils/ft_lstadd_back utils/ft_remove_node utils/ft_strcmp\
+		bin/ft_bultins bin/env bin/unset
 
 SRC := $(FILES:=.c)
 
@@ -34,20 +35,21 @@ m := MakefileAutoPush
 
 all : $(EXE)
 
-
+library:
+	make -C libft
 
 $(EXE) : $(OBJ)
 	$(CC) -lreadline $(OBJ) $(ARCH) -o $(EXE)
 
-%.o : %.c $(HEADER)
+%.o : %.c $(HEADER) | library
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	make clean 
+	make clean -C libft
 	$(RM) $(OBJ)
 
 fclean : clean
-	make fclean 
+	make fclean -C libft
 	$(RM) $(EXE)
 
 re : fclean all

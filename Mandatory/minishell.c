@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:17:11 by otaraki           #+#    #+#             */
-/*   Updated: 2023/07/24 00:06:09 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/01 11:02:08 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char *get_key(char *line)
     char *key;
     int i;
 
+	i = 0;
     while(line[i] && line[i] != '=')
         i++;
     key = malloc(sizeof(char) * i + 1);
@@ -58,19 +59,17 @@ char *get_val(char *line)
 
 int get_env(t_env **Henv, char **env)
 {
-    t_env *tmp;
-
-    tmp = NULL;
-    (void)Henv;
+    t_env 	*tmp;
     int     i;
 
+    (void)Henv;
     i = 0;
     while(env[i])
     {
         tmp = ft_lstnew_env(get_key(env[i]), get_val(env[i]));
         if (!tmp)
             return (0);
-        ft_lstadd_back(Henv, tmp);
+        ft_lstadd_back_env(Henv, tmp);
         i++;
     }
     return 1;
@@ -81,13 +80,7 @@ int main(int ac, char **av, char **env)
     t_env *l_env;
 
     (void)ac;
-    (void)av;
+    // (void)av;
     get_env(&l_env, env);
-    while(l_env)
-    {
-        printf("%s=%s\n", l_env->key, l_env->value);
-        l_env = l_env->next;
-    }
-    // get_fstr();
-    (void)l_env;
+	ft_bultin(av, l_env);
 }

@@ -3,27 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/22 23:26:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/23 00:53:05 by ebennix          ###   ########.fr       */
+/*   Created: 2023/08/01 09:53:11 by otaraki           #+#    #+#             */
+/*   Updated: 2023/08/01 11:07:32 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int enva(char **vars)
+void	ft_env(t_env *env)
 {
-    while(*vars)
+	// printf("env");
+	while(env)
     {
-        printf("%s\n",*vars);
-        vars++;
+        printf("%s=%s\n", env->key, env->value);
+        env = env->next;
     }
-    return(1);
-
-}
-int main (int ac ,char **av ,char **env)
-{
-    enva(env);
-
 }

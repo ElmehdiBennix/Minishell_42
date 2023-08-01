@@ -3,20 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/22 23:26:26 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/23 02:17:38 by ebennix          ###   ########.fr       */
+/*   Created: 2023/08/01 09:53:03 by otaraki           #+#    #+#             */
+/*   Updated: 2023/08/01 09:53:04 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-
-int echo(char *string, bool flag)
-{
-    if (flag == 0)
-        ft_fprintf(1,"%s\n",string);
-    else
-        ft_fprintf(1,"%s",string);
-    return (0);
-}
