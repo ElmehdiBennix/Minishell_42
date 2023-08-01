@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:35 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/01 13:11:05 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/01 14:44:27 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 void ft_unset(char *option, char *val, t_env *env)
 {
-	if (option)
-	{
-		if (!ft_strcmp(option, "-v"))
-	}
+	(void)option;
 	ft_remove_node(&env, val, ft_strcmp);
 	while(env)
     {
