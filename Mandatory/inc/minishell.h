@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/02 11:46:38 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/02 15:19:03 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int		ft_strcmp(char *s1, char *s2);
 void 	ft_remove_node(t_env **begin_list, void *data_ref, int (*cmp)());
 char	*key_by_value(t_env *env, char *value);
 char	*value_by_key(t_env *env, char *key);
+t_env	*update_pwd(t_env *env, char *pwd);
+t_env	*update_old_pwd(t_env *env, char *oldpwd);
 //built-in functions:
 void	ft_bultin(char **arg, t_env *env);
 void 	ft_unset(char **arg, t_env *env);

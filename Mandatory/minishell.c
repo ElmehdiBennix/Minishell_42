@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:17:11 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/02 12:10:03 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/02 14:31:59 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int main(int ac, char **av, char **env)
 	while (1)
 	{
 		content = readline("MIMI :");
-		printf("------------------------------\n");
+		// printf("------------------------------\n");
 		cmds = ft_split(content, ' ');
 		// printf("%s\n", cmds[0]);
 		ft_bultin(cmds, l_env);
