@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/01 14:55:07 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/02 11:46:38 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,13 @@ t_env	*ft_lstnew_env(char *key, char *value);
 void	ft_lstadd_back_env(t_env **lst, t_env *new);
 int		ft_strcmp(char *s1, char *s2);
 void 	ft_remove_node(t_env **begin_list, void *data_ref, int (*cmp)());
-void 	ft_unset(char **arg, t_env *env);
+char	*key_by_value(t_env *env, char *value);
+char	*value_by_key(t_env *env, char *key);
+//built-in functions:
 void	ft_bultin(char **arg, t_env *env);
+void 	ft_unset(char **arg, t_env *env);
 void	ft_env(t_env *env);
+void	me_cd(char **av, t_env *env);
 
 // void tokeni(char *f_line);
 
