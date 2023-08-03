@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/02 15:19:03 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/03 11:02:29 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	ft_bultin(char **arg, t_env *env);
 void 	ft_unset(char **arg, t_env *env);
 void	ft_env(t_env *env);
 void	me_cd(char **av, t_env *env);
+void	my_echo(char **av, t_env *env);
+void	me_pwd(char **av, t_env *env);
 
 // void tokeni(char *f_line);
 
