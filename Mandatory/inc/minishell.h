@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/03 11:02:29 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/04 13:45:14 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,10 @@ char	*value_by_key(t_env *env, char *key);
 t_env	*update_pwd(t_env *env, char *pwd);
 t_env	*update_old_pwd(t_env *env, char *oldpwd);
 //built-in functions:
-void	ft_bultin(char **arg, t_env *env);
+int		ft_env(t_env *env);
+int		mini_exit(t_env *env, int i);
+int		ft_bultin(char **arg, t_env *env);
 void 	ft_unset(char **arg, t_env *env);
-void	ft_env(t_env *env);
 void	me_cd(char **av, t_env *env);
 void	my_echo(char **av, t_env *env);
 void	me_pwd(char **av, t_env *env);

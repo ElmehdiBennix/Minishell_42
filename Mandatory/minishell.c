@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:17:11 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/02 14:31:59 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/04 14:02:25 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int main(int ac, char **av, char **env)
     t_env *l_env;
 	char *content;
 	char **cmds;
+	
     (void)ac;
     (void)av;
     get_env(&l_env, env);
@@ -90,5 +91,6 @@ int main(int ac, char **av, char **env)
 		cmds = ft_split(content, ' ');
 		// printf("%s\n", cmds[0]);
 		ft_bultin(cmds, l_env);
+		// printf("%d\n", ft_bultin(cmds, l_env));
 	}
 }

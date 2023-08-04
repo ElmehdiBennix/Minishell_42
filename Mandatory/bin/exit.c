@@ -6,17 +6,18 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:18 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/03 14:10:24 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/04 13:49:31 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../inc/minishell.h"
 
-void	mini_exit(t_env *env, int i)
+int	mini_exit(t_env *env, int i)
 {
 	t_env	*tmp;
 
+	tmp = env;
 	while (tmp)
 	{
 		if (tmp->key)
@@ -25,5 +26,6 @@ void	mini_exit(t_env *env, int i)
 			free(tmp->value);
 		tmp = tmp->next;
 	}
-	exit(0);
+	printf("%d\n", i);
+	return (exit(i), i);
 }

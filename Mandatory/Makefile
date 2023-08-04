@@ -6,7 +6,7 @@
 #    By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/08/03 11:02:45 by otaraki          ###   ########.fr        #
+#    Updated: 2023/08/04 13:08:13 by otaraki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ HEADER := inc/minishell.h
 
 FILES := minishell\
 		utils/ft_lstnew_env utils/ft_lstadd_back utils/ft_remove_node utils/ft_strcmp\
-		bin/ft_bultins bin/env bin/unset bin/cd bin/echo bin/pwd\
+		bin/ft_bultins bin/env bin/unset bin/cd bin/echo bin/pwd bin/exit\
 		utils/get_key utils/updates
 
 SRC := $(FILES:=.c)
