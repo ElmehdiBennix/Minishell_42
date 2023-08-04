@@ -6,17 +6,18 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:11 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/01 15:04:00 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/04 13:57:10 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_env(t_env *env)
+int	ft_env(t_env *env)
 {
 	while(env)
-    {
-        printf("%s=%s\n", env->key, env->value);
-        env = env->next;
-    }
+	{
+	    printf("%s=%s\n", env->key, env->value);
+	    env = env->next;
+	}
+	return (0);
 }
