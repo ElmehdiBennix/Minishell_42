@@ -6,11 +6,35 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/05 03:22:30 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/05 04:54:55 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+t_type get_type(char *token , int moves) // flag true for string false for char
+{
+    if(moves == 1)
+    {
+        if(*token == '|')
+            return PIPE;
+        else if(*token == '>')
+            return GREAT;
+        else if(*token == '<')
+            return LESS;
+    }
+    else
+    {
+        if (ft_strncmp(token,">>",2) == 0)
+            return GREAT_GREAT;
+        if (ft_strncmp(token,"<<",2) == 0)
+            return LESS_LESS;
+        else if (ft_strncmp(token,"><",2) == 0 || strncmp(token,"||",2) == 0 || strncmp(token,"<|",2) == 0)
+            return -1;
+        else
+            return PIPE_RED; // need to ask around about this
+    }
+}
 
 t_token   *char_handler(char *prompt, int *i)
 {
@@ -19,7 +43,7 @@ t_token   *char_handler(char *prompt, int *i)
     t_token *token = NULL;
     
     moves = 0;
-    token = (t_token *)malloc(sizeof(t_token));
+    token = (t_token *)ft_calloc(sizeof(t_token),1);
     while(prompt[*i] && ft_iswhite_space(prompt[*i]) == 0 && ft_iseparateur(prompt[*i]) == 0) // need to change it to smthing else its for tst now
     {
         (*i)++;
@@ -31,13 +55,12 @@ t_token   *char_handler(char *prompt, int *i)
     ft_strlcpy(token->content,&prompt[backward],moves + 1);
     printf("%s\n",token->content);
     printf("|||||%c|||||",prompt[*i]);
+    token->type = WORD;
     if (prompt[*i] == ' ')
         token->space_after = 1;
     else
         token->space_after = 0;
-    printf("%d\n",token->space_after);
-    token->forward = NULL;
-    token->backward = NULL;
+    printf("%d type = %d  \n",token->space_after,token->type);
     return (token);
 }
 
@@ -50,7 +73,7 @@ t_token   *QUOT_handler(char *prompt, int *i , char QUOT_type)
     t_token *token = NULL;
     
     moves = 0;
-    token = (t_token *)malloc(sizeof(t_token)); // move down
+    token = (t_token *)ft_calloc(sizeof(t_token),1); // move down
     (*i)++;
     while (prompt[*i] && prompt[*i] != QUOT_type)
     {
@@ -69,9 +92,11 @@ t_token   *QUOT_handler(char *prompt, int *i , char QUOT_type)
         token->space_after = 1;
     else
         token->space_after = 0;
-    printf("%d\n",token->space_after);
-    token->forward = NULL;
-    token->backward = NULL;
+    if (QUOT_type == 39)
+        token->type = SINGLE_QUOT;
+    else
+        token->type = DOUBLE_QUOT;
+    printf("%d type = %d  \n",token->space_after,token->type);
     return (token);
 }
 
@@ -82,7 +107,7 @@ t_token   *separateur_handler(char *prompt, int *i)
     t_token *token = NULL;
     
     moves = 0;
-    token = (t_token *)malloc(sizeof(t_token));
+    token = (t_token *)ft_calloc(sizeof(t_token),1);
     while (prompt[*i] && ft_iseparateur(prompt[*i]) == 1) // need to change it to smthing else its for tst now eather pipe in token or diretions
     {
         (*i)++;
@@ -94,24 +119,22 @@ t_token   *separateur_handler(char *prompt, int *i)
         }
     }
     if (moves > 2) // strn cmp with all syntaxe errors
-        exit_msg(2,"parse error",RED , 52);
+        exit_msg(2,"parse error",RED , 52); //free data
     printf("%d\n",moves);
     token->content = ft_calloc(moves + 1, sizeof(char));
     backward = (*i) - moves;
     ft_strlcpy(token->content,&prompt[backward],moves + 1);
-    if (strncmp(token->content,"||",2) == 0 || strncmp(token->content,"<|",2) == 0)
-        exit_msg(2,"parse error near zbi",RED , 52);
     printf("%s\n",token->content);
     printf("|||||%c|||||",prompt[*i]);
+    token->type = get_type(token->content,moves);
     if (prompt[*i] == ' ')
         token->space_after = 1;
     else
         token->space_after = 0;
-    printf("%d\n",token->space_after);
-    token->forward = NULL;
-    token->backward = NULL;
+    printf("%d type = %d  \n",token->space_after,token->type);
     return (token);
 }
+
 
 t_token *get_tokens(char *prompt)
 {
