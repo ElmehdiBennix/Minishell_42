@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:50:58 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/04 13:45:00 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/04 23:22:03 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_bultin(char **arg, t_env *env)
 {
-	static int exit_s = 0;
+	static int exit_s = 100;
 	
 	if (ft_strcmp(arg[0], "env") == 0)
 		exit_s = ft_env(env);
@@ -27,6 +27,6 @@ int	ft_bultin(char **arg, t_env *env)
 	else if(ft_strcmp(arg[0], "pwd") == 0)
 		me_pwd(arg, env);
 	else if(ft_strcmp(arg[0], "exit") == 0)
-		mini_exit(env, exit_s);
+		mini_exit(arg, env, exit_s);
 	return exit_s;
 }
