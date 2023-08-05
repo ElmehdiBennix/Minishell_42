@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/05 03:20:00 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/05 04:09:08 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,7 @@ char *get_pwds(char **env , char *key ,size_t len)
 	return (pwd_dup);
 }
 
-typedef enum
-{
-	PIPE = 1,
-	SINGLE_QUOTE = 2,
-	DOUBLE_QUOTE = 3,
-	GREATE = 4,
-	LESS = 5,
-	GREATE_GREATE = 6,
-	LESS_LESS = 7,
 
-}	tokens;
 
 bool	basic_parse_check(char *prompt)
 {
@@ -109,8 +99,9 @@ void shell_loop(t_mini_data *var) // void for now might change it in the future
 		printf("*****************************\n");
 		if (basic_parse_check(prompt) == true)
 			exit_msg(1,"error",RED,41);
-        get_tokens(prompt);
-		printf("*****************************\n");
+        t_token *tokens = get_tokens(prompt);
+		// tokenizer(tokens);
+		// printf("*****************************\n");
         // parsing(prompt);
     }
 }
