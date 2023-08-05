@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/05 04:54:55 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/05 05:12:50 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ t_token   *QUOT_handler(char *prompt, int *i , char QUOT_type)
     // protectionsssssss
     (*i)++;
     printf("%d\n",moves);
-    token->content = ft_calloc(moves + 3, sizeof(char));
-    backward = (*i) - moves - 2;
-    ft_strlcpy(token->content,&prompt[backward],moves + 3);
+    token->content = ft_calloc(moves + 1, sizeof(char));
+    backward = (*i) - moves - 1;
+    ft_strlcpy(token->content,&prompt[backward],moves + 1);
     printf("%s\n",token->content);
     printf("|||||%c|||||",prompt[*i]);
     if (prompt[*i] == ' ')
