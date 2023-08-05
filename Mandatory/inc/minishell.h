@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/04 23:56:53 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/05 03:23:07 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ typedef struct s_mini_data
 
 }   t_mini_data;
 
+int ft_iseparateur(char c);
+int ft_iswhite_space(char c);
+void    ft_lstdoubly(t_token **head , t_token *node);
 
-t_token *tokenizer(char *prompt);
+t_token *get_tokens(char *prompt);
+
 
 #endif
