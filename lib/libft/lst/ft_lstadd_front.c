@@ -6,14 +6,14 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 23:21:57 by ebennix           #+#    #+#             */
-/*   Updated: 2023/04/20 02:42:17 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/05 02:35:16 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void	ft_lstadd_front(t_list *lst, t_list *new)
 {
-	new -> next = *lst;
-	*lst = new;
+	new -> next = lst;
+	lst = new;
 }

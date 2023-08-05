@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/25 04:11:19 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/04 23:56:53 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ typedef struct s_mini_data
 }   t_mini_data;
 
 
-void tokenizer(char *prompt);
+t_token *tokenizer(char *prompt);
 
 #endif
