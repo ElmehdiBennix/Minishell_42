@@ -6,26 +6,54 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:18 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/04 13:49:31 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/05 02:06:36 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../inc/minishell.h"
 
-int	mini_exit(t_env *env, int i)
+void	check_valid_args(char **ag, int *ex, int *index)
 {
-	t_env	*tmp;
+	int i;
+	int c;
 
-	tmp = env;
-	while (tmp)
+	i = 0;
+	c = 1;
+	if (ag[1][0] == '-' || ag[1][0] == '+')
+		i++;
+	while(ag[c])
+		c++;
+	while (ag[1][i])
 	{
-		if (tmp->key)
-			free(tmp->key);
-		if (tmp->value)
-			free(tmp->value);
-		tmp = tmp->next;
+		if (ag[1][i] >= '0' && ag[1][i] <= '9')
+			i++;
+		else
+		{
+			printf("problem encountered\n");
+			// free_env();
+			exit (255);
+		}
 	}
-	printf("%d\n", i);
-	return (exit(i), i);
+	if (c > 2)
+	{
+		*ex = 1;
+		*index = -1;
+		printf("too many args\n");
+	}
+}
+int	mini_exit(char **av, t_env *env, int exit_status)
+{
+	int		i;
+
+	(void)env;
+	i = 0;
+	if (!av[1])
+		exit(exit_status);
+	else
+		check_valid_args(av, &exit_status, &i);
+	if (i < 0)
+		return (exit_status);
+	// free_env();//
+	exit(ft_atoi(av[1]));
 }
