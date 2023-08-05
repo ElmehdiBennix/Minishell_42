@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 05:05:48 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/23 02:17:12 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/05 02:35:38 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,9 @@ typedef struct s_list
 }					t_list;
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 5
 # endif
 
-// # define NULL (void *)0
 
 int					ft_printchar(int fd, char c);
 int					ft_printstr(int fd, char *c);
@@ -85,12 +84,13 @@ char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 int					ft_tolower(char c);
 int					ft_toupper(char c);
-int					ft_lstsize(t_list *lst);
-void				ft_lstcreate_front(t_list **lst, void *content);
-void				ft_lstcreate_back(t_list **lst, void *content);
-void				ft_lstadd_front(t_list **lst, t_list *new_node);
-void				ft_lstadd_back(t_list **lst, t_list *new_node);
+
+int					ft_lstsize(t_list *head);
+void				ft_lstcreate_front(t_list *head, void *content);
+void				ft_lstcreate_back(t_list *head, void *content);
+void				ft_lstadd_front(t_list *head, t_list *new_node);
+void				ft_lstadd_back(t_list *head, t_list *new_node);
 t_list				*ft_lstnew(void *content);
-t_list				*ft_lstlast(t_list *lst);
+t_list				*ft_lstlast(t_list *head);
 
 #endif

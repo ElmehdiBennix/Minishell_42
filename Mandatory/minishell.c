@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/07/27 05:47:58 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/05 02:49:36 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void shell_loop(t_mini_data *var) // void for now might change it in the future
 		if (basic_parse_check(prompt) == true)
 			exit_msg(1,"error",RED,41);
         tokenizer(prompt);
+		printf("*****************************\n");
         // parsing(prompt);
     }
 }
