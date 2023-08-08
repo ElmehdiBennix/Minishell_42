@@ -1,41 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   ft_sort_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 09:53:24 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/08 11:40:44 by otaraki          ###   ########.fr       */
+/*   Created: 2023/08/08 10:53:31 by otaraki           #+#    #+#             */
+/*   Updated: 2023/08/08 11:24:58 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int compare(char *a, char *b)
+t_env *sort_list(t_env *lst, int (*cmp)(char *, char *))
 {
-	int cmpa = ft_strcmp(a, b);// chekout your strcmp function
-	if (cmpa > 0)
-		return 0;
-	else
-		return -1;
-}
+	char	*swap[2];
+	t_env 	*tmp;
 
-void	export_it(char **av, t_env *env)
-{
-	t_env *tmp;
-
-	tmp = env;
-	(void)av;
-	if (tmp)
-		sort_list(tmp, compare);
-	if (!av[1])
+	tmp = lst;
+	while(lst->next != NULL)
 	{
-		while (tmp != 0)
+		if (((*cmp)(lst->key, lst->next->key)) == 0)
 		{
-			printf("declare -x %s=%c%s%c\n", tmp->key,'"',  tmp->value, '"');
-			tmp = tmp->next;
+			swap[0] = lst->key;
+			swap[1] = lst->value;
+			lst->key = lst->next->key;
+			lst->value = lst->next->value;
+			lst->next->key = swap[0];
+			lst->next->value = swap[1];
+			lst = tmp;
 		}
+		else
+			lst = lst->next;
 	}
-	// export_item(av, env, compare);
+	lst = tmp;
+	return (lst);
 }

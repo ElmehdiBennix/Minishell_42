@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:50:58 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/04 23:22:03 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/08 11:05:28 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ int	ft_bultin(char **arg, t_env *env)
 		me_pwd(arg, env);
 	else if(ft_strcmp(arg[0], "exit") == 0)
 		mini_exit(arg, env, exit_s);
+	else if (ft_strcmp(arg[0], "export") == 0)
+		export_it(arg, env);
 	return exit_s;
 }
