@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/05 04:09:08 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/10 11:43:15 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void shell_loop(t_mini_data *var) // void for now might change it in the future
     while (1)
     {
         prompt = readline("le minishit : "); // should display corrent dir and exit msgs zith colors
-        // ft_fprintf(1,"%s\n",prompt);
+        add_history(prompt); // dosent store tabs empty line or empty spaces
+		// ft_fprintf(1,"%s\n",prompt);
 		// protect read line and make signales work
 		prompt = ft_strtrim(prompt," ");
         ft_fprintf(1,"%s\n",prompt);

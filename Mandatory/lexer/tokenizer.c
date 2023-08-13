@@ -6,19 +6,19 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:18:41 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/05 05:09:22 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/13 02:16:49 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-// t_lex *tokenizer(t_token *tokens)
-// {
-//     t_token *head = tokens;
+t_lex *tokenizer(t_token *tokens)
+{
+    t_token *head = tokens;
 
-//     while(head)
-//     {
+    while(head)
+    {
         
 
-//     }
-// }
+    }
+}
