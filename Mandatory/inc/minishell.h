@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/05 04:58:28 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/13 02:19:11 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ typedef enum s_type
     PIPE_RED = 9,
 
 }	t_type;
+
+//char ** // split pipe with herdog
+// pointer foraw
+// back
 
 typedef struct s_token
 {
