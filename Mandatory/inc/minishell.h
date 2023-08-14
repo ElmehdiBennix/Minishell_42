@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/13 02:19:11 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/14 05:15:49 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,6 @@ typedef enum s_type
 
 }	t_type;
 
-//char ** // split pipe with herdog
-// pointer foraw
-// back
-
 typedef struct s_token
 {
     int             id;
@@ -46,13 +42,33 @@ typedef struct s_token
 
 typedef struct s_mini_data
 {
-    int     err_no;
-    char    **env_var;
-	char	**paths;
-    char    *PWD;
-    char    *OLDPWD;
+    int             err_no;
+    char            **env_var;
+	char	        **path_var;
+    char            *PWD;
+    char            *OLDPWD;
+    struct s_token  *tokens;
 
 }   t_mini_data;
+
+// typedef      //pipe split commands
+// {
+//     char    **command;
+//     // int     ;
+//     // int     ;
+//     // int     ;
+//     struct   *forward;
+//     struct   *backward;
+// }
+
+//char ** // split pipe with herdog
+// pointer foraw
+// back
+// each node has a **pointer next means pipe
+
+
+# define TRUE 1
+# define FALSE 0
 
 int ft_iseparateur(char c);
 int ft_iswhite_space(char c);

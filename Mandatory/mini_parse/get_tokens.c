@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/10 11:45:06 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/14 05:23:31 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_type get_type(char *token , int moves) // flag true for string false for char
 {
-    if(moves == 1)
+    if (moves == 1)
     {
         if(*token == '|')
             return PIPE;
@@ -29,11 +29,12 @@ t_type get_type(char *token , int moves) // flag true for string false for char
             return GREAT_GREAT;
         if (ft_strncmp(token,"<<",2) == 0)
             return LESS_LESS;
-        else if (ft_strncmp(token,"><",2) == 0 || strncmp(token,"||",2) == 0 || strncmp(token,"<|",2) == 0)
+        else if (ft_strncmp(token,"><",2) == 0 || strncmp(token,"<|",2) == 0)
             return -1;
         else
             return PIPE_RED; // need to ask around about this
     }
+    return (0); // needs a better logic
 }
 
 t_token   *char_handler(char *prompt, int *i)
