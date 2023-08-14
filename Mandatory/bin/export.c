@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:24 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/08 11:40:44 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/14 01:16:36 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,41 @@ int compare(char *a, char *b)
 		return -1;
 }
 
+int	check_valid_key(char *key)
+{
+	int i;
+
+	i  = 0;
+	while(key[i])
+	{
+		if (!(key[i] == '_' || key[i] == '+' 
+			|| isalpha(key[i])))
+			return -1;
+		i++;
+	}
+	return i;
+}
+
+void	export_item(char **arg, t_env *ev)
+{
+	int 	i;
+	int 	v;
+	char 	*key;
+	i = 1;
+	v = 0;
+	while(arg[i])
+	{
+		v = check_valid_key(get_key(arg[i]));
+		if (v == -1)
+			printf("`%s': not a valid identifier\n", arg[i]);
+		// else
+		// {
+			
+		// }
+		
+	}
+}
+
 void	export_it(char **av, t_env *env)
 {
 	t_env *tmp;
@@ -29,7 +64,7 @@ void	export_it(char **av, t_env *env)
 	(void)av;
 	if (tmp)
 		sort_list(tmp, compare);
-	if (!av[1])
+	if (!av[1])// export NULL 
 	{
 		while (tmp != 0)
 		{
@@ -37,5 +72,6 @@ void	export_it(char **av, t_env *env)
 			tmp = tmp->next;
 		}
 	}
-	// export_item(av, env, compare);
+	// else
+	// 	export_item(av, env);
 }

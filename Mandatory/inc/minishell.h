@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/08 11:19:51 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/08 12:26:16 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_env
 }t_env;
 
 int		get_env(t_env **Henv, char **env);
+char 	*get_key(char *line);
 t_env	*ft_lstnew_env(char *key, char *value);
 void	ft_lstadd_back_env(t_env **lst, t_env *new);
 int		ft_strcmp(char *s1, char *s2);
