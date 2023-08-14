@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/08/05 03:25:01 by ebennix          ###   ########.fr        #
+#    Updated: 2023/08/14 01:07:00 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ CFLAGS := -g -Wall -Wextra
 HEADER := Mandatory/inc/minishell.h
 
 FILES := Mandatory/minishell\
-		 Mandatory/lexer/tokenizer\
-		 Mandatory/lexer/get_tokens\
+		 Mandatory/mini_parse/tokenizer\
+		 Mandatory/mini_parse/get_tokens\
 		 Mandatory/utils/token_tools\
 
 SRC := $(FILES:=.c)
