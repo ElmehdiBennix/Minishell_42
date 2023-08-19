@@ -6,15 +6,16 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 11:19:18 by ebennix           #+#    #+#             */
-/*   Updated: 2023/04/20 02:41:20 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/14 16:36:13 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
 
-int	ft_isascii(char c)
+int	ft_isascii(int char_)
 {
-	if (c >= 0 && c <= 127)
+	if (char_ >= 0 && char_ < 128)
 		return (1);
 	return (0);
 }
+ 

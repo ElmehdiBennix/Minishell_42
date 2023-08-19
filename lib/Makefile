@@ -6,13 +6,13 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/22 04:53:15 by ebennix           #+#    #+#              #
-#    Updated: 2023/07/22 01:42:47 by ebennix          ###   ########.fr        #
+#    Updated: 2023/08/14 16:42:29 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := lib_42.a
 
-CFLAGS := -g -Wall -Wextra -Werror
+CFLAGS := -g -Wall -Wextra -Wno-type-limits
 
 CC := cc
 
