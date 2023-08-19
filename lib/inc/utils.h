@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 05:05:48 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/05 02:35:38 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/14 16:41:46 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@
 # include <string.h>
 # include <unistd.h>
 #include <stdbool.h>
+
+#if !defined(OPEN_MAX)
+#define OPEN_MAX 1024
+#endif // OPEN_MAX
+
 
 typedef struct s_list
 {
@@ -54,7 +59,7 @@ void				*ft_calloc(size_t nelem, size_t size);
 void				ft_bzero(void *s, size_t n);
 int					ft_isalnum(char c);
 int					ft_isalpha(char c);
-int					ft_isascii(char c);
+int					ft_isascii(int char_);
 int					ft_isdigit(char c);
 int					ft_isprint(char c);
 void				*ft_memchr(const void *s, int c, size_t n);

@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/14 05:23:31 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/19 14:07:38 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_type get_type(char *token , int moves) // flag true for string false for char
         else if (ft_strncmp(token,"><",2) == 0 || strncmp(token,"<|",2) == 0)
             return -1;
         else
-            return PIPE_RED; // need to ask around about this
+            return PIPE_RED; // need to ask around about this // should be splet up thqts the key
     }
     return (0); // needs a better logic
 }
@@ -101,10 +101,10 @@ t_token   *QUOT_handler(char *prompt, int *i , char QUOT_type)
     return (token);
 }
 
-t_token   *separateur_handler(char *prompt, int *i)
+t_token   *separateur_handler(char *prompt, int *i) // << >> |>  <|
 {
     int moves;
-    int backward;
+    int backward = 0;
     t_token *token = NULL;
     
     moves = 0; //><
@@ -127,7 +127,10 @@ t_token   *separateur_handler(char *prompt, int *i)
     ft_strlcpy(token->content,&prompt[backward],moves + 1);
     printf("%s\n",token->content);
     printf("|||||%c|||||",prompt[*i]);
-    token->type = get_type(token->content,moves);
+    int x = get_type(token->content,moves);
+    if (x == -1)
+        exit_msg(2,"parse error",RED , 52); //free data and return set errno to error number
+    token->type = x;
     if (prompt[*i] == ' ')
         token->space_after = 1;
     else

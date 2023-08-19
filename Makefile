@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/08/14 01:07:00 by ebennix          ###   ########.fr        #
+#    Updated: 2023/08/14 17:47:26 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ ARCH := lib/lib_42.a
 
 CC := cc 
 
-CFLAGS := -g -Wall -Wextra 
+CFLAGS := -g -Wall -Wextra
 # -Werror 
 
 HEADER := Mandatory/inc/minishell.h
@@ -41,7 +41,7 @@ library:
 	make -C lib
 
 $(EXE) : $(OBJ)
-	$(CC) -lreadline $(OBJ) $(ARCH) -o $(EXE)
+	$(CC) -o $(EXE) $(OBJ) $(ARCH) -lreadline
 
 %.o : %.c $(HEADER) | library
 	$(CC) $(CFLAGS) -c $< -o $@
