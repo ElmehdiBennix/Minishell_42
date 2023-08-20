@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:18:41 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/20 02:56:05 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/20 20:13:12 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,14 @@ void tokenizer(t_token *tokens)
     while(arrow->forward)
     {
         arrow->id = i;
-        if (arrow->type >= GREAT && arrow->type <= HERE_DOC) // need a smarter implementation
+        printf("%s\n",arrow->content);
+        if (arrow->type >= PIPE && arrow->type <= HERE_DOC) // need a smarter implementation
         {
-            tokens_checker(arrow);
+            tokens_checker(arrow); // check how many tokens in repeat till it fails 
             token_number++;
         }
+        else if (arrow->type >= WORD && arrow->type <= DOUBLE_QUOT)
+            token_number = 0;
         // if (arrow->type == PIPE_RED)
         // {   
         //    split_token(arrow);
@@ -87,7 +90,7 @@ void tokenizer(t_token *tokens)
         i++;
         arrow = arrow->forward;
     }
-    printf("token counter %d \n",token_number);
+    printf("token counter %d \n",token_number); // shoudnt pass -> le minishit$ ls > | cat this should ls >| cat
 
     // while(tokens)
     // {
