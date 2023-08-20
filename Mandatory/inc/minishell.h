@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/20 02:31:21 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/20 20:06:51 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 typedef enum s_type
 {
     WORD = 1,
-	PIPE = 2,
-	SINGLE_QUOT = 3,
-	DOUBLE_QUOT = 4,
+	SINGLE_QUOT = 2,
+	DOUBLE_QUOT = 3,
+	PIPE = 4,
 	GREAT = 5,
 	LESS = 6,
 	APPEND = 7, // >>
