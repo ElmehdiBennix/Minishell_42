@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/19 14:45:14 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/20 02:31:21 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,8 @@ typedef enum s_type
 	DOUBLE_QUOT = 4,
 	GREAT = 5,
 	LESS = 6,
-	GREAT_GREAT = 7,
-	LESS_LESS = 8,
-    PIPE_RED = 9,
+	APPEND = 7, // >>
+	HERE_DOC = 8, // <<
 
 }	t_type;
 
