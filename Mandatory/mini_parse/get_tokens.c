@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/19 14:07:38 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/20 02:41:42 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,11 @@ t_type get_type(char *token , int moves) // flag true for string false for char
     else
     {
         if (ft_strncmp(token,">>",2) == 0)
-            return GREAT_GREAT;
+            return APPEND;
         if (ft_strncmp(token,"<<",2) == 0)
-            return LESS_LESS;
-        else if (ft_strncmp(token,"><",2) == 0 || strncmp(token,"<|",2) == 0)
+            return HERE_DOC;
+        else if (ft_strncmp(token,"><",2) == 0 )//|| strncmp(token,"<|",2) == 0)
             return -1;
-        else
-            return PIPE_RED; // need to ask around about this // should be splet up thqts the key
     }
     return (0); // needs a better logic
 }
@@ -109,18 +107,23 @@ t_token   *separateur_handler(char *prompt, int *i) // << >> |>  <|
     
     moves = 0; //><
     token = (t_token *)ft_calloc(sizeof(t_token),1);
-    while (prompt[*i] && ft_iseparateur(prompt[*i]) == 1) // need to change it to smthing else its for tst now eather pipe in token or diretions
+    if (prompt[*i] == '|')
     {
         (*i)++;
         moves++;
-        if (prompt[*i] == '>' || prompt[*i] == '<') // posible an error in some cases needs testing
+    }
+    else if (prompt[*i] == '>' || prompt[*i] == '<') // need to change it to smthing else its for tst now eather pipe in token or diretions
+    {
+        (*i)++;
+        moves++;
+        if (prompt[*i] && (prompt[*i] == '>' || prompt[*i] == '<')) // posible an error in some cases needs testing
         {
             (*i)++;
             moves++;
         }
     }
-    if (moves > 2) // strn cmp with all syntaxe errors
-        exit_msg(2,"parse error",RED , 52); //free data
+    // if (moves > 2) // strn cmp with all syntaxe errors
+    //     exit_msg(2,"parse error",RED , 52); //free data
     printf("%d\n",moves);
     token->content = ft_calloc(moves + 1, sizeof(char));
     backward = (*i) - moves;
@@ -129,7 +132,7 @@ t_token   *separateur_handler(char *prompt, int *i) // << >> |>  <|
     printf("|||||%c|||||",prompt[*i]);
     int x = get_type(token->content,moves);
     if (x == -1)
-        exit_msg(2,"parse error",RED , 52); //free data and return set errno to error number
+        ft_fprintf(2,"le minishell: syntax error near unexpected token `<'"); //free data and return set errno to error number
     token->type = x;
     if (prompt[*i] == ' ')
         token->space_after = 1;
