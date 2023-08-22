@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:51:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/22 23:03:21 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/23 00:10:07 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ static bool	first_index(char *prompt)
 {
 	if (prompt[0] && (prompt[0] == ')' || prompt[0] == '(' || prompt[0] == '|'))
 	{
-		ft_fprintf(2, "le minishell: syntax error near unexpected token `%c'\n",
-				prompt[0]);
+		ft_fprintf(2, "le minishell: syntax error near unexpected token `%c'\n",prompt[0]);
 		return (1);
 	}
 	return (0);
@@ -70,8 +69,7 @@ static bool	last_index(char *prompt)
 	i = ft_strlen(prompt) - 1;
 	if (prompt[i] == '<' || prompt[i] == '|' || prompt[i] == '>')
 	{
-		ft_fprintf(2,
-				"le minishell: syntax error near unexpected token `newline'\n");
+		ft_fprintf(2,"le minishell: syntax error near unexpected token `newline'\n");
 		return (1);
 	}
 	return (0);
