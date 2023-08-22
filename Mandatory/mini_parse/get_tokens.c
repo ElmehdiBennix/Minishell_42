@@ -6,36 +6,13 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/20 02:41:42 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/22 22:56:57 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_type get_type(char *token , int moves) // flag true for string false for char
-{
-    if (moves == 1)
-    {
-        if(*token == '|')
-            return PIPE;
-        else if(*token == '>')
-            return GREAT;
-        else if(*token == '<')
-            return LESS;
-    }
-    else
-    {
-        if (ft_strncmp(token,">>",2) == 0)
-            return APPEND;
-        if (ft_strncmp(token,"<<",2) == 0)
-            return HERE_DOC;
-        else if (ft_strncmp(token,"><",2) == 0 )//|| strncmp(token,"<|",2) == 0)
-            return -1;
-    }
-    return (0); // needs a better logic
-}
-
-t_token   *char_handler(char *prompt, int *i)
+static t_token   *char_handler(char *prompt, int *i)
 {
     int moves;
     int backward;
@@ -43,50 +20,40 @@ t_token   *char_handler(char *prompt, int *i)
     
     moves = 0;
     token = (t_token *)ft_calloc(sizeof(t_token),1);
-    while(prompt[*i] && ft_iswhite_space(prompt[*i]) == 0 && ft_iseparateur(prompt[*i]) == 0) // need to change it to smthing else its for tst now
+    while(prompt[*i] && ft_iswhite_space(prompt[*i]) == 0 && ft_iseparateur(prompt[*i]) == 0)
     {
         (*i)++;
         moves++;
     }
-    printf("%d\n",moves);
-    token->content = ft_calloc(moves + 1, sizeof(char));
     backward = (*i) - moves;
+    token->content = ft_calloc(moves + 1, sizeof(char));
     ft_strlcpy(token->content,&prompt[backward],moves + 1);
-    printf("%s\n",token->content);
-    printf("|||||%c|||||",prompt[*i]);
     token->type = WORD;
     if (prompt[*i] == ' ')
         token->space_after = 1;
     else
         token->space_after = 0;
-    printf("%d type = %d  \n",token->space_after,token->type);
-    return (token);
+    return (token); 
 }
 
-// missing prots
-
-t_token   *QUOT_handler(char *prompt, int *i , char QUOT_type)
+static t_token   *QUOT_handler(char *prompt, int *i , char QUOT_type)
 {
     int moves;
     int backward;
-    t_token *token = NULL;
+    t_token *token;
     
     moves = 0;
-    token = (t_token *)ft_calloc(sizeof(t_token),1); // move down
+    token = (t_token *)ft_calloc(sizeof(t_token),1);
     (*i)++;
-    while (prompt[*i] && prompt[*i] != QUOT_type)
+    while (prompt[*i] != QUOT_type)
     {
         (*i)++;
         moves++;
     }
-    // protectionsssssss
     (*i)++;
-    printf("%d\n",moves);
-    token->content = ft_calloc(moves + 3, sizeof(char));
     backward = (*i) - moves - 2;
+    token->content = ft_calloc(moves + 3, sizeof(char));
     ft_strlcpy(token->content,&prompt[backward],moves + 3);
-    printf("%s\n",token->content);
-    printf("|||||%c|||||",prompt[*i]);
     if (prompt[*i] == ' ')
         token->space_after = 1;
     else
@@ -95,50 +62,40 @@ t_token   *QUOT_handler(char *prompt, int *i , char QUOT_type)
         token->type = SINGLE_QUOT;
     else
         token->type = DOUBLE_QUOT;
-    printf("%d type = %d  \n",token->space_after,token->type);
     return (token);
 }
 
-t_token   *separateur_handler(char *prompt, int *i) // << >> |>  <|
+static t_token   *separateur_handler(char *prompt, int *i)
 {
     int moves;
-    int backward = 0;
-    t_token *token = NULL;
+    int backward;
+    t_token *token;
     
-    moves = 0; //><
+    moves = 0;
     token = (t_token *)ft_calloc(sizeof(t_token),1);
     if (prompt[*i] == '|')
     {
         (*i)++;
         moves++;
     }
-    else if (prompt[*i] == '>' || prompt[*i] == '<') // need to change it to smthing else its for tst now eather pipe in token or diretions
+    else if (prompt[*i] == '>' || prompt[*i] == '<')
     {
         (*i)++;
         moves++;
-        if (prompt[*i] && (prompt[*i] == '>' || prompt[*i] == '<')) // posible an error in some cases needs testing
+        if (prompt[*i] && (prompt[*i] == '>' || prompt[*i] == '<'))
         {
             (*i)++;
             moves++;
         }
     }
-    // if (moves > 2) // strn cmp with all syntaxe errors
-    //     exit_msg(2,"parse error",RED , 52); //free data
-    printf("%d\n",moves);
-    token->content = ft_calloc(moves + 1, sizeof(char));
     backward = (*i) - moves;
+    token->content = ft_calloc(moves + 1, sizeof(char));
     ft_strlcpy(token->content,&prompt[backward],moves + 1);
-    printf("%s\n",token->content);
-    printf("|||||%c|||||",prompt[*i]);
-    int x = get_type(token->content,moves);
-    if (x == -1)
-        ft_fprintf(2,"le minishell: syntax error near unexpected token `<'"); //free data and return set errno to error number
-    token->type = x;
+    get_type(token ,moves);
     if (prompt[*i] == ' ')
         token->space_after = 1;
     else
         token->space_after = 0;
-    printf("%d type = %d  \n",token->space_after,token->type);
     return (token);
 }
 
@@ -155,7 +112,7 @@ t_token *get_tokens(char *prompt)
             i++;
         else if (prompt[i] == '|' || prompt[i] == '<' || prompt[i] == '>')
             ft_lstdoubly(&tokens, separateur_handler(prompt, &i));
-        else if (prompt[i] == 34 || prompt[i] == 39) // quots
+        else if (prompt[i] == 34 || prompt[i] == 39)
             ft_lstdoubly(&tokens, QUOT_handler(prompt, &i , prompt[i]));
         else
             ft_lstdoubly(&tokens, char_handler(prompt, &i));

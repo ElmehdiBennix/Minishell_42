@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/20 20:06:51 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/22 22:55:56 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_mini_data
 # define TRUE 1
 # define FALSE 0
 
-t_type get_type(char *token , int moves); // flag true for string false for char
+void    get_type(t_token *token , int moves);
 
 int ft_iseparateur(char c);
 int ft_iswhite_space(char c);
@@ -78,6 +78,8 @@ void    ft_lstdoubly(t_token **head , t_token *node);
 
 t_token *get_tokens(char *prompt);
 void tokenizer(t_token *tokens);
+bool shell_history(t_mini_data *var, char *prompt);
+void    get_type(t_token *token , int moves);
 
 
 #endif
