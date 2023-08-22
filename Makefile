@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/08/14 17:47:26 by ebennix          ###   ########.fr        #
+#    Updated: 2023/08/22 22:54:43 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ HEADER := Mandatory/inc/minishell.h
 FILES := Mandatory/minishell\
 		 Mandatory/mini_parse/tokenizer\
 		 Mandatory/mini_parse/get_tokens\
+		 Mandatory/mini_parse/history\
 		 Mandatory/utils/token_tools\
 
 SRC := $(FILES:=.c)

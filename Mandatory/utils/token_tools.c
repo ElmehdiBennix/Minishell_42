@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:21:30 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/05 03:25:32 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/22 22:56:23 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,28 @@ int ft_iswhite_space(char c)
     if (c == ' ' || c == '\r' || c == '\n' || c == '\f' || c ==  '\t' || c ==  '\v')
         return (1);
     return (0);
+}
+
+void    get_type(t_token *token , int moves)
+{
+    if (moves == 1)
+    {
+        if (*token->content == '|')
+            token->type = PIPE;
+        else if (*token->content == '>')
+            token->type = GREAT;
+        else if (*token->content == '<')
+            token->type = LESS;
+    }
+    else
+    {
+        if (ft_strncmp(token->content,">>",2) == 0)
+            token->type = APPEND;
+        if (ft_strncmp(token->content,"<<",2) == 0)
+            token->type = HERE_DOC;
+        else
+            token->type = 10;
+    }
 }
 
 void    ft_lstdoubly(t_token **head , t_token *node)
