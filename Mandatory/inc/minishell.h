@@ -6,16 +6,15 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/22 23:55:58 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/22 23:59:46 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "/mini_structs.h"
-# include "/mini_defines.h"
-# include "../../lib/inc/utils.h"
+# include "mini_defs.h"
+# include "mini_structs.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 

@@ -6,12 +6,14 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/22 23:53:09 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/22 23:59:52 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINI_STRUCTS_H
 # define MINI_STRUCTS_H
+
+# include "../../lib/inc/utils.h"
 
 typedef enum s_type
 {
@@ -34,7 +36,6 @@ typedef struct s_env
 
 }t_env;
 
-
 typedef struct s_token
 {
 	int				id;
@@ -51,7 +52,7 @@ typedef struct s_mini_data
 	char			**env_var;
 	char			**path_var;
 	char			*PWD;
-	char			*OLDPWD;
+	char			*OLD_PWD;
 	struct s_token	*tokens;
 
 }					t_mini_data;
