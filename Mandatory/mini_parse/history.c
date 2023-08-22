@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:51:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/22 22:54:15 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/22 23:03:21 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // 			pipe++;
 // 			if (prompt[++i] && prompt[i] == '|')
 // 			{
-// 				ft_fprintf(2, "le minishell: syntax error near unexpected token `|'\n");
+// 				ft_fprintf(2,"le minishell: syntax error near unexpected token `|'\n");
 // 				return (1);
 // 			}
 // 			i--;
@@ -56,7 +56,8 @@ static bool	first_index(char *prompt)
 {
 	if (prompt[0] && (prompt[0] == ')' || prompt[0] == '(' || prompt[0] == '|'))
 	{
-		ft_fprintf(2,"le minishell: syntax error near unexpected token `%c'\n", prompt[0]);
+		ft_fprintf(2, "le minishell: syntax error near unexpected token `%c'\n",
+				prompt[0]);
 		return (1);
 	}
 	return (0);
@@ -64,12 +65,13 @@ static bool	first_index(char *prompt)
 
 static bool	last_index(char *prompt)
 {
-	int		i;
+	int	i;
 
 	i = ft_strlen(prompt) - 1;
 	if (prompt[i] == '<' || prompt[i] == '|' || prompt[i] == '>')
 	{
-		ft_fprintf(2,"le minishell: syntax error near unexpected token `newline'\n");
+		ft_fprintf(2,
+				"le minishell: syntax error near unexpected token `newline'\n");
 		return (1);
 	}
 	return (0);
@@ -77,8 +79,9 @@ static bool	last_index(char *prompt)
 
 static int	open_quote(char *prompt)
 {
-	int i;
-	bool status;
+	int		i;
+	bool	status;
+	char	quot;
 
 	i = 0;
 	status = false;
@@ -92,7 +95,7 @@ static int	open_quote(char *prompt)
 		}
 		if (prompt[i] == 34 || prompt[i] == 39)
 		{
-			char quot = prompt[i];
+			quot = prompt[i];
 			status = true;
 			i++;
 			while (prompt[i] && prompt[i] != quot)
@@ -105,17 +108,17 @@ static int	open_quote(char *prompt)
 	return (status);
 }
 
-bool shell_history(t_mini_data *var, char *prompt)
+bool	shell_history(t_mini_data *var, char *prompt)
 {
 	if (!prompt || prompt[0] == '\0' || skip_space_history(prompt) == 1)
-		return (free(prompt),var->err_no = 1, 1); // conti dont save hist
+		return (free(prompt), var->err_no = 1, 1); // conti dont save hist
 	add_history(prompt);
 	if (first_index(prompt) == 1 || last_index(prompt) == 1)
 		return (free(prompt), var->err_no = 2, 1); // conti save hist
 	int error = open_quote(prompt);
 	if (error == 1)
 	{
-		ft_fprintf(2,"le minishell: syntax error `open quote'\n");
+		ft_fprintf(2, "le minishell: syntax error `open quote'\n");
 		return (free(prompt), var->err_no = 2, 1); // conti save his
 	}
 	else if (error == -1)

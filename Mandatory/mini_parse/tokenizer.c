@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:18:41 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/22 22:50:22 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/22 23:04:20 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,35 +34,40 @@ int	tokens_checker(t_token *token)
 		|| (token->type == APPEND && token->forward->type == APPEND)
 		|| (token->type == APPEND && token->forward->type == HERE_DOC)
 		|| (token->type == APPEND && token->forward->type == PIPE)
-        || (token->type == GREAT && token->space_after == TRUE && token->forward->type == PIPE))
-    {
-        ft_fprintf(2,"le minishell: syntax error near unexpected token `%s'\n",token->forward->content);
+		|| (token->type == GREAT && token->space_after == TRUE
+			&& token->forward->type == PIPE))
+	{
+		ft_fprintf(2, "le minishell: syntax error near unexpected token `%s'\n",
+				token->forward->content);
 		return (1); // set erno and free repeat loop
-    }
+	}
 	return (0);
 }
 
-void tokenizer(t_token *tokens)
+bool	tokenizer(t_token *tokens)
 {
-    t_token *arrow = tokens;
-    unsigned int i = 0;
-    int token_number = 0;
+	t_token			*arrow;
+	unsigned int	i;
+	int				token_number;
 
-    while(arrow->forward)
-    {
-        arrow->id = i;
-        if ((arrow->type >= PIPE && arrow->type <= HERE_DOC))
-        {
-            tokens_checker(arrow);
-            token_number++;
-        }
-        else if (arrow->type >= WORD && arrow->type <= DOUBLE_QUOT)
-            token_number = 0;
-        if (token_number == 3 || arrow->type == 10)
-            ft_fprintf(2,"le minishell: syntax error near unexpected token `%s'\n",arrow->content);
-        i++;
-        arrow = arrow->forward;
-    }
+	arrow = tokens;
+	i = 0;
+	token_number = 0;
+	while (arrow->forward)
+	{
+		arrow->id = i;
+		if ((arrow->type >= PIPE && arrow->type <= HERE_DOC))
+		{
+			tokens_checker(arrow);
+			token_number++;
+		}
+		else if (arrow->type >= WORD && arrow->type <= DOUBLE_QUOT)
+			token_number = 0;
+		if (token_number == 3 || arrow->type == 10)
+			ft_fprintf(2, "le minishell: syntax error near unexpected token `%s'\n", arrow->content);
+		i++;
+		arrow = arrow->forward;
+	}
 }
 
 /*if double qoute trim them and then join with ... */
