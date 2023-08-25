@@ -6,11 +6,16 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/23 00:01:25 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/25 01:03:54 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
+
+// static void	exec_loop(t_mini_data *var) // void for now might change it in the future
+// {
+
+// }
 
 static void	parse_loop(t_mini_data *var, char *prompt) // void for now might change it in the future
 {
@@ -18,7 +23,15 @@ static void	parse_loop(t_mini_data *var, char *prompt) // void for now might cha
 	var->tokens = get_tokens(prompt);
 	free(prompt);
 	tokenizer(var->tokens);
-
+	expand(var->tokens);
+	// t_token *arrow = var->tokens;
+	// while(arrow)
+	// {
+	// 	printf("%s\n",arrow->content);
+	// 	arrow = arrow->forward;
+	// }
+	// expand(var->tokens);
+	
 }
 
 int	main(int ac, char **av, char **env)
@@ -38,7 +51,7 @@ int	main(int ac, char **av, char **env)
 			if (shell_history(&var, prompt) == 1) // dosent store tabs empty line or empty spaces stinn needs fa function
 				continue ;
 			parse_loop(&var, prompt);
-			// exec loop
+			// exec_loop();
 		}
 		return (0);
 	}
