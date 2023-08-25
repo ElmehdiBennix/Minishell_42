@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/08/23 00:00:24 by ebennix          ###   ########.fr        #
+#    Updated: 2023/08/25 00:45:55 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ ARCH := lib/lib_42.a
 
 CC := cc 
 
-CFLAGS := -g -Wall -Wextra
+CFLAGS := -g -Wall -Wextra 
 # -Werror 
 
 HEADER := Mandatory/inc/minishell.h
@@ -26,6 +26,7 @@ FILES := Mandatory/minishell\
 		 Mandatory/mini_parse/get_tokens\
 		 Mandatory/mini_parse/history\
 		 Mandatory/utils/token_tools\
+		 Mandatory/expand/mini_exp\
 		#  utils/ft_lstnew_env utils/ft_lstadd_back utils/ft_remove_node utils/ft_strcmp\
 		#  bin/ft_bultins bin/env bin/unset bin/cd bin/echo bin/pwd bin/exit bin/export\
 		#  utils/get_key utils/updates utils/ft_sort_list\
