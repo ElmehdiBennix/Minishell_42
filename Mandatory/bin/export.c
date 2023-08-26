@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:24 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/14 01:16:36 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/16 17:47:41 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int	check_valid_key(char *key)
 	while(key[i])
 	{
 		if (!(key[i] == '_' || key[i] == '+' 
-			|| isalpha(key[i])))
-			return -1;
+			|| ft_isalpha(key[i])))
+			return (-1);
 		i++;
 	}
-	return i;
+	return (i);
 }
 
 void	export_item(char **arg, t_env *ev)
@@ -41,6 +41,9 @@ void	export_item(char **arg, t_env *ev)
 	int 	i;
 	int 	v;
 	char 	*key;
+	char 	*value;
+	t_env 	*tmp;
+	
 	i = 1;
 	v = 0;
 	while(arg[i])
@@ -48,11 +51,14 @@ void	export_item(char **arg, t_env *ev)
 		v = check_valid_key(get_key(arg[i]));
 		if (v == -1)
 			printf("`%s': not a valid identifier\n", arg[i]);
-		// else
-		// {
-			
-		// }
-		
+		else
+		{
+			key = get_key(arg[i]);
+			value = get_val(arg[i]);
+			tmp = ft_lstnew_env(key, value);
+			ft_lstadd_back_env(&ev, tmp);
+		}
+		i++;
 	}
 }
 
@@ -64,7 +70,7 @@ void	export_it(char **av, t_env *env)
 	(void)av;
 	if (tmp)
 		sort_list(tmp, compare);
-	if (!av[1])// export NULL 
+	if (!av[1])// av[0] = "export" av[1] = NULL .. av[n] == NULL 
 	{
 		while (tmp != 0)
 		{
@@ -72,6 +78,7 @@ void	export_it(char **av, t_env *env)
 			tmp = tmp->next;
 		}
 	}
-	// else
-	// 	export_item(av, env);
+	else// av[n] != NULL with n => 1;
+		export_item(av, env);
 }
+// i sill need to handel the rest of the cases to not crash
