@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:18 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/05 19:45:42 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/26 19:47:08 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	check_valid_args(char **ag, int *ex, int *index)
 		printf("too many args\n");
 	}
 }
-int	mini_exit(char **av, t_env *env, int exit_status)
+int	mini_exit(char **av, t_env **env, int exit_status)
 {
 	int		i;
 

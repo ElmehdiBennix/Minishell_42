@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:03 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/03 12:01:18 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/26 19:53:15 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static int	check_option(char **av)
 	}
 	return (flg);
 }
-// i still need to handel the option case
+//all fixed
 
-void	my_echo(char **av, t_env *env)
+void	my_echo(char **av, t_env **env)
 {
 	int	i;
 	int	option;
@@ -56,7 +56,7 @@ void	my_echo(char **av, t_env *env)
 			write(1, " ", 1);
 		ft_putstr_fd(av[i], 1);// file descriptor not set yet
 		flag = 0;
-		// write(1, " ", 1);// should handle space befor args
+		// write(1, " ", 1);// should handle space befor args// fixed √
 		i++;
 	}
 	if (option == 0)
