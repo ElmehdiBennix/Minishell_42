@@ -6,13 +6,13 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:35 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/03 09:48:50 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/26 19:42:31 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void ft_unset(char **arg, t_env *env)
+void ft_unset(char **arg, t_env **env)
 {
 	int i;
 
@@ -20,7 +20,7 @@ void ft_unset(char **arg, t_env *env)
 	// //// check for invalid arguments//////////
 	while(arg[i])
 	{
-		ft_remove_node(&env, arg[i], ft_strcmp);
+		ft_remove_node(env, arg[i], ft_strcmp);
 		i++;
 	}
 	// while(env)
