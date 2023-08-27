@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/26 19:48:51 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/27 20:47:14 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,32 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "../libft/libft.h"
 
+typedef enum s_type
+{
+	WORD = 1,
+	SINGLE_QUOT = 2,
+	DOUBLE_QUOT = 3,
+	PIPE = 4,
+	GREAT = 5,	  // >
+	LESS = 6,     // <
+	APPEND = 7,   // >>
+	HERE_DOC = 8, // <<
+
+}					t_type;
 
 typedef struct s_token
 {
-    int             flag_s;
-    char            *content;
-    struct s_token  *next;
-    struct s_token  *prev;
-} t_token;
+	int				id;
+	char			*content;
+	t_type			type;
+	bool			space_after;// why space after ?
+	struct s_token	*forward;
+	struct s_token	*backward;
+}					t_token;
 
-
-typedef struct s_lex
-{
-	char            *str;
-	int             i;
-    t_token         *token;
-	struct s_lex	*next;
-	struct s_lex	*prev;
-}	t_lex;
 
 typedef struct s_env
 {
@@ -44,8 +50,9 @@ typedef struct s_env
     char *value;
     struct s_env *next;
 
-}t_env;
+}					t_env;
 
+t_token *fake_struct(char **cmds, t_env *env);
 int		get_env(t_env **Henv, char **env);
 char 	*get_val(char *line);
 char 	*get_key(char *line);
