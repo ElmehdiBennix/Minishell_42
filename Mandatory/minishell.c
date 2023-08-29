@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/29 23:57:00 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/30 00:02:48 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ static void	parse_loop(t_mini_data *var, char *prompt) // void for now might cha
 	free(prompt);
 	tokenizer(var->tokens);
 	expand(var->tokens,var);
+	
 	// t_token *arrow = var->tokens;
 	// while(arrow)
 	// {
