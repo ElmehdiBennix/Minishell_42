@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/29 14:34:24 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/29 23:06:36 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ typedef struct s_token
 typedef struct s_mini_data
 {
 	int				err_no;
-	char			**env_var;
+	// char			**env_var;
+	struct s_env	*env_var;
 	char			**path_var;
 	char			*PWD;
 	char			*OLD_PWD;
