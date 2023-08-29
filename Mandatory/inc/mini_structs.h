@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/25 00:32:28 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/29 14:34:24 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,22 @@ typedef struct s_mini_data
 	struct s_token	*tokens;
 
 }					t_mini_data;
+
+
+// typedef struct	s_sig
+// {
+// 	int				sigint;
+// 	int				sigquit;
+// 	int				exit_status;
+// 	pid_t			pid;
+// }				t_sig;
+
+typedef struct	s_expansions
+{
+	char			*new_arg;
+	int				i;
+	int				j;
+}				t_expansions;
 
 // typedef      //pipe split commands
 // {

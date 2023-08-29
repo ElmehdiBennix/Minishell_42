@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 19:52:57 by ebennix           #+#    #+#             */
-/*   Updated: 2023/05/01 19:40:49 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/29 18:48:18 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,9 @@ char	*ft_strjoin(char *s1, char *s2)
 	i = -1;
 	j = -1;
 	if (!s1)
-	{
-		s1 = (char *)ft_calloc(sizeof(char), 1);
-		s1[0] = '\0';
-	}
+		s1 = ft_strdup("");
 	if (!s2)
-		return (NULL);
+		s2 = ft_strdup("");
 	str = (char *)ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1, sizeof(char));
 	if (!str)
 		return (NULL);

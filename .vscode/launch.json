@@ -8,7 +8,7 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug",
-            "program": "/Users/ebennix/Documents/Minishell_42/Minishell",
+            "program": "/home/bennix/myProjects/Minishell_42/Minishell",
             "args": [],
             "cwd": "${workspaceFolder}"
         }

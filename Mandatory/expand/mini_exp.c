@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/25 04:28:40 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/29 20:16:07 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int    valid_key(int c)
     if ((c >= 65 && c <= 90)
         || (c >= 97 && c < 123)
         || (c >= '0' && c <= '9')
-        || c == '_')
+        || c == '_') //
         return (0);
     return (1);
 }
@@ -25,30 +25,58 @@ int    valid_key(int c)
 char    *get_value(char *string)
 {
     int i = 0;
+    int f = 0;
     int j = 0;
-    char *str;
-    int flag;
-    char* value ="vrai frerro";
+    t_expansions exp;
 
+    exp.new_arg = NULL;
+    char *buffer = ft_strdup("");
     while (string[i])
     {
-        if (string[i] == '$')
+        while (string[i] == '$')
         {
-            while (valid_key(string[++i]) == 0)
-                j++;
-            if (j != 0)
+            i++;
+            f++;
+            printf("2 = %d , %c \n",f-1,string[i]);
+            if (string[i] == '?')
             {
-                //get value and join it using memory functions carefull need to terminate them or use calloc better overall
-                // str = ft_calloc(i-j,1);
-                // ft_memcpy(str,string,i-j-1);
-                // ft_strjoin(str,value);
-                // ft_strdup(string); //befor $ and join with value of $key then 
-                // j = 0;
+                i++;
+                j++;
+            }
+            else
+            {
+                while (valid_key(string[i]) == 0)
+                {
+                    i++;
+                    j++;
+                }
+            }
+            if (j > 0)
+            {
+                if (f-1 > 0)
+                {
+                    exp.new_arg = ft_calloc(f,sizeof(char));
+                    ft_memcpy(exp.new_arg,string+i-j-f,f-1);
+                }
+                char *x = ft_strjoin(exp.new_arg,"JOINED"); // can the value function
+                buffer = ft_strjoin(buffer,x);
+                f = 0;
+                j = 0;
+                exp.new_arg = NULL;
             }
         }
+        f++; // need alot of protections but working now
         i++;
     }
-    printf(" i == %d and j == %d \n",i,j);
+    if (f > 0)
+    {
+        exp.new_arg = ft_calloc(f + 1,sizeof(char)); // not working with spaces
+        ft_memcpy(exp.new_arg,string+i-j-f,f); // code managment
+    }
+    buffer = ft_strjoin(buffer,exp.new_arg);
+    printf("joined == %s§\n",buffer);
+    return (buffer);
+
 }
 
 int expand(t_token *tokens)
