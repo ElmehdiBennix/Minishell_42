@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_key.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 11:39:43 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/03 13:38:21 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/30 00:01:13 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*value_by_key(t_env *env, char *key)
 
 	tmp = env;
 	while (tmp)
-	{
+	{ // if $? return it for error prinitng
 		if (ft_strcmp(tmp->key, key) == 0)
 			return(tmp->value);
 		tmp = tmp->next;

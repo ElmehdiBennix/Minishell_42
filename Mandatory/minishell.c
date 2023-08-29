@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/29 23:07:26 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/29 23:57:00 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,50 @@
 // leaks and misisng alot of protection in case of a fail
 
 
-// char *get_key(char *line)
-// {
-//     char *key;
-//     int i;
+char *get_key(char *line)
+{
+    char *key;
+    int i;
 
-// 	i = 0;
-//     while(line[i] && line[i] != '=')
-//         i++;
-//     key = malloc(sizeof(char) * i + 1);
-//     if (!key)
-//         return (NULL);
-//     i = 0;
-//     while(line[i] && line[i] != '=')
-//     {
-//         key[i] = line[i];
-//         i++;
-//     }
-//     key[i] = '\0';
-//     return (key);
-// }
+	i = 0;
+    while(line[i] && line[i] != '=')
+        i++;
+    key = malloc(sizeof(char) * i + 1);
+    if (!key)
+        return (NULL);
+    i = 0;
+    while(line[i] && line[i] != '=')
+    {
+        key[i] = line[i];
+        i++;
+    }
+    key[i] = '\0';
+    return (key);
+}
 
-// char *get_val(char *line)
-// {
-//     char *val;
+char *get_val(char *line)
+{
+    char *val;
 
-//     int i;
-//     int j;
+    int i;
+    int j;
 
-//     i = 0;
-//     while(line[i] && line[i] != '=')
-//         i++;
-//     if (!line[i] || !line[i + 1])
-//         return (NULL);
-//     j = i + 1;
-//     while(line[j])
-//         j++;
-//     val = malloc(sizeof(char) * (j - i + 1));
-//     j = i + 1;
-//     i = 0;
-//     while(line[j])
-//         val[i++] = line[j++];
-//     val[i] = '\0';
-//     return (val);
-// }
+    i = 0;
+    while(line[i] && line[i] != '=')
+        i++;
+    if (!line[i] || !line[i + 1])
+        return (NULL);
+    j = i + 1;
+    while(line[j])
+        j++;
+    val = malloc(sizeof(char) * (j - i + 1));
+    j = i + 1;
+    i = 0;
+    while(line[j])
+        val[i++] = line[j++];
+    val[i] = '\0';
+    return (val);
+}
 
 int get_env(t_env **Henv, char **env)
 {
@@ -89,7 +89,7 @@ static void	parse_loop(t_mini_data *var, char *prompt) // void for now might cha
 	var->tokens = get_tokens(prompt);
 	free(prompt);
 	tokenizer(var->tokens);
-	expand(var->tokens);
+	expand(var->tokens,var);
 	// t_token *arrow = var->tokens;
 	// while(arrow)
 	// {
@@ -106,7 +106,9 @@ int	main(int ac, char **av, char **env)
 	t_mini_data	var;
 
 	(void)av;
-	get_env(var.env_var,env);
+	var.err_no = 0;
+	var.env_var = NULL;
+	get_env(&var.env_var,env);
 	if (ac == 1)
 	{
 		while (1)
