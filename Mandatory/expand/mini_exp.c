@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/29 20:20:54 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/30 00:01:43 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@ int    valid_key(int c)
     return (1);
 }
 
-char    *get_value(char *string)
+char    *get_value(char *string , t_mini_data *var)
 {
     int i = 0;
     int f = 0;
     int j = 0;
     t_expansions exp;
+    char *buff;
 
     exp.new_arg = NULL;
     char *buffer = ft_strdup("");
@@ -57,7 +58,9 @@ char    *get_value(char *string)
                     exp.new_arg = ft_calloc(f,sizeof(char));
                     ft_memcpy(exp.new_arg,string+i-j-f,f-1);
                 }
-                char *x = ft_strjoin(exp.new_arg,"JOINED"); // can the value function
+                buff = ft_calloc(j+1,sizeof(char));
+                ft_memcpy(buff,string+i-j,j); // might sigf in some cases
+                char *x = ft_strjoin(exp.new_arg,value_by_key(var->env_var,buff)); // can the value function
                 buffer = ft_strjoin(buffer,x);
                 f = 0;
                 j = 0;
@@ -77,7 +80,7 @@ char    *get_value(char *string)
     return (buffer);
 }
 
-int expand(t_token *tokens)
+int expand(t_token *tokens,t_mini_data *var)
 {
     t_token *arrow = tokens;
 
@@ -90,7 +93,7 @@ int expand(t_token *tokens)
             {
                 arrow->content = ft_strtrim(arrow->content,"\""); // freee
             }
-            arrow->content = get_value(arrow->content);
+            arrow->content = get_value(arrow->content,var);
         }
         else if (arrow->type == SINGLE_QUOT)
         {

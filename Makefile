@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/08/25 00:45:55 by ebennix          ###   ########.fr        #
+#    Updated: 2023/08/29 23:18:11 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,21 @@ FILES := Mandatory/minishell\
 		 Mandatory/mini_parse/history\
 		 Mandatory/utils/token_tools\
 		 Mandatory/expand/mini_exp\
-		#  utils/ft_lstnew_env utils/ft_lstadd_back utils/ft_remove_node utils/ft_strcmp\
-		#  bin/ft_bultins bin/env bin/unset bin/cd bin/echo bin/pwd bin/exit bin/export\
-		#  utils/get_key utils/updates utils/ft_sort_list\
+		 Mandatory/utils/ft_lstnew_env\
+		 Mandatory/utils/ft_lstadd_back\
+		 Mandatory/utils/ft_remove_node\
+		 Mandatory/utils/ft_strcmp\
+		 Mandatory/bin/ft_bultins\
+		 Mandatory/bin/env\
+		 Mandatory/bin/unset\
+		 Mandatory/bin/cd\
+		 Mandatory/bin/echo\
+		 Mandatory/bin/pwd\
+		 Mandatory/bin/exit\
+		 Mandatory/bin/export\
+		 Mandatory/utils/get_key\
+		 Mandatory/utils/updates\
+		 Mandatory/utils/ft_sort_list\
 
 SRC := $(FILES:=.c)
 

@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/25 01:04:11 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/29 23:57:07 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@
 
 void				get_type(t_token *token, int moves);
 
-int expand(t_token *tokens);
+int expand(t_token *tokens,t_mini_data *var);
+
+int get_env(t_env **Henv, char **env);
+char *get_val(char *line);
 
 
 int					ft_iseparateur(char c);
@@ -34,7 +37,6 @@ void				get_type(t_token *token, int moves);
 
 
 
-int		get_env(t_env **Henv, char **env);
 char 	*get_key(char *line);
 t_env	*ft_lstnew_env(char *key, char *value);
 void	ft_lstadd_back_env(t_env **lst, t_env *new);
