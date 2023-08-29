@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/29 20:16:07 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/29 20:20:54 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char    *get_value(char *string)
         {
             i++;
             f++;
-            printf("2 = %d , %c \n",f-1,string[i]);
             if (string[i] == '?')
             {
                 i++;
@@ -76,7 +75,6 @@ char    *get_value(char *string)
     buffer = ft_strjoin(buffer,exp.new_arg);
     printf("joined == %s§\n",buffer);
     return (buffer);
-
 }
 
 int expand(t_token *tokens)
@@ -91,8 +89,8 @@ int expand(t_token *tokens)
             if (arrow->type == DOUBLE_QUOT)
             {
                 arrow->content = ft_strtrim(arrow->content,"\""); // freee
-                get_value(arrow->content);
             }
+            arrow->content = get_value(arrow->content);
         }
         else if (arrow->type == SINGLE_QUOT)
         {
