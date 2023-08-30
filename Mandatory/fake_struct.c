@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fake_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 17:41:44 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/27 20:54:03 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/30 01:13:11 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 t_type check_wich_type(char *word)
 {
-	
-	if (!ft_strcmp(word, "|"))
-		return PIPE;
-	else if (!ft_strcmp(word, ">"))
+	if (!ft_strcmp(word, ">"))
 		return GREAT;
 	else if (!ft_strcmp(word, "<"))
 		return LESS;
@@ -25,13 +22,8 @@ t_type check_wich_type(char *word)
 		return APPEND;
 	else if (!ft_strcmp(word, ">>"))
 		return HERE_DOC;
-	// else if (!ft_strcmp(word, 34))
-	// 	return DOUBLE_QUOT;
-	else if (!ft_strcmp(word, "'"))
-		return SINGLE_QUOT;
 	else
 		return WORD;
-		
 }
 
 t_token	*ft_lstnew_token(int id, char *value, t_type type)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/27 20:47:14 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/30 01:19:11 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_token
 	int				id;
 	char			*content;
 	t_type			type;
-	bool			space_after;// why space after ?
+	bool			space_after; // why space after ? try  echo ls"-la" and ls "-lq"  
 	struct s_token	*forward;
 	struct s_token	*backward;
 }					t_token;
@@ -49,7 +49,6 @@ typedef struct s_env
     char *key;
     char *value;
     struct s_env *next;
-
 }					t_env;
 
 t_token *fake_struct(char **cmds, t_env *env);
