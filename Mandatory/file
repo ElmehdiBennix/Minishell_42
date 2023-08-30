@@ -1,0 +1,12 @@
+Makefile
+Minishell
+bin
+exc
+fake_struct.c
+fake_struct.o
+file
+inc
+libft
+minishell.c
+minishell.o
+utils

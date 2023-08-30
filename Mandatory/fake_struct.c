@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 17:41:44 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/27 20:54:03 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/28 17:23:25 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,14 @@ t_type check_wich_type(char *word)
 		
 }
 
-t_token	*ft_lstnew_token(int id, char *value, t_type type)
+t_token	*ft_lstnew_token(char **cmd_args)
 {
 	t_token	*node;
 
 	node = (t_token *)malloc(sizeof(t_token));
 	if (node == NULL)
 		return (NULL);
-	node->id = id;
-	node->content = value;
-	node->type = type;
+	node->content = cmd_args;
 	node->forward = NULL;
 	node->backward = NULL;
 	return (node);
@@ -74,28 +72,28 @@ void	ft_lstadd_back_token(t_token **lst, t_token *new)
 	}
 }
 
-t_token *fake_struct(char **cmds, t_env *env)
+t_token *fake_struct(char **cmd)
 {
 	t_token	*token;
 	t_token	*new_token;
+	char 	**cmd_args;
 	int 	i;
 
-	(void)env;
-	if (*cmds == NULL)
+	if (*cmd == NULL)
 		return NULL;
+	
 	else
 	{
 		i = 0;
 		token = NULL;
-		while (cmds[i])
-			i++;
-		i = 0;
-		while (cmds[i])
+		while (cmd[i])//ls -lR /usr/bin | sed 's/./X/6' | head -n 7
 		{
-			new_token = ft_lstnew_token(i + 1, cmds[i], check_wich_type(cmds[i]));
+			cmd_args = ft_split(cmd[i], ' ');
+			new_token = ft_lstnew_token(cmd_args);
 			ft_lstadd_back_token(&token, new_token);
 			i++;
 		}
+		// printf("%d\n", i);
 		return token;
 	}
 }

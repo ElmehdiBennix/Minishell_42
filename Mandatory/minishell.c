@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:17:11 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/27 20:59:55 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/30 21:44:47 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char *get_key(char *line)
     int i;
 
 	i = 0;
-    while(line[i] && line[i] != '=')
+    while(line[i] && line[i] != '=') // think about this case a+=toto (append the value to env value)
         i++;
     key = malloc(sizeof(char) * i + 1);
     if (!key)
@@ -41,7 +41,7 @@ char *get_val(char *line)
     int j;
 
     i = 0;
-    while(line[i] && line[i] != '=')
+    while(line[i] && line[i] != '=')// availi
         i++;
     if (!line[i] || !line[i + 1])
         return (NULL);
@@ -84,21 +84,21 @@ int main(int ac, char **av, char **env)
 	
     (void)ac;
     (void)av;
+
     get_env(&l_env, env);
 	while (1)
 	{
 		content = readline("MIMI :");
 		// printf("------------------------------\n");
-		cmds = ft_split(content, ' ');
+		// cmds = ft_split(content, ' ');
+		cmds = ft_split(content, '|');
 		// ft_bultin(cmds, &l_env);
-		token = fake_struct(cmds, l_env);
+		token = fake_struct(cmds);
+		token->fdin = dup(0);
+		token->fdout = dup(1);
+		// printf("%d\n", GREAT);
+		exceute_it(&token, &l_env);
 
 	}
 }
-		// t_token *tmp = token;
-		// while (tmp)
-		// {
-		// 	printf("id :%d\ncontent :[%s]\ntype is :%d\n", tmp->id, tmp->content, tmp->type);
-		// 	tmp = tmp->forward;
-		// }
 		// printf("%d\n", ft_bultin(cmds, l_env));

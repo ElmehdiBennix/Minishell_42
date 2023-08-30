@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/27 20:47:14 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/30 17:44:26 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ typedef enum s_type
 
 typedef struct s_token
 {
-	int				id;
-	char			*content;
+	char			**content;
+	// char			**red_files;
 	t_type			type;
-	bool			space_after;// why space after ?
+	bool			space_after;
+	int 			fdin;
+	int 			fdout;
 	struct s_token	*forward;
 	struct s_token	*backward;
 }					t_token;
@@ -52,7 +54,7 @@ typedef struct s_env
 
 }					t_env;
 
-t_token *fake_struct(char **cmds, t_env *env);
+t_token *fake_struct(char **cmds);
 int		get_env(t_env **Henv, char **env);
 char 	*get_val(char *line);
 char 	*get_key(char *line);
@@ -74,6 +76,7 @@ void	me_cd(char **av, t_env **env);
 void	my_echo(char **av, t_env **env);
 void	me_pwd(char **av, t_env **env);
 void	export_it(char **av, t_env **env);
+void	exceute_it(t_token **data, t_env **env);
 
 // void tokeni(char *f_line);
 
