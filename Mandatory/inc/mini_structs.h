@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/29 23:06:36 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/30 03:10:19 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,26 @@ typedef struct s_token
 	struct s_token	*backward;
 }					t_token;
 
+typedef struct s_command_table
+{
+	char 				**cmds_array;
+	char 				*in;
+	char				*out;
+	struct s_mini_data	*data;
+	struct s_token		*forward;
+	struct s_token		*backward;
+}				t_command_table;
+
 typedef struct s_mini_data
 {
 	int				err_no;
 	// char			**env_var;
 	struct s_env	*env_var;
 	char			**path_var;
-	char			*PWD;
-	char			*OLD_PWD;
-	struct s_token	*tokens;
-
+	char					*PWD;
+	char					*OLD_PWD;
+	struct s_token			*tokens;
+	struct s_command_table	*exec_data;
 }					t_mini_data;
 
 
