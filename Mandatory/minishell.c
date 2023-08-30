@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/30 00:02:48 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/30 00:59:21 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ int get_env(t_env **Henv, char **env)
     return 1;
 }
 
-
-
 // static void	exec_loop(t_mini_data *var) // void for now might change it in the future
 // {
 
@@ -90,7 +88,7 @@ static void	parse_loop(t_mini_data *var, char *prompt) // void for now might cha
 	free(prompt);
 	tokenizer(var->tokens);
 	expand(var->tokens,var);
-	
+	group_args(var);
 	// t_token *arrow = var->tokens;
 	// while(arrow)
 	// {
