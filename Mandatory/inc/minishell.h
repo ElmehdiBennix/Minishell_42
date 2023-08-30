@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/30 17:44:26 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/30 21:48:30 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_env
     char *key;
     char *value;
     struct s_env *next;
-
 }					t_env;
 
 t_token *fake_struct(char **cmds);
