@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 00:04:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/30 00:33:03 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/30 02:50:40 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,3 +33,5 @@ bool group_args(t_mini_data *var)
     
     
 }
+
+// bennix@MehdiPC:~/myProjects/Minishell$ ls >| catt "-la" special case handle like there isnt a pipe there ;3
