@@ -6,7 +6,7 @@
 #    By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/08/27 20:45:10 by otaraki          ###   ########.fr        #
+#    Updated: 2023/08/27 21:06:29 by otaraki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ HEADER := inc/minishell.h
 FILES := minishell fake_struct\
 		utils/ft_lstnew_env utils/ft_lstadd_back utils/ft_remove_node utils/ft_strcmp\
 		bin/ft_bultins bin/env bin/unset bin/cd bin/echo bin/pwd bin/exit bin/export\
-		utils/get_key utils/updates utils/ft_sort_list 
+		utils/get_key utils/updates utils/ft_sort_list exc/exc
 
 SRC := $(FILES:=.c)
 

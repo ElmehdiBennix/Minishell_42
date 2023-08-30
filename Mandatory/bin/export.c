@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:24 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/26 20:41:03 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/28 16:01:41 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check_valid_key(char *key, t_env *env)
 	return (i);
 }
 
-int	seen_bef(char *seen, t_env *env)
+int	seen_bef(char *seen, char *new_val, t_env *env)
 {
 	t_env *tmp;
 
@@ -46,7 +46,13 @@ int	seen_bef(char *seen, t_env *env)
 	while(tmp)
 	{
 		if(!ft_strcmp(seen, tmp->key))
-			return (0);
+		{
+			if (tmp->value != NULL && tmp->value[0] != '\0')
+				free(tmp->value);
+			if(new_val != NULL)
+				tmp->value = ft_strdup(new_val);
+			return 0;
+		}
 		tmp = tmp->next;
 	}
 	return (1);
@@ -68,9 +74,10 @@ void	export_item(char **arg, t_env *ev)
 			printf("`%s': not a valid identifier\n", arg[i]);
 		else
 		{
+			// check value of the key if null or \0----------------------------------------------------------------
 			key = get_key(arg[i]);
 			value = get_val(arg[i]);
-			if (seen_bef(key, ev) != 0)
+			if (seen_bef(key, value,  ev) != 0)
 			{
 				tmp = ft_lstnew_env(key, value);
 				ft_lstadd_back_env(&ev, tmp);
