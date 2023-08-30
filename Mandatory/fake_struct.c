@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 17:41:44 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/28 17:23:25 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/30 21:48:56 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 t_type check_wich_type(char *word)
 {
-	
-	if (!ft_strcmp(word, "|"))
-		return PIPE;
-	else if (!ft_strcmp(word, ">"))
+	if (!ft_strcmp(word, ">"))
 		return GREAT;
 	else if (!ft_strcmp(word, "<"))
 		return LESS;
@@ -25,13 +22,8 @@ t_type check_wich_type(char *word)
 		return APPEND;
 	else if (!ft_strcmp(word, ">>"))
 		return HERE_DOC;
-	// else if (!ft_strcmp(word, 34))
-	// 	return DOUBLE_QUOT;
-	else if (!ft_strcmp(word, "'"))
-		return SINGLE_QUOT;
 	else
 		return WORD;
-		
 }
 
 t_token	*ft_lstnew_token(char **cmd_args)
