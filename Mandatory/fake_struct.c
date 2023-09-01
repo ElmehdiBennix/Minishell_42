@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 17:41:44 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/30 21:48:56 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/08/31 20:34:23 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ t_token *fake_struct(char **cmd)
 
 	if (*cmd == NULL)
 		return NULL;
-	
 	else
 	{
 		i = 0;
