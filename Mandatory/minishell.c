@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:17:11 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/01 01:23:22 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/01 01:40:22 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int main(int ac, char **av, char **env)
 		// token->fdout = dup(1);
 		// printf("%d\n", GREAT);
 		exceute_it(&token, &l_env);
+		// I only excute one cmd case still working 
+			// on multiple cmds && handeling pipes fds
 
 	}
 }
