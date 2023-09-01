@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/30 00:31:53 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/01 21:46:07 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,5 @@ void	me_cd(char **av, t_env *env);
 void	my_echo(char **av, t_env *env);
 void	me_pwd(char **av, t_env *env);
 void	export_it(char **av, t_env *env);
-
-// void tokeni(char *f_line);
 
 #endif

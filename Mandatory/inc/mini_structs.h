@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/30 03:10:19 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/01 22:49:24 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ typedef enum s_type
 	SINGLE_QUOT = 2,
 	DOUBLE_QUOT = 3,
 	PIPE = 4,
-	GREAT = 5,
-	LESS = 6,
+	GREAT = 5, // flags
+	LESS = 6, // flags
 	APPEND = 7,   // >>
-	HERE_DOC = 8, // <<
+	HERE_DOC = 8, // << 
 
 }					t_type;
 
@@ -33,7 +33,6 @@ typedef struct s_env
     char *key;
     char *value;
     struct s_env *next;
-
 }           t_env;
 
 typedef struct s_token
@@ -44,24 +43,31 @@ typedef struct s_token
 	t_type			type;
 	struct s_token	*forward;
 	struct s_token	*backward;
-}					t_token;
+}					t_token; // herdoc first == dup input < pipe or file_hiddenz
+
+typedef struct s_redirection
+{
+	int		fd;
+	char 	*file_name;
+	t_type	redirection;
+	struct	s_redirection *next;   // ls > a > b > c create a next b till last then dup output only c is // read write flag--
+}			t_redirection;
 
 typedef struct s_command_table
 {
-	char 				**cmds_array;
-	char 				*in;
-	char				*out;
-	struct s_mini_data	*data;
-	struct s_token		*forward;
-	struct s_token		*backward;
+	char 					**cmds_array;
+	struct s_redirection	*redir;
+	struct s_mini_data		*var;
+	struct s_token			*forward;
+	struct s_token			*backward;
 }				t_command_table;
 
 typedef struct s_mini_data
 {
-	int				err_no;
+	int						err_no;
 	// char			**env_var;
-	struct s_env	*env_var;
-	char			**path_var;
+	struct s_env			*env_var;
+	char					**path_var;
 	char					*PWD;
 	char					*OLD_PWD;
 	struct s_token			*tokens;

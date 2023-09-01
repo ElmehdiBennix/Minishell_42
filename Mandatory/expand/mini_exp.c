@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/30 00:01:43 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/30 03:14:46 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int    valid_key(int c)
     return (1);
 }
 
-char    *get_value(char *string , t_mini_data *var)
+char    *get_value(char *string , t_mini_data *var) // algor wroking fine need work need to be done to make it understandable
 {
     int i = 0;
     int f = 0;
