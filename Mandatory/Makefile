@@ -6,7 +6,7 @@
 #    By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/08/27 21:06:29 by otaraki          ###   ########.fr        #
+#    Updated: 2023/08/31 23:59:55 by otaraki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,8 @@ CFLAGS := -g -Wall -Wextra -Werror
 HEADER := inc/minishell.h
 
 FILES := minishell fake_struct\
-		utils/ft_lstnew_env utils/ft_lstadd_back utils/ft_remove_node utils/ft_strcmp\
-		bin/ft_bultins bin/env bin/unset bin/cd bin/echo bin/pwd bin/exit bin/export\
+		utils/ft_lstnew_env utils/ft_lstadd_back utils/ft_remove_node utils/ft_strcmp utils/get_back_env\
+		bin/ft_bultins bin/env bin/unset bin/cd bin/echo bin/pwd bin/exit bin/export get_next_line/get_next_line\
 		utils/get_key utils/updates utils/ft_sort_list exc/exc
 
 SRC := $(FILES:=.c)
