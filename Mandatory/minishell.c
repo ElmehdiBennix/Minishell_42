@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:17:11 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/03 21:57:35 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/03 23:38:22 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ int get_env(t_env **Henv, char **env)
     t_env 	*tmp;
     int     i;
 
-    (void)Henv;
     i = 0;
     while(env[i])
     {
         tmp = ft_lstnew_env(get_key(env[i]), get_val(env[i]));
-        if (!tmp)
-            return (0);
-        ft_lstadd_back_env(Henv, tmp);
+		if (!Henv)
+			Henv = &tmp;
+        else
+			ft_lstadd_back_env(Henv, tmp);
         i++;
     }
     return 1;
@@ -85,6 +85,7 @@ int main(int ac, char **av, char **env)
     (void)ac;
     (void)av;
 
+	l_env = NULL;
     get_env(&l_env, env);
 	while (1)
 	{
@@ -100,7 +101,6 @@ int main(int ac, char **av, char **env)
 		exceute_it(&token, &l_env);
 		// I only excute one cmd case still working 
 			// on multiple cmds && handeling pipes fds
-
 	}
 }
 		// printf("%d\n", ft_bultin(cmds, l_env));
