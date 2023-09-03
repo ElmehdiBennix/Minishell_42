@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/01 01:36:05 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/03 22:01:58 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,25 @@
 // 	dup2(fd_new_in, STDIN_FILENO);
 // }
 
-int red_open(t_type red, char *f_name)
+int	red_open(t_token **fds, t_type red, char *f_name)
 {
-	int fd = 0;
-
 	if (red == GREAT)
 	{
-		fd = open(f_name, O_WRONLY | O_CREAT, 0666);
-		if (fd < 0)
-			return (-1);
-		if (dup2(fd, STDOUT_FILENO) < 0)
-			return (-2);	
+		(*fds)->fdout = open(f_name, O_WRONLY | O_CREAT | O_TRUNC, 0654);
+		if ((*fds)->fdout < 0)
+			return (-1);	
 	}
 	else if (red == LESS)
 	{
-		fd = open(f_name, O_RDONLY | O_CREAT, 0666);
-		if (fd < 0)
+		(*fds)->fdin = open(f_name, O_RDONLY | O_CREAT, 0666);
+		if ((*fds)->fdin < 0)
 			return (-1);
-		if (dup2(fd, STDIN_FILENO))
-			return (-2);
 	}
 	else if (red == APPEND)
 	{
-		fd = open(f_name, O_APPEND | O_CREAT, 0666);
-		if (fd < 0)
+		(*fds)->fdout = open(f_name, O_APPEND | O_CREAT, 0666);
+		if ((*fds)->fdout < 0)
 			return (-1);
-		if (dup2(fd, STDOUT_FILENO))
-			return (-2);
 	}
-	return (fd);
+	return (0);// check abut the status
 }

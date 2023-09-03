@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 21:05:55 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/01 01:38:04 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/03 21:53:02 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,38 @@ void	excute_one_cmd(t_token **args, t_env **env)
 	char	*path;
 	char	**splited_path;
 
-	path = value_by_key(*env, "PATH");
-	if(path == NULL)
-		return ;// error handel : PATH NOT FOUND;(to add)
-	splited_path = ft_split(path, ':');
-	int id = fork();
-	if (id == 0)
+
+	if (ft_bultin((*args), (*args)->content, env) == BULT_IN)
+		return ;
+	else
 	{
-		execve(check_path(splited_path, (*args)->content[0]),
-			(*args)->content, get_normal_env(env));// check case of failure
+		path = value_by_key(*env, "PATH");
+		if (path == NULL)
+			return ;// error handel : PATH NOT FOUND;(to add)
+		splited_path = ft_split(path, ':');
+		int id = fork();
+		if (id == 0)
+		{
+			if ((*args)->fdin != 0)
+			{
+				
+				if (dup2((*args)->fdin, STDIN_FILENO) < 0)
+					return ;
+				close((*args)->fdout);
+				close((*args)->fdin);
+			}
+			if ((*args)->fdout != 1)
+			{	
+				if (dup2((*args)->fdout, STDOUT_FILENO) < 0)
+					return ;
+				close((*args)->fdin);
+				close((*args)->fdout);
+			}
+			execve(check_path(splited_path, (*args)->content[0]),
+				(*args)->content, get_normal_env(*env));// check case of failure
+		}
+		wait(NULL);
 	}
-	wait(NULL);
 }
 void	one_cmd(t_token **data, t_env **env)
 {
@@ -66,25 +87,28 @@ void	one_cmd(t_token **data, t_env **env)
 	{
 		if (!ft_strcmp((*data)->content[i], ">"))
 		{
-			status = red_open(GREAT, (*data)->content[i + 1]); 
+			status = red_open(data, GREAT, (*data)->content[i + 1]);
+			free((*data)->content[i]);
 			(*data)->content[i] = NULL;
 		}
 		else if (!ft_strcmp((*data)->content[i], "<"))
 		{
-			status = red_open(LESS, (*data)->content[i + 1]);
+			status = red_open(data, LESS, (*data)->content[i + 1]);
+			free((*data)->content[i]);
 			(*data)->content[i] = NULL;
 		}
 		else if (!ft_strcmp((*data)->content[i], ">>"))
 		{
-			status = red_open(APPEND, (*data)->content[i + 1]);
+			status = red_open(data, APPEND, (*data)->content[i + 1]);
+			free((*data)->content[i]);
 			(*data)->content[i] = NULL;
 		}
 		// else if (!ft_strcmp((*data)->content[i], "<<"))
 		// {
 		// 	// status = here_doc((*data)->content[i + 1]);
 		// }
-		// if (status < 0)
-		// 	exit(0);
+		// // if (status < 0)
+		// // 	exit(0);
 		++i;
 	}
 	excute_one_cmd(data, env);
@@ -94,7 +118,6 @@ void	exceute_it(t_token **data, t_env **env)
 {
 	t_token *iter;
 	int		numb_pipes;
-	// int		**fd;
 
 	iter = *data;
 	numb_pipes = -1;

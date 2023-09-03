@@ -6,13 +6,13 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:30 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/26 19:45:56 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/03 21:46:31 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	me_pwd(char **av, t_env **env)
+void	me_pwd(int fd, char **av, t_env **env)
 {
 	t_env	*tmp;
 	
@@ -23,6 +23,7 @@ void	me_pwd(char **av, t_env **env)
 		tmp = *env;
 		tmp = update_pwd(&tmp, getcwd(NULL, 0));
 	}
-	printf("%s\n", value_by_key(tmp, "PWD"));
+	ft_putstr_fd(value_by_key(tmp, "PWD"), fd);
+	ft_putstr_fd("\n", fd);
 }
 // check for leaks 
