@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/01 01:36:39 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/03 21:55:17 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <fcntl.h>
 
 #define BUFFER_SIZE 1
+
 typedef enum s_type
 {
 	WORD = 1,
@@ -34,7 +35,8 @@ typedef enum s_type
 	GREAT = 5,	  // >
 	LESS = 6,     // <
 	APPEND = 7,   // >>
-	HERE_DOC = 8, // <<
+	HERE_DOC = 8,
+	BULT_IN = 9, // <<
 
 }					t_type;
 
@@ -71,18 +73,18 @@ char	*key_by_value(t_env *env, char *value);
 char	*value_by_key(t_env *env, char *key);
 t_env	*update_pwd(t_env **env, char *pwd);
 t_env	*update_old_pwd(t_env **env, char *oldpwd);
-char	**get_normal_env(t_env **env);
+char	**get_normal_env(t_env *env);
 //built-in functions:
-int		ft_env(t_env *env);
+int		ft_env(int  fd, t_env *env);
 int		mini_exit(char **av, t_env **env, int exit_status);
-int		ft_bultin(char **arg, t_env **env);
+int		ft_bultin(t_token *data, char **arg, t_env **env);
 void 	ft_unset(char **arg, t_env **env);
 void	me_cd(char **av, t_env **env);
-void	my_echo(char **av, t_env **env);
-void	me_pwd(char **av, t_env **env);
+void	my_echo(t_token *data, char **av, t_env **env);
+void	me_pwd(int fd, char **av, t_env **env);
 void	export_it(char **av, t_env **env);
 void	exceute_it(t_token **data, t_env **env);
-int 	red_open(t_type red, char *f_name);
+int		red_open(t_token **fds, t_type red, char *f_name);
 char	*get_next_line(int fd);
 
 // void tokeni(char *f_line);

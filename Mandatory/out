@@ -1,19 +1,13 @@
-total 200
-drwxr-xr-x  17 otaraki  candidate    578 Sep  1 01:40 .
-drwxr-xr-x   8 otaraki  candidate    272 Aug 27 17:54 ..
--rw-r--r--@  1 otaraki  candidate   6148 Sep  1 01:21 .DS_Store
--rw-r--r--   1 otaraki  candidate   1770 Sep  1 01:37 Makefile
--rwxr-xr-x   1 otaraki  candidate  59384 Sep  1 01:40 Minishell
-drwxr-xr-x  18 otaraki  candidate    612 Sep  1 01:37 bin
-drwxr-xr-x   7 otaraki  candidate    238 Sep  1 01:40 exc
--rw-r--r--   1 otaraki  candidate   2210 Aug 31 20:34 fake_struct.c
--rw-r--r--   1 otaraki  candidate   4896 Sep  1 01:37 fake_struct.o
-drwxr-xr-x   4 otaraki  candidate    136 Sep  1 01:37 get_next_line
--rw-r--r--   1 otaraki  candidate    118 Sep  1 01:27 hh
-drwxr-xr-x   3 otaraki  candidate    102 Aug 30 21:47 inc
-drwxr-xr-x  85 otaraki  candidate   2890 Sep  1 01:37 libft
--rw-r--r--   1 otaraki  candidate   2663 Sep  1 01:40 minishell.c
--rw-r--r--   1 otaraki  candidate   5288 Sep  1 01:40 minishell.o
--rw-r--r--   1 otaraki  candidate      0 Sep  1 01:40 out
-drwxr-xr-x  18 otaraki  candidate    612 Sep  1 01:37 utils
-MIMI :^D
+Makefile
+Minishell
+bin
+exc
+fake_struct.c
+fake_struct.o
+get_next_line
+inc
+libft
+minishell.c
+minishell.o
+out
+utils
