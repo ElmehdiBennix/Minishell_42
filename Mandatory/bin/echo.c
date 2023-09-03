@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:03 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/03 21:27:25 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/03 23:42:20 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ void	my_echo(t_token *data, char **av, t_env **env)
 	while (av[i])
 	{
 		if (!flag)
-			write(1, " ", 1);
+			write(data->fdout, " ", 1);
 		ft_putstr_fd(av[i], data->fdout);// file descriptor seted
 		flag = 0;// fixed √
 		i++;
 	}
 	if (option == 0)
-		printf("\n");
+		ft_putstr_fd("\n", data->fdout);
 }

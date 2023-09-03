@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/03 21:55:17 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/03 23:07:19 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	me_pwd(int fd, char **av, t_env **env);
 void	export_it(char **av, t_env **env);
 void	exceute_it(t_token **data, t_env **env);
 int		red_open(t_token **fds, t_type red, char *f_name);
+int		here_doc(int *fdin, char *str);
 char	*get_next_line(int fd);
 
 // void tokeni(char *f_line);
