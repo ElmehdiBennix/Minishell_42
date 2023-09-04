@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/30 03:14:46 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/03 14:49:45 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char    *get_value(char *string , t_mini_data *var) // algor wroking fine need w
         ft_memcpy(exp.new_arg,string+i-j-f,f); // code managment
     }
     buffer = ft_strjoin(buffer,exp.new_arg);
-    printf("joined == %s§\n",buffer);
+    // printf("joined == %s§\n",buffer);
     return (buffer);
 }
 
@@ -86,7 +86,7 @@ int expand(t_token *tokens,t_mini_data *var)
 
     while (arrow)
     {
-        printf("tokken is  = %s => type \"%d\"\n",arrow->content,arrow->type);
+        // printf("tokken is  = %s => type \"%d\"\n",arrow->content,arrow->type);
         if (arrow->type == WORD || arrow->type == DOUBLE_QUOT)
         {
             if (arrow->type == DOUBLE_QUOT)
@@ -99,7 +99,7 @@ int expand(t_token *tokens,t_mini_data *var)
         {
             arrow->content = ft_strtrim(arrow->content,"'"); //free using tmp
         }
-        printf("tok after  = %s\n",arrow->content);
+        // printf("tok after  = %s\n",arrow->content);
         arrow = arrow->forward;
     }
 }

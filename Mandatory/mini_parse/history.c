@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:51:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/01 21:55:33 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/03 14:25:08 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ static bool	last_index(char *prompt)
 	return (0);
 }
 
-static int	open_quote(char *prompt)
+static int	open_quote(t_mini_data *var, char *prompt)
 {
 	int		i;
 	bool	status;
 	char	quot;
-	int		pipe;
+	int		command_table;
 
-	pipe = 1; // needed later for the struct
+	command_table = 1; // needed later for the struct
 	i = 0;
 	status = false;
 	while (prompt[i])
@@ -92,7 +92,7 @@ static int	open_quote(char *prompt)
 			if (prompt[++i] && prompt[i] == '|')
 				return (-1);
 			i--;
-			pipe++;
+			command_table++;
 		}
 		if (prompt[i] == 34 || prompt[i] == 39)
 		{
@@ -106,7 +106,7 @@ static int	open_quote(char *prompt)
 		}
 		i++;
 	}
-	printf("pipes == %d\n",pipe);
+	var->nodes = command_table;
 	return (status);
 }
 
@@ -117,7 +117,7 @@ bool	shell_history(t_mini_data *var, char *prompt)
 	add_history(prompt);
 	if (first_index(prompt) == 1 || last_index(prompt) == 1)
 		return (free(prompt), var->err_no = 2, 1); // conti save hist
-	int error = open_quote(prompt);
+	int error = open_quote(var , prompt);
 	if (error == 1)
 	{
 		ft_fprintf(2, "le minishell: syntax error `open quote'\n");

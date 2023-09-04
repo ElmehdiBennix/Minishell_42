@@ -1,0 +1,15 @@
+total 156
+drwxr-xr-x 7 bennix bennix  4096 Sep  3 14:53 .
+drwxr-xr-x 8 bennix bennix  4096 Aug 30 01:59 ..
+-rw-r--r-- 1 bennix bennix     0 Sep  3 14:53 cat
+drwxr-xr-x 8 bennix bennix  4096 Sep  1 23:01 .git
+-rw-r--r-- 1 bennix bennix  2368 Aug 14 14:38 .gitignore
+drwxr-xr-x 6 bennix bennix  4096 Sep  1 23:02 lib
+-rw-r--r-- 1 bennix bennix 35149 Aug 30 01:19 LICENSE
+-rw-r--r-- 1 bennix bennix  2098 Aug 30 01:19 Makefile
+drwxr-xr-x 9 bennix bennix  4096 Sep  3 14:53 Mandatory
+-rwxr-xr-x 1 bennix bennix 77784 Sep  3 14:53 Minishell
+-rw-r--r-- 1 bennix bennix   175 Aug 30 01:19 README.md
+-rw-r--r-- 1 bennix bennix  3608 Sep  3 14:05 s1.out
+drwxr-xr-x 2 bennix bennix  4096 Aug 30 01:19 subject
+drwxr-xr-x 2 bennix bennix  4096 Aug 30 01:19 .vscode

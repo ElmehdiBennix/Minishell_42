@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:18:41 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/25 00:43:39 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/03 14:59:14 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	tokens_checker(t_token *token)
 {
+	void *tmp = NULL;
+
 	if ((token->type == PIPE && token->forward->type == PIPE)
 		|| (token->type == GREAT && token->forward->type == GREAT)
 		|| (token->type == GREAT && token->forward->type == LESS)
@@ -40,6 +42,14 @@ int	tokens_checker(t_token *token)
 		ft_fprintf(2, "le minishell: syntax error near unexpected token `%s'\n",
 				token->forward->content);
 		return (1); // set erno and free repeat loop
+	}
+	else if ((token->type == GREAT && token->space_after == FALSE
+			&& token->forward->type == PIPE))
+	{
+		tmp = token->forward;
+		token->forward->forward->backward = token;
+		token->forward = token->forward->forward;
+		free(tmp); // need to decrement the nodes value
 	}
 	return (0);
 }

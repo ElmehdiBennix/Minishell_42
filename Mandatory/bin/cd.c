@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:52:57 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/03 11:16:17 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/01 23:03:13 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 void	get_cur_path(t_env *env, int flg)
 {
 	char	*path;
-	
+
 	if (flg == 0)
 	{
 		path = getcwd(NULL, 0);
 		env = update_old_pwd(env, path);
 		free(path);
 	}
-	else if(flg == 1)
+	else if (flg == 1)
 	{
 		path = getcwd(NULL, 0);
 		env = update_pwd(env, path);
@@ -49,5 +49,5 @@ void	me_cd(char **av, t_env *env)
 	get_cur_path(env, 1);
 }
 // cd -
-// if someone unseted  HOME delet the node with OLDPWD AS KEY 
+// if someone unseted  HOME delet the node with OLDPWD AS KEY
 // check for leaks
