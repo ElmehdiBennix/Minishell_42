@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/01 22:49:24 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/03 14:13:18 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_token
 	t_type			type;
 	struct s_token	*forward;
 	struct s_token	*backward;
-}					t_token; // herdoc first == dup input < pipe or file_hiddenz
+}					t_token; 	// herdoc first == dup input < pipe or file_hiddenz
 
 typedef struct s_redirection
 {
@@ -70,10 +70,10 @@ typedef struct s_mini_data
 	char					**path_var;
 	char					*PWD;
 	char					*OLD_PWD;
+	int						nodes;
 	struct s_token			*tokens;
 	struct s_command_table	*exec_data;
 }					t_mini_data;
-
 
 // typedef struct	s_sig
 // {
@@ -90,15 +90,6 @@ typedef struct	s_expansions
 	int				j;
 }				t_expansions;
 
-// typedef      //pipe split commands
-// {
-//     char    **command;
-//     // int     ;
-//     // int     ;
-//     // int     ;
-//     struct   *forward;
-//     struct   *backward;
-// }
 
 //char ** // split pipe with herdog
 // pointer foraw

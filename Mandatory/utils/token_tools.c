@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:21:30 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/22 22:56:23 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/03 15:05:13 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void    ft_lstdoubly(t_token **head , t_token *node)
 
     if (*head == NULL)
         *head = node;
-    else if(node == NULL)
+    else if (node == NULL)
         return; // error
     else
     {
