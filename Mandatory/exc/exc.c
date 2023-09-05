@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 21:05:55 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/03 23:45:14 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/05 22:58:49 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	excute_one_cmd(t_token **args, t_env **env)
 		{
 			if ((*args)->fdin != 0)
 			{
-				
 				if (dup2((*args)->fdin, STDIN_FILENO) < 0)
 					return ;
 				close((*args)->fdin);
@@ -73,6 +72,7 @@ void	excute_one_cmd(t_token **args, t_env **env)
 				if (dup2((*args)->fdout, STDOUT_FILENO) < 0)
 					return ;
 				close((*args)->fdout);
+				close(STDOUT_FILENO);
 			}
 			execve(str, (*args)->content, get_normal_env(*env));// check case of failure
 		}
@@ -101,13 +101,15 @@ void	one_cmd(t_token **data, t_env **env)
 		}
 		else if (!ft_strcmp((*data)->content[i], ">>"))
 		{
+			appaned(&(*data)->fdin, (*data)->content[i + 1]);
 			status = red_open(data, APPEND, (*data)->content[i + 1]);
 			free((*data)->content[i]);
 			(*data)->content[i] = NULL;
 		}
 		else if (!ft_strcmp((*data)->content[i], "<<"))
 		{
-			status = here_doc(&(*data)->fdin ,(*data)->content[i + 1]);
+			here_doc(&(*data)->fdin ,(*data)->content[i + 1]);
+			status = red_open(data, HERE_DOC, "/tmp/here_doc");
 			free((*data)->content[i]);
 			(*data)->content[i] = NULL;
 		}
@@ -131,7 +133,5 @@ void	exceute_it(t_token **data, t_env **env)
 		iter = iter->forward;// I am gonna check if theres a | 
 	}
 	if (numb_pipes == 0)
-	{
 		one_cmd(data, env);
-	}
 }
