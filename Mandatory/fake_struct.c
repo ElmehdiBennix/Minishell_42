@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 17:41:44 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/31 20:34:23 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/05 20:54:57 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ t_token *fake_struct(char **cmd)
 			ft_lstadd_back_token(&token, new_token);
 			i++;
 		}
-		// printf("%d\n", i);
 		return token;
 	}
 }
