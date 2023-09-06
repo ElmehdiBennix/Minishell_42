@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/08/30 00:07:46 by ebennix          ###   ########.fr        #
+#    Updated: 2023/09/06 04:18:38 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ FILES := Mandatory/minishell\
 		 Mandatory/utils/updates\
 		 Mandatory/utils/ft_sort_list\
 		 Mandatory/grouper/group\
+		 Mandatory/grouper/linker\
 
 SRC := $(FILES:=.c)
 

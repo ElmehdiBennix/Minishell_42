@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/03 14:49:45 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/06 01:05:41 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ char    *get_value(char *string , t_mini_data *var) // algor wroking fine need w
     return (buffer);
 }
 
-int expand(t_token *tokens,t_mini_data *var)
+int expand(t_mini_data *var)
 {
-    t_token *arrow = tokens;
+    t_token *arrow = var->tokens;
 
     while (arrow)
     {

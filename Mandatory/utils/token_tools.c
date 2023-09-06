@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:21:30 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/03 15:05:13 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/06 21:56:50 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void    get_type(t_token *token , int moves)
     {
         if (ft_strncmp(token->content,">>",2) == 0)
             token->type = APPEND;
-        if (ft_strncmp(token->content,"<<",2) == 0)
+        else if (ft_strncmp(token->content,"<<",2) == 0)
             token->type = HERE_DOC;
         else
             token->type = 10;
@@ -50,7 +50,7 @@ void    get_type(t_token *token , int moves)
 
 void    ft_lstdoubly(t_token **head , t_token *node)
 {
-    t_token* current = *head;
+    t_token* arrow = *head;
 
     if (*head == NULL)
         *head = node;
@@ -58,10 +58,11 @@ void    ft_lstdoubly(t_token **head , t_token *node)
         return; // error
     else
     {
-        while (current->forward != NULL)
-            current = current->forward;
-        current->forward = node;
-        node->backward = current;
+        while (arrow->forward != NULL)
+            arrow = arrow->forward;
+        arrow->forward = node;
+        node->backward = arrow;
         node->forward = NULL;
     }
 }
+

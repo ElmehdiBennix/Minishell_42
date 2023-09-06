@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/03 14:13:18 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/06 04:05:18 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef enum s_type
 	LESS = 6, // flags
 	APPEND = 7,   // >>
 	HERE_DOC = 8, // << 
-
 }					t_type;
 
 typedef struct s_env
@@ -34,6 +33,13 @@ typedef struct s_env
     char *value;
     struct s_env *next;
 }           t_env;
+
+typedef struct	s_expansions
+{
+	char			*new_arg;
+	int				i;
+	int				j;
+}				t_expansions;
 
 typedef struct s_token
 {
@@ -58,14 +64,13 @@ typedef struct s_command_table
 	char 					**cmds_array;
 	struct s_redirection	*redir;
 	struct s_mini_data		*var;
-	struct s_token			*forward;
-	struct s_token			*backward;
+	struct s_command_table	*forward;
+	struct s_command_table	*backward;
 }				t_command_table;
 
 typedef struct s_mini_data
 {
 	int						err_no;
-	// char			**env_var;
 	struct s_env			*env_var;
 	char					**path_var;
 	char					*PWD;
@@ -82,18 +87,5 @@ typedef struct s_mini_data
 // 	int				exit_status;
 // 	pid_t			pid;
 // }				t_sig;
-
-typedef struct	s_expansions
-{
-	char			*new_arg;
-	int				i;
-	int				j;
-}				t_expansions;
-
-
-//char ** // split pipe with herdog
-// pointer foraw
-// back
-// each node has a **pointer next means pipe
 
 #endif

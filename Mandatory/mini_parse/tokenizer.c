@@ -6,13 +6,13 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:18:41 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/03 14:59:14 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/06 21:52:53 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	tokens_checker(t_token *token)
+int	tokens_checker(t_token *token, int *nodes)
 {
 	void *tmp = NULL;
 
@@ -49,18 +49,19 @@ int	tokens_checker(t_token *token)
 		tmp = token->forward;
 		token->forward->forward->backward = token;
 		token->forward = token->forward->forward;
+		(*nodes)--;
 		free(tmp); // need to decrement the nodes value
 	}
 	return (0);
 }
 
-bool	tokenizer(t_token *tokens)
+bool	tokenizer(t_mini_data *var)
 {
 	t_token			*arrow;
 	unsigned int	i;
 	int				token_number;
 
-	arrow = tokens;
+	arrow = var->tokens;
 	i = 0;
 	token_number = 0;
 	while (arrow->forward)
@@ -68,7 +69,7 @@ bool	tokenizer(t_token *tokens)
 		arrow->id = i;
 		if ((arrow->type >= PIPE && arrow->type <= HERE_DOC))
 		{
-			tokens_checker(arrow);
+			tokens_checker(arrow , &var->nodes);
 			token_number++;
 		}
 		else if (arrow->type >= WORD && arrow->type <= DOUBLE_QUOT)
