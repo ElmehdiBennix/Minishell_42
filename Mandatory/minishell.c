@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/03 14:57:35 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/06 21:38:01 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,31 +85,36 @@ static void	parse_loop(t_mini_data *var, char *prompt) // void for now might cha
 	prompt = ft_strtrim(prompt, " ");
 	var->tokens = get_tokens(prompt);
 	free(prompt);
-	tokenizer(var->tokens);
-	expand(var->tokens,var);
-    // t_token *tok = var->tokens;
-    // while(tok->forward)
-    // {
-    //     printf("token == %s\n",tok->content);
-    //     tok = tok->forward;
-    // }
-    // printf("token == %s\n",tok->content);
-    // printf("***************\n");
-    // while(tok->backward)
-    // {
-    //     printf("token == %s\n",tok->content);
-    //     tok = tok->backward;
-    // }
-    // printf("token == %s\n",tok->content);
+    // printf("nodes = %d \n",var->nodes);
+	tokenizer(var);
+	expand(var);
+    // printf("nodes 2 = %d \n",var->nodes);
+    t_token *tok = var->tokens;
+    while(tok)
+    {
+        printf("token == %s\n",tok->content);
+        tok = tok->forward;
+    }
 	group_args(var);
-
-	// t_token *arrow = var->tokens;
-	// while(arrow)
-	// {
-	// 	printf("%s\n",arrow->content);
-	// 	arrow = arrow->forward;
-	// }
-	// expand(var->tokens);
+    linker(var);
+    t_command_table *cmds = var->exec_data;
+    int i ;
+    while(cmds)
+    {
+        i = 0;
+        while(cmds->cmds_array[i])
+        {
+            printf("args == %s\n",cmds->cmds_array[i]);
+            i++;
+        }
+        printf("args == %s\n",cmds->cmds_array[i]);
+        while(cmds->redir)
+        {
+            printf("redirection file == %s , type == %d\n",cmds->redir->file_name,cmds->redir->redirection);
+            cmds->redir = cmds->redir->next;
+        }
+        cmds = cmds->forward;
+    }
 	
 }
 
