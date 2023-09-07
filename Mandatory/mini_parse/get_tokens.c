@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/06 02:37:25 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/07 21:47:09 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_token	*char_handler(char *prompt, int *i)
 	token->content = ft_calloc(moves + 1, sizeof(char));
 	ft_strlcpy(token->content, &prompt[backward], moves + 1);
 	token->type = WORD;
-	if (prompt[*i] == ' ' || prompt[*i] == '\0')
+	if (ft_iswhite_space(prompt[*i]) == 1 || prompt[*i] == '\0')
 		token->space_after = 1;
 	else
 		token->space_after = 0;
@@ -55,7 +55,7 @@ static t_token	*QUOT_handler(char *prompt, int *i, char QUOT_type)
 	backward = (*i) - moves - 2;
 	token->content = ft_calloc(moves + 3, sizeof(char)); // protect
 	ft_strlcpy(token->content, &prompt[backward], moves + 3);
-	if (prompt[*i] == ' ' || prompt[*i] == '\0')
+	if (ft_iswhite_space(prompt[*i]) == 1 || prompt[*i] == '\0')
 		token->space_after = 1;
 	else
 		token->space_after = 0;
@@ -93,7 +93,7 @@ static t_token	*separateur_handler(char *prompt, int *i)
 	token->content = ft_calloc(moves + 1, sizeof(char));
 	ft_strlcpy(token->content, &prompt[backward], moves + 1);
 	get_type(token, moves);
-	if (prompt[*i] == ' ')
+	if (ft_iswhite_space(prompt[*i]) == 1)
 		token->space_after = 1;
 	else
 		token->space_after = 0;
