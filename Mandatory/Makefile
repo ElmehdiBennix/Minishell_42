@@ -6,7 +6,7 @@
 #    By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/09/05 22:00:20 by otaraki          ###   ########.fr        #
+#    Updated: 2023/09/07 17:17:59 by otaraki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,14 @@ ARCH := libft/libft.a
 
 CC := cc 
 
-CFLAGS := -g -Wall -Wextra -Werror
+CFLAGS := -g -Wall -Wextra -Werror -fsanitize=address
 
 HEADER := inc/minishell.h
 
 FILES := minishell fake_struct\
 		utils/ft_lstnew_env utils/ft_lstadd_back_env utils/ft_remove_node utils/ft_strcmp utils/get_back_env\
 		bin/ft_bultins bin/env bin/unset bin/cd bin/echo bin/pwd bin/exit bin/export get_next_line/get_next_line\
-		utils/get_key utils/updates utils/ft_sort_list exc/exc exc/redirections
+		utils/get_key utils/updates utils/ft_sort_list exc/exc exc/redirections exc/pipe_handler
 
 SRC := $(FILES:=.c)
 
