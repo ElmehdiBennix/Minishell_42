@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/05 23:07:28 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/05 23:28:38 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int here_doc(int *fdin, char *str)
 	return 0;
 }
 
-int	appaned(int *fdout, char *strout)
+int	append(int *fdout, char *strout)
 {
 	char	*line;
 

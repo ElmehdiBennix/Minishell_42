@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 21:05:55 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/05 22:58:49 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/07 13:32:16 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	one_cmd(t_token **data, t_env **env)
 		}
 		else if (!ft_strcmp((*data)->content[i], ">>"))
 		{
-			appaned(&(*data)->fdin, (*data)->content[i + 1]);
+			append(&(*data)->fdin, (*data)->content[i + 1]);
 			status = red_open(data, APPEND, (*data)->content[i + 1]);
 			free((*data)->content[i]);
 			(*data)->content[i] = NULL;
@@ -134,4 +134,6 @@ void	exceute_it(t_token **data, t_env **env)
 	}
 	if (numb_pipes == 0)
 		one_cmd(data, env);
+	// else 
+		// multi_cmd(data, env, numb_pipes);
 }
