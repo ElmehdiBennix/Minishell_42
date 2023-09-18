@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:18 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/22 23:58:14 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/08/26 19:47:08 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../inc/minishell.h"
 
@@ -41,7 +42,7 @@ void	check_valid_args(char **ag, int *ex, int *index)
 		printf("too many args\n");
 	}
 }
-int	mini_exit(char **av, t_env *env, int exit_status)
+int	mini_exit(char **av, t_env **env, int exit_status)
 {
 	int		i;
 

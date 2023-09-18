@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/09/06 04:18:38 by ebennix          ###   ########.fr        #
+#    Updated: 2023/09/18 01:20:37 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ ARCH := lib/lib_42.a
 CC := cc 
 
 CFLAGS := -g -Wall -Wextra 
-# -Werror 
+# -Werror
+# -fsanitize=address
 
 HEADER := Mandatory/inc/minishell.h
 
@@ -25,25 +26,30 @@ FILES := Mandatory/minishell\
 		 Mandatory/mini_parse/tokenizer\
 		 Mandatory/mini_parse/get_tokens\
 		 Mandatory/mini_parse/history\
-		 Mandatory/utils/token_tools\
 		 Mandatory/expand/mini_exp\
-		 Mandatory/utils/ft_lstnew_env\
-		 Mandatory/utils/ft_lstadd_back\
-		 Mandatory/utils/ft_remove_node\
-		 Mandatory/utils/ft_strcmp\
-		 Mandatory/bin/ft_bultins\
-		 Mandatory/bin/env\
-		 Mandatory/bin/unset\
-		 Mandatory/bin/cd\
-		 Mandatory/bin/echo\
-		 Mandatory/bin/pwd\
-		 Mandatory/bin/exit\
-		 Mandatory/bin/export\
-		 Mandatory/utils/get_key\
-		 Mandatory/utils/updates\
-		 Mandatory/utils/ft_sort_list\
 		 Mandatory/grouper/group\
 		 Mandatory/grouper/linker\
+		 Mandatory/fake_struct\
+		 Mandatory/utils/token_tools\
+		 Mandatory/utils/ft_lstnew_env \
+		 Mandatory/utils/ft_lstadd_back_env \
+		 Mandatory/utils/ft_remove_node \
+		 Mandatory/utils/ft_strcmp \
+		 Mandatory/utils/get_back_env\
+		 Mandatory/utils/get_key \
+		 Mandatory/utils/updates \
+		 Mandatory/utils/ft_sort_list \
+		 Mandatory/bin/ft_bultins \
+		 Mandatory/bin/env \
+		 Mandatory/bin/unset \
+		 Mandatory/bin/cd \
+		 Mandatory/bin/echo \
+		 Mandatory/bin/pwd \
+		 Mandatory/bin/exit \
+		 Mandatory/bin/export\
+		 Mandatory/exc/exc \
+		 Mandatory/exc/redirections \
+		 Mandatory/exc/pipe_handler\
 
 SRC := $(FILES:=.c)
 
