@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/18 01:33:56 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/18 03:01:33 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,25 @@ int get_env(t_env **Henv, char **env)
     return 1;
 }
 
-// static void	exec_loop(t_mini_data *var) // void for now might change it in the future
-// {
-    
+static void	exec_loop(t_mini_data *var) // void for now might change it in the future
+{
+    // void exceute_it(_prototype **data, t_env **env)
+	t_command_table *iter;
+	int numb_pipes;
 
-// }
+	iter = var->exec_data;
+	numb_pipes = -1;
+	while (iter)
+	{
+		open_red(&iter, iter->redir, var->env_var);
+		numb_pipes++;
+		iter = iter->forward;
+	}
+	// if (var->nodes == 1) // 1
+	// 	one_cmd(data, (*data)->content, env);
+	// else
+	// 	multi_cmd(data, env);
+}
 
 static void	parse_loop(t_mini_data *var, char *prompt) // void for now might change it in the future
 {
@@ -90,86 +104,86 @@ static void	parse_loop(t_mini_data *var, char *prompt) // void for now might cha
 	tokenizer(var);
 	expand(var);
     // printf("nodes 2 = %d \n",var->nodes);
-    t_token *tok = var->tokens;
-    while(tok)
-    {
-        printf("token == %s\n",tok->content);
-        tok = tok->forward;
-    }
+    // t_token *tok = var->tokens;
+    // while(tok)
+    // {
+    //     printf("token == %s\n",tok->content);
+    //     tok = tok->forward;
+    // }
 	group_args(var);
     linker(var);
-    t_command_table *cmds = var->exec_data;
-    int i ;
-    while(cmds)
-    {
-        i = 0;
-        while(cmds->cmds_array[i])
-        {
-            printf("args == %s\n",cmds->cmds_array[i]);
-            i++;
-        }
-        printf("args == %s\n",cmds->cmds_array[i]);
-        while(cmds->redir)
-        {
-            printf("redirection file == %s , type == %d\n",cmds->redir->file_name,cmds->redir->redirection);
-            cmds->redir = cmds->redir->next;
-        }
-        cmds = cmds->forward;
-    }
-	
+    // t_command_table *cmds = var->exec_data;
+    // int i ;
+    // while(cmds)
+    // {
+    //     i = 0;
+    //     while(cmds->cmds_array[i])
+    //     {
+    //         printf("args == %s\n",cmds->cmds_array[i]);
+    //         i++;
+    //     }
+    //     printf("args == %s\n",cmds->cmds_array[i]);
+    //     while(cmds->redir)
+    //     {
+    //         printf("redirection file == %s , type == %d\n",cmds->redir->file_name,cmds->redir->redirection);
+    //         cmds->redir = cmds->redir->next;
+    //     }
+    //     cmds = cmds->forward;
+    // }
 }
 
-int main(int ac, char **av, char **env)
-{
-    t_env *l_env;
-	char *content;
-	char **cmds;
-	_prototype *token;
-	
-    (void)ac;
-    (void)av;
-
-	l_env = NULL;
-    get_env(&l_env, env);
-	while (1)
-	{
-		content = readline("-->MIMI :");
-		if (content == NULL)
-			break  ;
-		cmds = ft_split(content, '|');
-		if (cmds == NULL)
-			continue ;
-		token = fake_struct(cmds);
-		if (!token)
-			continue ;
-		exceute_it(&token, &l_env);
-	}
-	printf("reached parent\n");
-}
-
-// int	main(int ac, char **av, char **env)
+// int main(int ac, char **av, char **env)
 // {
-// 	char		*prompt;
-// 	t_mini_data	var;
+//     t_env *l_env;
+// 	char *content;
+// 	char **cmds;
+// 	_prototype *token;
+	
+//     (void)ac;
+//     (void)av;
 
-// 	(void)av;
-// 	var.err_no = 0;
-// 	var.env_var = NULL;
-// 	get_env(&var.env_var,env);
-// 	if (ac == 1)
+// 	l_env = NULL;
+//     get_env(&l_env, env);
+
+// 	while (1)
 // 	{
-// 		while (1)
-// 		{
-// 			// prompt = prompt_generator(&var);
-// 			// signals --
-// 			prompt = readline(GREEN "-> le minishit" DEFAULT "$ "); // should display corrent dir and exit msgs zith colors sigf when cntr+ c or sm protect read line and make signales work
-// 			// trim 
-//             if (shell_history(&var, prompt) == 1) // dosent store tabs empty line or empty spaces stinn needs fa function
-// 				continue;
-// 			parse_loop(&var, prompt);
-// 			// exec_loop();
-// 		}
-// 		return (0);
+// 		content = readline("-->MIMI :");
+// 		if (content == NULL)
+// 			break  ;
+// 		cmds = ft_split(content, '|');
+// 		if (cmds == NULL)
+// 			continue ;
+// 		token = fake_struct(cmds);
+// 		if (!token)
+// 			continue ;
+// 		exceute_it(&token, &l_env);
 // 	}
-// 	return (ft_fprintf(2,"le minishell: this shell does not accept any arguments !!\n"),127);
+// 	printf("reached parent\n");
 // }
+
+int	main(int ac, char **av, char **env)
+{
+	char		*prompt;
+	t_mini_data	var;
+
+	(void)av;
+	var.err_no = 0;
+	var.env_var = NULL;
+	get_env(&var.env_var,env);
+	if (ac == 1)
+	{
+		while (1)
+		{
+			// prompt = prompt_generator(&var);           
+            // signals --
+			prompt = readline(GREEN "-> le minishit" DEFAULT "$ "); // should display corrent dir and exit msgs zith colors sigf when cntr+ c or sm protect read line and make signales work
+			// trim 
+            if (shell_history(&var, prompt) == 1) // dosent store tabs empty line or empty spaces stinn needs fa function
+				continue;
+			parse_loop(&var, prompt);
+			exec_loop(&var);
+		}
+		return (0);
+	}
+	return (ft_fprintf(2,"le minishell: this shell does not accept any arguments !!\n"),127);
+}

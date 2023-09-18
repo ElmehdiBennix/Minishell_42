@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/09/18 01:20:37 by ebennix          ###   ########.fr        #
+#    Updated: 2023/09/18 02:07:42 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,14 +23,14 @@ CFLAGS := -g -Wall -Wextra
 HEADER := Mandatory/inc/minishell.h
 
 FILES := Mandatory/minishell\
-		 Mandatory/mini_parse/tokenizer\
-		 Mandatory/mini_parse/get_tokens\
-		 Mandatory/mini_parse/history\
-		 Mandatory/expand/mini_exp\
-		 Mandatory/grouper/group\
-		 Mandatory/grouper/linker\
 		 Mandatory/fake_struct\
-		 Mandatory/utils/token_tools\
+		 Mandatory/parse/tokenizer\
+		 Mandatory/parse/catch_tokens\
+		 Mandatory/parse/history\
+		 Mandatory/parse/expand\
+		 Mandatory/parse/allocate_groups\
+		 Mandatory/parse/linker\
+		 Mandatory/parse/token_tools\
 		 Mandatory/utils/ft_lstnew_env \
 		 Mandatory/utils/ft_lstadd_back_env \
 		 Mandatory/utils/ft_remove_node \
@@ -47,9 +47,9 @@ FILES := Mandatory/minishell\
 		 Mandatory/bin/pwd \
 		 Mandatory/bin/exit \
 		 Mandatory/bin/export\
-		 Mandatory/exc/exc \
-		 Mandatory/exc/redirections \
-		 Mandatory/exc/pipe_handler\
+		 Mandatory/execution/exc \
+		 Mandatory/execution/redirections \
+		 Mandatory/execution/pipe_handler\
 
 SRC := $(FILES:=.c)
 

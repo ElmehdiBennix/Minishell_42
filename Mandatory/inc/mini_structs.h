@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/18 01:56:22 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/18 02:47:48 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ typedef struct s_token
 
 typedef struct s_redirection
 {
-	int		fd;
+	int 	fdin;
+	int 	fdout;
 	char 	*file_name;
 	t_type	redirection;
 	struct	s_redirection *next;   // ls > a > b > c create a next b till last then dup output only c is // read write flag--
@@ -68,15 +69,23 @@ typedef struct s_command_table
 	struct s_command_table	*forward;
 	struct s_command_table	*backward;
 }				t_command_table;
+typedef struct prototype
+{
+	char				**content;
+	t_type				type;
+	int 				fdin;
+	int 				fdout;
+	int					shell_lev;
+	struct prototype	*forward;
+	struct prototype	*backward;
+}					_prototype;
 
 typedef struct s_mini_data
 {
 	int						err_no;
 	struct s_env			*env_var;
-	char					**path_var;
-	char					*PWD;
-	char					*OLD_PWD;
 	int						nodes;
+	int						shell_lev;
 	struct s_token			*tokens;
 	struct s_command_table	*exec_data;
 }					t_mini_data;
@@ -91,17 +100,6 @@ typedef struct s_mini_data
 
 // proto
 
-typedef struct prototype
-{
-	char			**content;
-	// char			**red_files;
-	t_type			type;
-	int 			fdin;
-	int 			fdout;
-	int				shell_lev;
-	struct prototype	*forward;
-	struct prototype	*backward;
-}					_prototype;
 
 
 #endif
