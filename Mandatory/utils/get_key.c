@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_key.c                                          :+:      :+:    :+:   */
+/*   get_key copy.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 11:39:43 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/30 00:01:13 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/18 00:36:48 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ char	*value_by_key(t_env *env, char *key)
 
 	tmp = env;
 	while (tmp)
-	{ // if $? return it for error prinitng
-		if (ft_strcmp(tmp->key, key) == 0)
+	{
+		if (ft_strcmp(tmp->key, key) == 0)  // if ( $? return error code atoi)
 			return(tmp->value);
 		tmp = tmp->next;
 	}

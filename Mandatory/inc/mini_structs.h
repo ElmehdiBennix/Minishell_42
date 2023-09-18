@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/06 04:05:18 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/18 01:56:22 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef enum s_type
 	LESS = 6, // flags
 	APPEND = 7,   // >>
 	HERE_DOC = 8, // << 
+
 }					t_type;
 
 typedef struct s_env
@@ -87,5 +88,20 @@ typedef struct s_mini_data
 // 	int				exit_status;
 // 	pid_t			pid;
 // }				t_sig;
+
+// proto
+
+typedef struct prototype
+{
+	char			**content;
+	// char			**red_files;
+	t_type			type;
+	int 			fdin;
+	int 			fdout;
+	int				shell_lev;
+	struct prototype	*forward;
+	struct prototype	*backward;
+}					_prototype;
+
 
 #endif

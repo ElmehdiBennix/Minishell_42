@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/06 21:38:01 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/18 01:33:56 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char *get_key(char *line)
 char *get_val(char *line)
 {
     char *val;
-
     int i;
     int j;
 
@@ -67,9 +66,10 @@ int get_env(t_env **Henv, char **env)
     while(env[i])
     {
         tmp = ft_lstnew_env(get_key(env[i]), get_val(env[i]));
-        if (!tmp)
-            return (0);
-        ft_lstadd_back_env(Henv, tmp);
+		if (!Henv)
+			Henv = &tmp;
+        else
+			ft_lstadd_back_env(Henv, tmp);
         i++;
     }
     return 1;
@@ -77,6 +77,7 @@ int get_env(t_env **Henv, char **env)
 
 // static void	exec_loop(t_mini_data *var) // void for now might change it in the future
 // {
+    
 
 // }
 
@@ -118,28 +119,57 @@ static void	parse_loop(t_mini_data *var, char *prompt) // void for now might cha
 	
 }
 
-int	main(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
-	char		*prompt;
-	t_mini_data	var;
+    t_env *l_env;
+	char *content;
+	char **cmds;
+	_prototype *token;
+	
+    (void)ac;
+    (void)av;
 
-	(void)av;
-	var.err_no = 0;
-	var.env_var = NULL;
-	get_env(&var.env_var,env);
-	if (ac == 1)
+	l_env = NULL;
+    get_env(&l_env, env);
+	while (1)
 	{
-		while (1)
-		{
-			// prompt = prompt_generator(&var);
-			// signals --
-			prompt = readline(GREEN "-> le minishit" DEFAULT "$ "); // should display corrent dir and exit msgs zith colors sigf when cntr+ c or sm protect read line and make signales work
-			if (shell_history(&var, prompt) == 1) // dosent store tabs empty line or empty spaces stinn needs fa function
-				continue ;
-			parse_loop(&var, prompt);
-			// exec_loop();
-		}
-		return (0);
+		content = readline("-->MIMI :");
+		if (content == NULL)
+			break  ;
+		cmds = ft_split(content, '|');
+		if (cmds == NULL)
+			continue ;
+		token = fake_struct(cmds);
+		if (!token)
+			continue ;
+		exceute_it(&token, &l_env);
 	}
-	return (ft_fprintf(2,"le minishell: this shell does not accept any arguments !!\n"),127);
+	printf("reached parent\n");
 }
+
+// int	main(int ac, char **av, char **env)
+// {
+// 	char		*prompt;
+// 	t_mini_data	var;
+
+// 	(void)av;
+// 	var.err_no = 0;
+// 	var.env_var = NULL;
+// 	get_env(&var.env_var,env);
+// 	if (ac == 1)
+// 	{
+// 		while (1)
+// 		{
+// 			// prompt = prompt_generator(&var);
+// 			// signals --
+// 			prompt = readline(GREEN "-> le minishit" DEFAULT "$ "); // should display corrent dir and exit msgs zith colors sigf when cntr+ c or sm protect read line and make signales work
+// 			// trim 
+//             if (shell_history(&var, prompt) == 1) // dosent store tabs empty line or empty spaces stinn needs fa function
+// 				continue;
+// 			parse_loop(&var, prompt);
+// 			// exec_loop();
+// 		}
+// 		return (0);
+// 	}
+// 	return (ft_fprintf(2,"le minishell: this shell does not accept any arguments !!\n"),127);
+// }

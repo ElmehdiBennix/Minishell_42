@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:03 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/03 12:01:18 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/18 01:14:57 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ static int	check_option(char **av)
 	}
 	return (flg);
 }
-// i still need to handel the option case
 
-void	my_echo(char **av, t_env *env)
+void	my_echo(_prototype *data, char **av, t_env **env)
 {
 	int	i;
 	int	option;
 	int flag;
 
 	(void)env;
+	(void)data;
 	i = 1;
 	option = check_option(av);
 	if (option != 0)
@@ -54,11 +54,11 @@ void	my_echo(char **av, t_env *env)
 	{
 		if (!flag)
 			write(1, " ", 1);
-		ft_putstr_fd(av[i], 1);// file descriptor not set yet
+		ft_putstr_fd(av[i], 1);
 		flag = 0;
-		// write(1, " ", 1);// should handle space befor args
 		i++;
 	}
 	if (option == 0)
-		printf("\n");
+		ft_putstr_fd("\n", 1);
 }
+//all fixed
