@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/18 01:15:14 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/18 03:02:31 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,38 +68,35 @@ int	red_open(int *fds, t_type red, char *f_name)
 }
 
 
-void	open_red(_prototype **data, char **cmds,  t_env **env)
+void	open_red(_prototype **data, t_redirection *redi,  t_env **env)
 {
 	size_t i;
 	int status; // close all file descriptors in the parent and child process
 
 	i = 0;
 	(void)env;
-	while(cmds[i])
+	while(redi)
 	{
 		if (!ft_strcmp(cmds[i], ">"))
+		if (redi.)
 		{
 			status = red_open(&(*data)->fdout, GREAT, cmds[i + 1]);
-			free(cmds[i]);
 			cmds[i] = NULL;
 		}
 		else if (!ft_strcmp(cmds[i], "<"))
 		{
 			status = red_open(&(*data)->fdin, LESS, cmds[i + 1]);
-			free(cmds[i]);
 			cmds[i] = NULL;
 		}
 		else if (!ft_strcmp(cmds[i], ">>"))
 		{
 			status = red_open(&(*data)->fdout, APPEND, cmds[i + 1]);
-			free(cmds[i]);
 			cmds[i] = NULL;
 		}
 		else if (!ft_strcmp(cmds[i], "<<"))
 		{
 			here_doc(&(*data)->fdin ,cmds[i + 1]);
 			status = red_open(&(*data)->fdin, HERE_DOC, "/tmp/here_doc");
-			free(cmds[i]);
 			cmds[i] = NULL;
 		}
 		if (status < 0)

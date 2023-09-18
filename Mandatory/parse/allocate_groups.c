@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 00:04:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/06 04:16:41 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/18 02:01:54 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void ft_lstcmds(t_command_table **head, t_command_table *node)
         node->forward = NULL;
     }
 }
-
 
 t_command_table *create_node(t_token **tokens)
 {

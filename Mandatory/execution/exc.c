@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 21:05:55 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/18 01:56:04 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/18 02:55:15 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,23 +114,4 @@ void one_cmd(_prototype **cmds, char **args, t_env **env)
 	}
 	else
 		multi_cmd(cmds, env);
-}
-
-void exceute_it(_prototype **data, t_env **env)
-{
-	_prototype *iter;
-	int numb_pipes;
-
-	iter = *data;
-	numb_pipes = -1;
-	while (iter)
-	{
-		open_red(&iter, iter->content, env);
-		numb_pipes++;
-		iter = iter->forward;
-	}
-	if (numb_pipes == 0)
-		one_cmd(data, (*data)->content, env);
-	else
-		multi_cmd(data, env);
 }

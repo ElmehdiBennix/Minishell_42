@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:50:58 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/18 01:55:54 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/18 02:51:03 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_bultin(_prototype *data, char **arg, t_env **env)
 	
 	if (ft_strcmp(arg[0], "env") == 0)
 	{
-		printf("AKAKA________-------????\n");
+		printf("AKAKA________-------????\n"); // delete
 		exit_s = ft_env(1, *env);
 	}
 	else if (ft_strcmp(arg[0], "unset") == 0)
@@ -29,7 +29,7 @@ int	ft_bultin(_prototype *data, char **arg, t_env **env)
 	}
 	else if(ft_strcmp(arg[0], "echo") == 0)
 	{
-		printf("AKAKA________-------????\n");
+		printf("AKAKA________-------????\n"); // delete
 		my_echo(data, arg, env);
 	}
 	else if(ft_strcmp(arg[0], "pwd") == 0)
