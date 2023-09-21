@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/21 04:18:53 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/21 07:04:15 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int	red_open(int *fds, t_type red, char *f_name)
 	}
 	return (0);
 }
-
 
 void	open_red(t_command_table *exec_data)
 {
