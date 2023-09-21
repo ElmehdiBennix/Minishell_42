@@ -6,33 +6,49 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/18 03:02:31 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/21 04:18:53 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int here_doc(int *fdin, char *str)
+char *herdoc_name(void)
 {
-	char	*rd;
-	(void)str;
-	
-	*fdin = open("/tmp/here_doc", O_RDWR | O_CREAT | O_TRUNC, 0654);
-	rd = NULL;
+	int i;
+	char *n;
+	i = 0;
+	n = ft_itoa(i);
+	char *s = ft_strjoin("/tmp/here_doc", n);
+	free(n);
+	while (access(s, F_OK) == 0)
+	{
+		n = NULL;
+		free(s);
+		i++;
+		n = ft_itoa(i);
+		s = ft_strjoin("/tmp/here_doc", n);
+		free(n);
+	}
+	return s;
+}
+
+int here_doc(int *fdin, char *str, char **f_name)
+{
+	char			*rd;
+
+	*f_name = herdoc_name();
+	*fdin = open((*f_name), O_RDWR | O_CREAT | O_TRUNC, 0654);
 	if (*fdin < 0)
 		return -1;
 	while (1)
 	{
-		// ft_putstr_fd("> ", 1);
 		rd = readline(">");
-		// printf("----%s----\n", rd);
 		if (!rd || (!ft_strcmp(rd, str)))
 			break;
 		rd = ft_strjoin(rd, "\n");
 		ft_putstr_fd(rd, *fdin);
 		free(rd);
 	}
-	// printf("EXITING HEREDOC\n");
 	free(rd);
 	close(*fdin);
 	return 0;
@@ -52,58 +68,50 @@ int	red_open(int *fds, t_type red, char *f_name)
 		if (*fds < 0)
 			return (-1);
 	}
-	else if (red == APPEND)// still working on it
+	else if (red == APPEND)
 	{
 		*fds = open(f_name, O_APPEND | O_WRONLY | O_CREAT, 0654);
 		if (*fds < 0)
 			return (-1);
 	}
-	else if (red == HERE_DOC)
+	else if (red == HERE_DOC)// need to check on signles
 	{
 		*fds = open(f_name, O_RDONLY, 0654);
 		if (*fds < 0)
-			return (-1);
+			return (-1);			
 	}
 	return (0);
 }
 
 
-void	open_red(_prototype **data, t_redirection *redi,  t_env **env)
+void	open_red(t_command_table *exec_data)
 {
-	size_t i;
-	int status; // close all file descriptors in the parent and child process
+	int		status;
+	char 	*f_name;
 
-	i = 0;
-	(void)env;
-	while(redi)
+	f_name = NULL;
+	status = 0;
+	while(exec_data->redir && (status >= 0))
 	{
-		if (!ft_strcmp(cmds[i], ">"))
-		if (redi.)
+		if (exec_data->redir->redirection == GREAT)
+			status = red_open(&exec_data->fdout, GREAT, exec_data->redir->file_name);
+		else if (exec_data->redir->redirection == LESS)
+			status = red_open(&exec_data->fdout, LESS, exec_data->redir->file_name);
+		else if (exec_data->redir->redirection == APPEND)
+			status = red_open(&exec_data->fdin, APPEND, exec_data->redir->file_name);
+		else if (exec_data->redir->redirection == HERE_DOC)
 		{
-			status = red_open(&(*data)->fdout, GREAT, cmds[i + 1]);
-			cmds[i] = NULL;
-		}
-		else if (!ft_strcmp(cmds[i], "<"))
-		{
-			status = red_open(&(*data)->fdin, LESS, cmds[i + 1]);
-			cmds[i] = NULL;
-		}
-		else if (!ft_strcmp(cmds[i], ">>"))
-		{
-			status = red_open(&(*data)->fdout, APPEND, cmds[i + 1]);
-			cmds[i] = NULL;
-		}
-		else if (!ft_strcmp(cmds[i], "<<"))
-		{
-			here_doc(&(*data)->fdin ,cmds[i + 1]);
-			status = red_open(&(*data)->fdin, HERE_DOC, "/tmp/here_doc");
-			cmds[i] = NULL;
+			here_doc(&exec_data->fdin ,exec_data->redir->file_name, &f_name);
+			status = red_open(&exec_data->fdin, HERE_DOC, f_name);
+			free(f_name);
 		}
 		if (status < 0)
 		{
-			printf("EXITING PROCESS\n");
-			exit(0);// check if theere is an error > error handing
+			printf("%s: No such file or directory\n", exec_data->redir->file_name);
+			free2d(exec_data->cmds_array);
+			exec_data->fdin = 0;
+			return ;
 		}
-		++i;
+		exec_data->redir = exec_data->redir->next;
 	}
 }

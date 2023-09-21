@@ -6,49 +6,49 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:52:57 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/18 00:51:47 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/21 04:33:47 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	get_cur_path(t_env **env, int flg)
+void	get_cur_path(t_env *env, int flag)
 {
 	char	*path;
 	
-	if (flg == 0)
+	if (flag == 0)
 	{
 		path = getcwd(NULL, 0);
-		*env = update_old_pwd(env, path);
+		env = update_old_pwd(&env, path); 
 		free(path);
 	}
-	else if(flg == 1)
+	else if(flag == 1)
 	{
 		path = getcwd(NULL, 0);
-		*env = update_pwd(env, path);
+		env = update_pwd(&env, path);
 		free(path);
 	}
 }
 
-void	me_cd(char **av, t_env **env)
+void	me_cd(char **cmd_array, t_env *env)
 {
 	t_env	*tmp;
 
-	tmp = *env;
+	tmp = env;
 	get_cur_path(env, 0);
-	if (!av[1])
+	if (!cmd_array[1]) // protect
 	{
 		if (chdir(value_by_key(tmp, "HOME")))
 			printf("HOME not set\n");
 	}
 	else
 	{
-		if (chdir(av[1]))
+		if (chdir(cmd_array[1]))
 			printf("error: cannot find directory\n");
 	}
 	get_cur_path(env, 1);
 }
 // cd -
 // cd ~
-// if someone unseted HOME delet the node with OLDPWD AS KEY
+// if someone unseted  HOME delet the node with OLDPWD AS KEY 
 // check for leaks

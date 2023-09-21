@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/18 03:01:33 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/21 06:30:59 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,24 +75,21 @@ int get_env(t_env **Henv, char **env)
     return 1;
 }
 
+// void exceute_it(t_token **data, t_env **env)
+
 static void	exec_loop(t_mini_data *var) // void for now might change it in the future
 {
-    // void exceute_it(_prototype **data, t_env **env)
-	t_command_table *iter;
-	int numb_pipes;
+    t_command_table *data_iter = var->exec_data;
 
-	iter = var->exec_data;
-	numb_pipes = -1;
-	while (iter)
-	{
-		open_red(&iter, iter->redir, var->env_var);
-		numb_pipes++;
-		iter = iter->forward;
-	}
-	// if (var->nodes == 1) // 1
-	// 	one_cmd(data, (*data)->content, env);
+	// while (data_iter)
+	// {
+	// 	open_red(data_iter);
+	// 	data_iter = data_iter->forward;
+	// }
+	if (var->nodes == 1)
+		one_cmd(var->exec_data, var->env_var);
 	// else
-	// 	multi_cmd(data, env);
+	// 	multi_cmd(data_iter, var->env_var);
 }
 
 static void	parse_loop(t_mini_data *var, char *prompt) // void for now might change it in the future
@@ -137,14 +134,13 @@ static void	parse_loop(t_mini_data *var, char *prompt) // void for now might cha
 //     t_env *l_env;
 // 	char *content;
 // 	char **cmds;
-// 	_prototype *token;
+// 	t_token *token;
 	
 //     (void)ac;
 //     (void)av;
 
 // 	l_env = NULL;
 //     get_env(&l_env, env);
-
 // 	while (1)
 // 	{
 // 		content = readline("-->MIMI :");
@@ -156,11 +152,20 @@ static void	parse_loop(t_mini_data *var, char *prompt) // void for now might cha
 // 		token = fake_struct(cmds);
 // 		if (!token)
 // 			continue ;
+// 		free_array(cmds);
 // 		exceute_it(&token, &l_env);
+// 		int i = 0;
+// 		char *s = ft_strjoin("/tmp/here_doc", ft_itoa(i));
+// 		while (access(s, F_OK) == 0)
+// 		{
+// 			unlink(s);
+// 			free(s);
+// 			i++;
+// 			s = ft_strjoin("/tmp/here_doc", ft_itoa(i));//leaks
+// 		}
+// 		free_struct_data(token);
 // 	}
-// 	printf("reached parent\n");
 // }
-
 int	main(int ac, char **av, char **env)
 {
 	char		*prompt;
@@ -174,14 +179,18 @@ int	main(int ac, char **av, char **env)
 	{
 		while (1)
 		{
-			// prompt = prompt_generator(&var);           
+			// prompt = prompt_generator(var);           
             // signals --
+            prompt = NULL;
 			prompt = readline(GREEN "-> le minishit" DEFAULT "$ "); // should display corrent dir and exit msgs zith colors sigf when cntr+ c or sm protect read line and make signales work
-			// trim 
+			// trim
             if (shell_history(&var, prompt) == 1) // dosent store tabs empty line or empty spaces stinn needs fa function
 				continue;
 			parse_loop(&var, prompt);
+            // free(prompt);
+            // free(var.tokens);
 			exec_loop(&var);
+            // free(var.exec_data);
 		}
 		return (0);
 	}

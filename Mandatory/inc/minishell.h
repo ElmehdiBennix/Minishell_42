@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/18 01:16:45 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/21 04:41:45 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	    get_type(t_token *token, int moves);
 bool	    group_args(t_mini_data *var);
 /// merge
 
-_prototype	*fake_struct(char **cmds);
 int		get_env(t_env **Henv, char **env);
 char	*get_val(char *line);
 char	*get_key(char *line);
@@ -53,22 +52,26 @@ char	**get_normal_env(t_env *env);
 
 //built-in functions:
 int		ft_env(int fd, t_env *env);
-int		mini_exit(char **av, t_env **env, int exit_status);
-int		ft_bultin(_prototype *data, char **arg, t_env **env);
-void	ft_unset(char **arg, t_env **env);
-void	me_cd(char **av, t_env **env);
-void	my_echo(_prototype *data, char **av, t_env **env);
-void	me_pwd(int fd, char **av, t_env **env);
-void	export_it(char **av, t_env **env);
+int		mini_exit(char **cmd_array, int exit_status);
+int	    ft_bultin(t_command_table *exec_data, t_env *env);
+void	ft_unset(char **arg, t_env *env);
+void	me_cd(char **cmd_array, t_env *env);
+void	my_echo(char **cmd_array);
+void	me_pwd(int fd, t_env *env);
+void	export_it(char **av, t_env *env);
 int		is_bult_in(char *arg);
+
 //exec functions:
-void	one_cmd(_prototype **cmds, char **args, t_env **env);
-void	exceute_it(_prototype **data, t_env **env);
+void 	one_cmd(t_command_table *exec_data, t_env *env);
+void	exceute_it(t_token **data, t_env **env);
 int		red_open(int *fds, t_type red, char *f_name);
-int		here_doc(int *fdin, char *str);
-int		append(int *fdout, char *strout);
-void	excute_one_cmd(_prototype **args, char **contents, t_env **env);
-void	open_red(_prototype **data, char **cmds, t_env **env);
-void	multi_cmd(_prototype **data, t_env **env);
+int		here_doc(int *fdin, char *str, char **f_name);
+int		excute_one_cmd(t_token **args, char **contents, t_env **env);
+void	open_red(t_command_table *exec_data);
+void	multi_cmd(t_token **data, t_env **env);
+//free functions
+void	free_struct_data(t_token *token);
+void	free_struct_env(t_env *env);
+void	free_array(char **arr);
 
 #endif

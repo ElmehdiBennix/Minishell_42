@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/09/18 02:07:42 by ebennix          ###   ########.fr        #
+#    Updated: 2023/09/21 02:58:24 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ CFLAGS := -g -Wall -Wextra
 HEADER := Mandatory/inc/minishell.h
 
 FILES := Mandatory/minishell\
-		 Mandatory/fake_struct\
 		 Mandatory/parse/tokenizer\
 		 Mandatory/parse/catch_tokens\
 		 Mandatory/parse/history\
@@ -40,7 +39,7 @@ FILES := Mandatory/minishell\
 		 Mandatory/utils/updates \
 		 Mandatory/utils/ft_sort_list \
 		 Mandatory/bin/ft_bultins \
-		 Mandatory/bin/env \
+		 Mandatory/bin/env\
 		 Mandatory/bin/unset \
 		 Mandatory/bin/cd \
 		 Mandatory/bin/echo \

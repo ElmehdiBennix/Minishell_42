@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:11:15 by ebennix           #+#    #+#             */
-/*   Updated: 2023/05/09 22:45:50 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/21 03:30:14 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ char	**free2d(char **str)
 	while (str[++i])
 		free(str[i]);
 	free(str);
+	str = NULL;
 	return (str);
 }
