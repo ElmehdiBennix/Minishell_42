@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/21 04:41:45 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/21 06:53:50 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ void 	one_cmd(t_command_table *exec_data, t_env *env);
 void	exceute_it(t_token **data, t_env **env);
 int		red_open(int *fds, t_type red, char *f_name);
 int		here_doc(int *fdin, char *str, char **f_name);
-int		excute_one_cmd(t_token **args, char **contents, t_env **env);
+int     excute_one_cmd(char **contents, t_env *env);
 void	open_red(t_command_table *exec_data);
-void	multi_cmd(t_token **data, t_env **env);
+void	multi_cmd(t_command_table *exec_data, t_env *env);
+
 //free functions
 void	free_struct_data(t_token *token);
 void	free_struct_env(t_env *env);

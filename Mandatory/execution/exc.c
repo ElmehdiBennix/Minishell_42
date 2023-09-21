@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 21:05:55 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/21 06:31:15 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/21 06:56:32 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,31 @@ char *check_path(char **s_path, char *cmd)
 	return (NULL);
 }
 
-// int excute_one_cmd(t_token **args, char **contents, t_env **env)
-// {
-// 	char *path;
-// 	char *str;
-// 	char **splited_path;
+int excute_one_cmd(char **contents, t_env *env)
+{
+	char *path;
+	char *str;
+	char **splited_path;
 
-// 	(void)args;
-// 	if (!contents[0])// don't check about it, should be handled by the parser!
-// 		return (2);
-// 	else
-// 	{
-// 		// if (access(str, F_OK) == -1)
-// 		// 	return(ft_putstr_fd("PERMISSION DENIED ÁA WLD L9AHBA\n", 2), 2);
-// 		path = value_by_key(*env, "PATH");
-// 		if (path == NULL)
-// 			return (printf("%s: No such file or directory\n", contents[0]), 2);
-// 		splited_path = ft_split(path, ':');// check for NULL if returned
-// 		str = check_path(splited_path, contents[0]);
-// 		if (!str)
-// 			return (printf("Error :command not found\n"), 2);
-// 		free_array(splited_path);
-// 		if (execve(str, contents, get_normal_env(*env)) < 0)
-// 			return (perror(""), 2);
-// 		return 1;
-// 	}
-// }
+	if (!contents[0])// don't check about it, should be handled by the parser!
+		return (2);
+	else
+	{
+		// if (access(str, F_OK) == -1)
+		// 	return(ft_putstr_fd("PERMISSION DENIED ÁA WLD L9AHBA\n", 2), 2);
+		path = value_by_key(env, "PATH");
+		if (path == NULL)
+			return (printf("%s: No such file or directory\n", contents[0]), 2);
+		splited_path = ft_split(path, ':');// check for NULL if returned
+		str = check_path(splited_path, contents[0]);
+		if (!str)
+			return (printf("Error :command not found\n"), 2);
+		free2d(splited_path);
+		if (execve(str, contents, get_normal_env(env)) < 0)
+			return (perror(""), 2);
+		return 1;
+	}
+}
 
 void 	one_cmd(t_command_table *exec_data, t_env *env)
 {
@@ -90,8 +89,8 @@ void 	one_cmd(t_command_table *exec_data, t_env *env)
 		save = ft_bultin(exec_data, env);
 		// dup2(out, STDOUT_FILENO);
 	}
-	// else
-	// 	multi_cmd(exec_data, env);
+	else
+		multi_cmd(exec_data, env);
 }
 
 // void exceute_it(t_token **data, t_env **env)
