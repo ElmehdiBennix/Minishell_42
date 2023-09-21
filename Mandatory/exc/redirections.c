@@ -6,79 +6,124 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/07 18:52:59 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/20 21:00:56 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int here_doc(int *fdin, char *str)
+char *herdoc_name()
 {
-	char	*read;
-	
-	*fdin = open("/tmp/here_doc", O_RDWR | O_CREAT | O_TRUNC, 0654);
+	int i = 0;
+	char *s = ft_strjoin("/tmp/here_doc", ft_itoa(i));
+	while (access(s, F_OK) == 0)
+	{
+		free(s);
+		i++;
+		s = ft_strjoin("/tmp/here_doc", ft_itoa(i));
+	}
+	return s;
+}
+
+int here_doc(int *fdin, char *str, char **f_name)
+{
+	char			*rd;
+
+	*f_name = herdoc_name();
+	*fdin = open((*f_name), O_RDWR | O_CREAT | O_TRUNC, 0654);
 	if (*fdin < 0)
 		return -1;
 	while (1)
 	{
-		read = readline("heredoc> ");
-		if (!read || (!ft_strcmp(read, str)))
+		rd = readline(">");
+		if (!rd || (!ft_strcmp(rd, str)))
 			break;
-		read = ft_strjoin(read, "\n");
-		ft_putstr_fd(read, *fdin);
-		free(read);
+		rd = ft_strjoin(rd, "\n");
+		ft_putstr_fd(rd, *fdin);
+		free(rd);
 	}
-	free(read);
+	free(rd);
 	close(*fdin);
 	return 0;
 }
 
-int	append(int *fdout, char *strout)
-{
-	char	*line;
-
-	*fdout = open(strout, O_APPEND | O_WRONLY | O_CREAT, 0654);
-	if (*fdout < 0)
-		return -1;
-	while (1)
-	{
-		line = readline("");
-		if (!line)
-			break ;
-		line = ft_strjoin(line, "\n");
-		ft_putstr_fd(line, *fdout);
-		free(line);
-	}
-	free(line);
-	close(*fdout);
-	return 0;
-}
-
-int	red_open(t_token **fds, t_type red, char *f_name)
+int	red_open(int *fds, t_type red, char *f_name)
 {
 	if (red == GREAT)
 	{
-		(*fds)->fdout = open(f_name, O_WRONLY | O_CREAT | O_TRUNC, 0654);
-		if ((*fds)->fdout < 0)
+		*fds = open(f_name, O_WRONLY | O_CREAT | O_TRUNC, 0654);
+		if (*fds < 0)
 			return (-1);
 	}
 	else if (red == LESS)
 	{
-		(*fds)->fdin = open(f_name, O_RDONLY, 0654);
-		if ((*fds)->fdin < 0)
+		*fds = open(f_name, O_RDONLY, 0654);
+		if (*fds < 0)
 			return (-1);
 	}
 	else if (red == APPEND)
 	{
-		(*fds)->fdout = open(f_name, O_APPEND | O_CREAT, 0654);
-		if ((*fds)->fdout < 0)
+		*fds = open(f_name, O_APPEND | O_WRONLY | O_CREAT, 0654);
+		if (*fds < 0)
 			return (-1);
 	}
-	else if (red == HERE_DOC)
+	else if (red == HERE_DOC)// need to check on signles
 	{
-		(*fds)->fdin = open(f_name, O_RDONLY, 0654);
-		if ((*fds)->fdin < 0)
+		*fds = open(f_name, O_RDONLY, 0654);
+		if (*fds < 0)
 			return (-1);
+
+			
 	}
-	return (0);// check abut the status
+	return (0);
+}
+
+
+void	open_red(t_token **data, char **cmds)
+{
+	size_t	i;
+	int		status;
+	char 	*f_name;
+
+	i = 0;
+	f_name = NULL;
+	status = 0;
+	while(cmds[i] && (status >= 0))
+	{
+		if (!ft_strcmp(cmds[i], ">"))
+		{
+			status = red_open(&(*data)->fdout, GREAT, cmds[i + 1]);
+			free(cmds[i]);
+			cmds[i] = NULL;
+		}
+		else if (!ft_strcmp(cmds[i], "<"))
+		{
+			status = red_open(&(*data)->fdin, LESS, cmds[i + 1]);
+			free(cmds[i]);
+			cmds[i] = NULL;
+		}
+		else if (!ft_strcmp(cmds[i], ">>"))
+		{
+			status = red_open(&(*data)->fdout, APPEND, cmds[i + 1]);
+			free(cmds[i]);
+			cmds[i] = NULL;
+		}
+		else if (!ft_strcmp(cmds[i], "<<"))
+		{
+			here_doc(&(*data)->fdin ,cmds[i + 1], &f_name);
+			status = red_open(&(*data)->fdin, HERE_DOC, f_name);
+			free(f_name);
+			free(cmds[i]);
+			cmds[i] = NULL;
+		}
+		if (status < 0)// segfault when given an invalide file in 
+		{
+			printf("%s: No such file or directory\n", cmds[i + 1]);
+			free((*data)->content[0]);
+			(*data)->content[0] = NULL;
+			(*data)->fdin = 0;
+			return ;
+		}
+		++i;
+	}
 }

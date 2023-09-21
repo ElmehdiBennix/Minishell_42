@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:17:11 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/07 19:07:18 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/21 02:21:10 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char *get_key(char *line)
     int i;
 
 	i = 0;
-    while(line[i] && line[i] != '=') // think about this case a+=toto (append the value to env value)
+    while(line[i] && line[i] != '=') // a+=toto (append the value to env value)
         i++;
     key = malloc(sizeof(char) * i + 1);
     if (!key)
@@ -75,6 +75,7 @@ int get_env(t_env **Henv, char **env)
     return 1;
 }
 
+
 int main(int ac, char **av, char **env)
 {
     t_env *l_env;
@@ -89,25 +90,26 @@ int main(int ac, char **av, char **env)
     get_env(&l_env, env);
 	while (1)
 	{
-		printf("--->");
-		content = readline("MIMI :");
+		content = readline("-->MIMI :");
 		if (content == NULL)
 			break  ;
-		// printf("------------------------------\n");
-		// cmds = ft_split(content, ' ');
 		cmds = ft_split(content, '|');
 		if (cmds == NULL)
 			continue ;
-		// ft_bultin(cmds, &l_env);
 		token = fake_struct(cmds);
 		if (!token)
 			continue ;
-		token->fdin = 0;
-		token->fdout = 1;
-		// printf("%d\n", GREAT);
+		free_array(cmds);
 		exceute_it(&token, &l_env);
-		// I only excute one cmd case still working 
-			// on multiple cmds && handeling pipes fds
+		int i = 0;
+		char *s = ft_strjoin("/tmp/here_doc", ft_itoa(i));
+		while (access(s, F_OK) == 0)
+		{
+			unlink(s);
+			free(s);
+			i++;
+			s = ft_strjoin("/tmp/here_doc", ft_itoa(i));//leaks
+		}
+		free_struct_data(token);
 	}
 }
-		// printf("%d\n", ft_bultin(cmds, l_env));
