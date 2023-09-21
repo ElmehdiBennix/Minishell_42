@@ -6,22 +6,21 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:11:15 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/21 03:30:14 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/21 06:57:52 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
 
-char	**free2d(char **str)
+char	**free2d(char **array)
 {
 	int		i;
 
 	i = -1;
-	if (!str)
+	if (!array)
 		return (NULL);
-	while (str[++i])
-		free(str[i]);
-	free(str);
-	str = NULL;
-	return (str);
+	while (array[++i])
+		free(array[i]);
+	array = NULL;
+	return (array);
 }

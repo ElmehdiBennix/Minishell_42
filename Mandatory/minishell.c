@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/21 06:30:59 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/21 06:45:10 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ static void	exec_loop(t_mini_data *var) // void for now might change it in the f
 	// }
 	if (var->nodes == 1)
 		one_cmd(var->exec_data, var->env_var);
-	// else
-	// 	multi_cmd(data_iter, var->env_var);
+	else
+		multi_cmd(var->exec_data, var->env_var);
 }
 
 static void	parse_loop(t_mini_data *var, char *prompt) // void for now might change it in the future
@@ -183,7 +183,6 @@ int	main(int ac, char **av, char **env)
             // signals --
             prompt = NULL;
 			prompt = readline(GREEN "-> le minishit" DEFAULT "$ "); // should display corrent dir and exit msgs zith colors sigf when cntr+ c or sm protect read line and make signales work
-			// trim
             if (shell_history(&var, prompt) == 1) // dosent store tabs empty line or empty spaces stinn needs fa function
 				continue;
 			parse_loop(&var, prompt);

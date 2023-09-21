@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/09/21 02:58:24 by ebennix          ###   ########.fr        #
+#    Updated: 2023/09/21 06:54:47 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ FILES := Mandatory/minishell\
 		 Mandatory/utils/get_back_env\
 		 Mandatory/utils/get_key \
 		 Mandatory/utils/updates \
+		 Mandatory/utils/reset_structs \
 		 Mandatory/utils/ft_sort_list \
 		 Mandatory/bin/ft_bultins \
 		 Mandatory/bin/env\
