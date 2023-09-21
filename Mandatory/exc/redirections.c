@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/20 21:00:56 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/21 02:41:10 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,20 @@
 
 char *herdoc_name()
 {
-	int i = 0;
-	char *s = ft_strjoin("/tmp/here_doc", ft_itoa(i));
+	int i;
+	char *n;
+	i = 0;
+	n = ft_itoa(i);
+	char *s = ft_strjoin("/tmp/here_doc", n);
+	free(n);
 	while (access(s, F_OK) == 0)
 	{
+		n = NULL;
 		free(s);
 		i++;
-		s = ft_strjoin("/tmp/here_doc", ft_itoa(i));
+		n = ft_itoa(i);
+		s = ft_strjoin("/tmp/here_doc", n);
+		free(n);
 	}
 	return s;
 }
@@ -71,9 +78,7 @@ int	red_open(int *fds, t_type red, char *f_name)
 	{
 		*fds = open(f_name, O_RDONLY, 0654);
 		if (*fds < 0)
-			return (-1);
-
-			
+			return (-1);			
 	}
 	return (0);
 }
