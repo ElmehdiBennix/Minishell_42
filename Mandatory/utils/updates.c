@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   updates.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 15:05:44 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/26 19:44:26 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/21 04:32:49 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ t_env	*update_old_pwd(t_env **env, char *oldpwd)
 	}
 	tmp  = *env;
 	if (!fod)
-		ft_lstadd_back_env(&tmp, ft_lstnew_env(ft_strdup("OLDPWD"), ft_strdup(oldpwd)));
+		ft_lstadd_back_env(&tmp, ft_lstnew_env(ft_strdup("OLDPWD"), ft_strdup(oldpwd))); // leaks
 	return(tmp);
 }

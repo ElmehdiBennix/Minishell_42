@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:03 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/18 01:14:57 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/21 05:35:01 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,22 @@ static int	check_option(char **av)
 	return (flg);
 }
 
-void	my_echo(_prototype *data, char **av, t_env **env)
+void	my_echo(char **cmd_array)
 {
 	int	i;
 	int	option;
 	int flag;
 
-	(void)env;
-	(void)data;
 	i = 1;
-	option = check_option(av);
+	option = check_option(cmd_array);
 	if (option != 0)
 		i += option;
 	flag = 1;
-	while (av[i])
+	while (cmd_array[i])
 	{
 		if (!flag)
 			write(1, " ", 1);
-		ft_putstr_fd(av[i], 1);
+		ft_putstr_fd(cmd_array[i], 1);		
 		flag = 0;
 		i++;
 	}

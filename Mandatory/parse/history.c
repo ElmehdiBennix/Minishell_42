@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:51:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/03 14:25:08 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/21 06:24:24 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,13 @@ static bool	skip_space_history(char *prompt)
 
 static bool	first_index(char *prompt)
 {
-	if (prompt[0] && (prompt[0] == ')' || prompt[0] == '(' || prompt[0] == '|'))
+	int i = 0;
+
+	while (prompt[i] && ft_iswhite_space(prompt[i]) == 1)
+		i++;
+	if (prompt[i] && (prompt[i] == ')' || prompt[i] == '(' || prompt[i] == '|'))
 	{
-		ft_fprintf(2, "le minishell: syntax error near unexpected token `%c'\n",prompt[0]);
+		ft_fprintf(2, "le minishell: syntax error near unexpected token `%c'\n",prompt[i]);
 		return (1);
 	}
 	return (0);

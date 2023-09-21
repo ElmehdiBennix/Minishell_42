@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   group.c                                            :+:      :+:    :+:   */
+/*   allocate_groups.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 00:04:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/18 02:01:54 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/21 02:57:09 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_command_table *create_node(t_token **tokens)
             node->redir = red_ptr;
         else
             tmp->next = red_ptr;
-        red_ptr->fd = i;
+        // red_ptr->fd = i;
         tmp = red_ptr;
         red_ptr = red_ptr->next;
     }

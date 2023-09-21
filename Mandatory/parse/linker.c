@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:08:32 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/06 21:37:18 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/21 05:09:12 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	linker(t_mini_data *var)
     t_token *arrow = var->tokens;
     t_command_table *exec = var->exec_data;
     t_redirection   *redirec = exec->redir;
-    char *buffer;
+    char *buffer ;
 
     while (exec && arrow)
     {
