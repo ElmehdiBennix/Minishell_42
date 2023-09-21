@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:24 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/28 16:01:41 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/19 18:52:14 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,11 @@ int compare(char *a, char *b)
 		return -1;
 }
 
-int	check_valid_key(char *key, t_env *env)
+int	check_valid_key(char *key)
 {
 	int i;
-	t_env *tmp;
 
 	i  = 0;
-	tmp = env;
 	while(key[i])
 	{
 		if (!(key[i] == '_' || key[i] == '+' 
@@ -45,19 +43,21 @@ int	seen_bef(char *seen, char *new_val, t_env *env)
 	tmp = env;
 	while(tmp)
 	{
-		if(!ft_strcmp(seen, tmp->key))
+		if(ft_strcmp(seen, tmp->key) == 0)
 		{
-			if (tmp->value != NULL && tmp->value[0] != '\0')
+			if ((tmp->value != NULL))
 				free(tmp->value);
 			if(new_val != NULL)
 				tmp->value = ft_strdup(new_val);
+			else if (new_val == NULL)
+				tmp->value = ft_strdup("");
 			return 0;
 		}
 		tmp = tmp->next;
 	}
 	return (1);
 }
-void	export_item(char **arg, t_env *ev)
+void	export_item(char **arg, t_env **ev)
 {
 	int 	i;
 	int 	v;
@@ -69,18 +69,17 @@ void	export_item(char **arg, t_env *ev)
 	v = 0;
 	while(arg[i])
 	{
-		v = check_valid_key(get_key(arg[i]), ev);
+		v = check_valid_key(get_key(arg[i]));
 		if (v == -1)
 			printf("`%s': not a valid identifier\n", arg[i]);
 		else
 		{
-			// check value of the key if null or \0----------------------------------------------------------------
 			key = get_key(arg[i]);
 			value = get_val(arg[i]);
-			if (seen_bef(key, value,  ev) != 0)
+			if (seen_bef(key, value,  *ev) != 0)
 			{
 				tmp = ft_lstnew_env(key, value);
-				ft_lstadd_back_env(&ev, tmp);
+				ft_lstadd_back_env(ev, tmp);
 			}
 		}
 		i++;
@@ -92,7 +91,6 @@ void	export_it(char **av, t_env **env)
 	t_env *tmp;
 
 	tmp = *env;
-	(void)av;
 	if (tmp)
 		sort_list(tmp, compare);
 	if (!av[1])// av[0] = "export" av[1] = NULL .. av[n] == NULL 
@@ -100,13 +98,14 @@ void	export_it(char **av, t_env **env)
 		while (tmp != 0)
 		{
 			if (!tmp->value)
-				printf("declare -x %s\n", tmp->key);
+				printf("declare -x %s=%c%c\n", tmp->key, '"', '"');
 			else
 				printf("declare -x %s=%c%s%c\n", tmp->key, '"',  tmp->value, '"');
 			tmp = tmp->next;
 		}
 	}
-	else// av[n] != NULL with n => 1;
-		export_item(av, *env);
+	else
+		export_item(av, env);
+
 }
 // i sill need to handel the rest of the cases to not crash

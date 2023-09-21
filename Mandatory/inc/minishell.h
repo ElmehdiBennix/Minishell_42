@@ -6,12 +6,13 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/07 17:10:08 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/20 22:59:55 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
 
 # include <readline/readline.h>
 # include <stdlib.h>
@@ -21,6 +22,7 @@
 # include "../libft/libft.h"
 # include <sys/types.h>
 # include <sys/uio.h>
+# include <sys/wait.h>
 # include <string.h>
 # include <fcntl.h>
 
@@ -43,11 +45,10 @@ typedef enum s_type
 typedef struct s_token
 {
 	char			**content;
-	// char			**red_files;
 	t_type			type;
-	bool			space_after;
 	int 			fdin;
 	int 			fdout;
+	int				shell_lev;
 	struct s_token	*forward;
 	struct s_token	*backward;
 }					t_token;
@@ -83,12 +84,18 @@ void	me_cd(char **av, t_env **env);
 void	my_echo(t_token *data, char **av, t_env **env);
 void	me_pwd(int fd, char **av, t_env **env);
 void	export_it(char **av, t_env **env);
+int		is_bult_in(char *arg);
 //exec functions:
+void	one_cmd(t_token **cmds, char **args, t_env **env);
 void	exceute_it(t_token **data, t_env **env);
-int		red_open(t_token **fds, t_type red, char *f_name);
-int		here_doc(int *fdin, char *str);
-int		append(int *fdout, char *strout);
-void	excute_one_cmd(t_token **args, char **contents, t_env **env);
-void	one_cmd(t_token **data, char **cmds,  t_env **env);
-void	multi_cmd(t_token **data, t_env **env, int nbr_pipes);
+int		red_open(int *fds, t_type red, char *f_name);
+int		here_doc(int *fdin, char *str, char **f_name);
+int		excute_one_cmd(t_token **args, char **contents, t_env **env);
+void	open_red(t_token **data, char **cmds);
+void	multi_cmd(t_token **data, t_env **env);
+char	*get_next_line(int fd);
+//free functions
+void	free_struct_data(t_token *token);
+void	free_struct_env(t_env *env);
+void	free_array(char **arr);
 #endif

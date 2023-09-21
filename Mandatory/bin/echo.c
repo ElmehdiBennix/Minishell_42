@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:03 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/03 23:42:20 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/16 14:25:17 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int	check_option(char **av)
 	}
 	return (flg);
 }
-//all fixed
 
 void	my_echo(t_token *data, char **av, t_env **env)
 {
@@ -45,6 +44,7 @@ void	my_echo(t_token *data, char **av, t_env **env)
 	int flag;
 
 	(void)env;
+	(void)data;
 	i = 1;
 	option = check_option(av);
 	if (option != 0)
@@ -53,11 +53,12 @@ void	my_echo(t_token *data, char **av, t_env **env)
 	while (av[i])
 	{
 		if (!flag)
-			write(data->fdout, " ", 1);
-		ft_putstr_fd(av[i], data->fdout);// file descriptor seted
-		flag = 0;// fixed √
+			write(1, " ", 1);
+		ft_putstr_fd(av[i], 1);
+		flag = 0;
 		i++;
 	}
 	if (option == 0)
-		ft_putstr_fd("\n", data->fdout);
+		ft_putstr_fd("\n", 1);
 }
+//all fixed

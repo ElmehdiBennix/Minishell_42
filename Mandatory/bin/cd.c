@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:52:57 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/26 19:45:07 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/17 15:40:13 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void	me_cd(char **av, t_env **env)
 	get_cur_path(env, 1);
 }
 // cd -
+// cd ~
 // if someone unseted  HOME delet the node with OLDPWD AS KEY 
 // check for leaks

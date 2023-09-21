@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fake_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 17:41:44 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/07 18:57:43 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/15 06:17:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
-
-t_type check_wich_type(char *word)
-{
-	if (!ft_strcmp(word, ">"))
-		return GREAT;
-	else if (!ft_strcmp(word, "<"))
-		return LESS;
-	else if (!ft_strcmp(word, "<<"))
-		return APPEND;
-	else if (!ft_strcmp(word, ">>"))
-		return HERE_DOC;
-	else
-		return WORD;
-}
 
 t_token	*ft_lstnew_token(char **cmd_args)
 {
@@ -35,6 +21,8 @@ t_token	*ft_lstnew_token(char **cmd_args)
 		return (NULL);
 	node->content = cmd_args;
 	node->forward = NULL;
+	node->fdin = 0;
+	node->fdout = 1;
 	node->backward = NULL;
 	return (node);
 }

@@ -6,17 +6,17 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 21:05:55 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/07 19:07:55 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/20 20:20:29 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*check_path(char **s_path, char *cmd)
+char *check_path(char **s_path, char *cmd)
 {
-	int		i;
-	char	*j_cmd;
-	char	*j_path;
+	int i;
+	char *j_cmd;
+	char *j_path;
 
 	i = 0;
 	if (access(cmd, X_OK) == 0)
@@ -39,105 +39,75 @@ char	*check_path(char **s_path, char *cmd)
 	return (NULL);
 }
 
-void	excute_one_cmd(t_token **args, char **contents, t_env **env)
+int excute_one_cmd(t_token **args, char **contents, t_env **env)
 {
-	char	*path;
-	char	*str;
-	char	**splited_path;
+	char *path;
+	char *str;
+	char **splited_path;
 
-	if (!contents[0])
-		return ;
-	if (ft_bultin((*args), contents, env) == BULT_IN)
-		return ;
+	(void)args;
+	if (!contents[0])// don't check about it, should be handled by the parser!
+		return (2);
 	else
 	{
+		// if (access(str, F_OK) == -1)
+		// 	return(ft_putstr_fd("PERMISSION DENIED ÁA WLD L9AHBA\n", 2), 2);
 		path = value_by_key(*env, "PATH");
 		if (path == NULL)
-			return ; // error handel : PATH NOT FOUND;(to add)
-		splited_path = ft_split(path, ':');
+			return (printf("%s: No such file or directory\n", contents[0]), 2);
+		splited_path = ft_split(path, ':');// check for NULL if returned
 		str = check_path(splited_path, contents[0]);
 		if (!str)
-			return ;// error handel
-		int id = fork();
-		if (id == 0)
-		{
-			if ((*args)->fdin != 0)
-			{
-				if (dup2((*args)->fdin, STDIN_FILENO) < 0)
-					return ;
-				close((*args)->fdin);
-			}
-			if ((*args)->fdout != 1)
-			{	
-				if (dup2((*args)->fdout, STDOUT_FILENO) < 0)
-					return ;
-				close((*args)->fdout);
-			}
-			execve(str, contents, get_normal_env(*env));// check case of failure
-		}
-		if ((*args)->fdin != 0)
-			close((*args)->fdin);
-		if ((*args)->fdout != 1)
-			close((*args)->fdout);
-		wait(NULL);
+			return (printf("Error :command not found\n"), 2);
+		free_array(splited_path);
+		if (execve(str, contents, get_normal_env(*env)) < 0)
+			return (perror(""), 2);
+		return 1;
 	}
 }
 
-void	one_cmd(t_token **data, char **cmds,  t_env **env)
+void one_cmd(t_token **cmds, char **args, t_env **env)
 {
-	size_t i;
-	int status; // close all file descriptors in the parent and child process
+	int save;
+	int out;
 
-	i = 0;
-	while(cmds[i])
+	if (!args[0])
+		return ;
+	out = dup(1);
+	if (is_bult_in(args[0]) == BULT_IN)
 	{
-		if (!ft_strcmp(cmds[i], ">"))
+		if ((*cmds)->fdin != 0)
 		{
-			status = red_open(data, GREAT, cmds[i + 1]);
-			free(cmds[i]);
-			cmds[i] = NULL;
+			dup2((*cmds)->fdin, STDIN_FILENO);
+			close((*cmds)->fdin);
 		}
-		else if (!ft_strcmp(cmds[i], "<"))
+		if ((*cmds)->fdout != 1)
 		{
-			status = red_open(data, LESS, cmds[i + 1]);
-			free(cmds[i]);
-			cmds[i] = NULL;
+			dup2((*cmds)->fdout, STDOUT_FILENO);
+			close((*cmds)->fdout);
 		}
-		else if (!ft_strcmp(cmds[i], ">>"))
-		{
-			append(&(*data)->fdin, cmds[i + 1]);
-			status = red_open(data, APPEND, cmds[i + 1]);
-			free(cmds[i]);
-			cmds[i] = NULL;
-		}
-		else if (!ft_strcmp(cmds[i], "<<"))
-		{
-			here_doc(&(*data)->fdin ,cmds[i + 1]);
-			status = red_open(data, HERE_DOC, "/tmp/here_doc");
-			free(cmds[i]);
-			cmds[i] = NULL;
-		}
-		if (status < 0)
-			exit(0);// check if theere is an error > error handing
-		++i;
+		save = ft_bultin(*cmds, args, env);
+		dup2(out, STDOUT_FILENO);
 	}
-	excute_one_cmd(data, cmds,  env);
+	else
+		multi_cmd(cmds, env);
 }
 
-void	exceute_it(t_token **data, t_env **env)
+void exceute_it(t_token **data, t_env **env)
 {
-	t_token *iter;
-	int		numb_pipes;
+	t_token		*iter;
+	int			numb_pipes;
 
 	iter = *data;
 	numb_pipes = -1;
 	while (iter)
 	{
+		open_red(&iter, iter->content);
 		numb_pipes++;
-		iter = iter->forward;// check if theres a | 
+		iter = iter->forward;
 	}
 	if (numb_pipes == 0)
 		one_cmd(data, (*data)->content, env);
-	else 
-		multi_cmd(data, env, numb_pipes);
+	else
+		multi_cmd(data, env);
 }
