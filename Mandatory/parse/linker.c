@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:08:32 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/21 05:09:12 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 06:50:18 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ bool	linker(t_mini_data *var)
             if (arrow->type >= WORD && arrow->type <= DOUBLE_QUOT && arrow->space_after == TRUE)
             {
                 buffer = ft_strjoin(buffer,arrow->content);
-                printf("%s\n",buffer);
                 exec->cmds_array[i] = buffer;
                 i++;
                 arrow = arrow->forward;
