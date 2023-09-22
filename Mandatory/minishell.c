@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/22 07:46:32 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 10:41:16 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,10 @@ static bool	parse_loop(t_mini_data *var, char *prompt)
     if (expander(var) == TRUE)
         return(token_free(var->tokens,1),var->err_no = 6 ,1);
     if (allocate_groups(var) == TRUE)
-        return(var->err_no = 7 ,1); // free command data
+        return(commands_free(var->tokens,1),token_free(var->tokens,1),var->err_no = 7 ,1);
 	if (linker(var) == TRUE)
-        return(var->err_no = 8 ,1);
+        return(commands_free(var->tokens,1),token_free(var->tokens,1),var->err_no = 8 ,1);
+    token_free(var->tokens,1);
 }
 
 
