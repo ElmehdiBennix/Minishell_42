@@ -8,6 +8,7 @@
         "iterator": "c",
         "vector": "c",
         "complex": "c",
-        "__node_handle": "c"
+        "__node_handle": "c",
+        "type_traits": "c"
     }
 }

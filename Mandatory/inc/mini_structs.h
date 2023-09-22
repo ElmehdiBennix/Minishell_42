@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/21 04:11:19 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 06:02:15 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,10 @@ typedef enum s_type
 	SINGLE_QUOT = 2,
 	DOUBLE_QUOT = 3,
 	PIPE = 4,
-	GREAT = 5, // flags
-	LESS = 6, // flags
-	APPEND = 7,   // >>
-	HERE_DOC = 8, // << 
-
+	GREAT = 5,
+	LESS = 6,
+	APPEND = 7,
+	HERE_DOC = 8,
 }					t_type;
 
 typedef struct s_env
@@ -44,7 +43,6 @@ typedef struct	s_expansions
 
 typedef struct s_token
 {
-	int				id;
 	char			*content;
 	bool			space_after;
 	t_type			type;
@@ -70,17 +68,16 @@ typedef struct s_command_table
 	struct s_command_table	*backward;
 }				t_command_table;
 
-		typedef struct prototype
-		{
-			char				**content;
-			t_type				type;
-			int 				fdin;
-			int 				fdout;
-			int					shell_lev;
-			struct prototype	*forward;
-			struct prototype	*backward;
-		}					_prototype;
-
+		// typedef struct prototype
+		// {
+		// 	char				**content;
+		// 	t_type				type;
+		// 	int 				fdin;
+		// 	int 				fdout;
+		// 	int					shell_lev;
+		// 	struct prototype	*forward;
+		// 	struct prototype	*backward;
+		// }					_prototype;
 
 typedef struct s_mini_data
 {
@@ -101,7 +98,5 @@ typedef struct s_mini_data
 // }				t_sig;
 
 // proto
-
-
 
 #endif
