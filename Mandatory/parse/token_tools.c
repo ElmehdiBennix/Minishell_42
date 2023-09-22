@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:21:30 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/22 06:43:34 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 08:31:20 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ int    ft_lstdoubly(t_token **head , t_token *node)
 {
     t_token* arrow = *head;
 
-    if (*head == NULL)
-        *head = node;
-    else if (node == NULL)
+    if (node == NULL)
         return (1);
+    else if (*head == NULL)
+        *head = node;
     else
     {
         while (arrow->forward != NULL)
