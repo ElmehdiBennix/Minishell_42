@@ -6,18 +6,18 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 00:04:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/22 08:36:20 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 10:40:08 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static bool ft_lstcmds(t_command_table **head, t_command_table *node) 
+static bool ft_lstcmds(t_command_table **head, t_command_table *node)
 {
     t_command_table *arrow = *head;
 
     if (node == NULL)
-        return 1;
+        return (1);
     else if (*head == NULL) 
     {
         *head = node;
@@ -32,23 +32,42 @@ static bool ft_lstcmds(t_command_table **head, t_command_table *node)
         node->backward = arrow;
         node->forward = NULL;
     }
-    return 0;
+    return (0);
 }
 
-t_command_table *create_node(t_token **tokens)
+bool    create_redirection(t_command_table *node, int red_nbr)
 {
-    int i = 0;
-    int j = 0;
-    t_command_table *node;
-    node = ft_calloc(sizeof(t_command_table),1);
-    //if ( fails //)
+    int i = -1;
+    t_redirection *red_ptr;
+    t_redirection *tmp;
+
+    while(++i < red_nbr)
+    {
+        red_ptr = ft_calloc(sizeof(t_redirection),1);
+        if(!red_ptr)
+            return (1);
+        red_ptr->file_name = NULL;
+        if (i == 0)
+            node->redirections = red_ptr;
+        else
+            tmp->next = red_ptr;
+        tmp = red_ptr;
+        red_ptr = red_ptr->next;
+    }
+    return (0);
+}
+
+t_command_table *create_node(t_token **tokens, t_command_table *node)
+{
+    int content = 0;
+    int red_nbr = 0;
 
     while ((*tokens))
     {
         if (((*tokens)->type >= WORD && (*tokens)->type <= DOUBLE_QUOT) && (*tokens)->space_after == 1)
-            i++;
+            content++;
         else if ((*tokens)->type >= GREAT && (*tokens)->type <= HERE_DOC)
-            j++;
+            red_nbr++;
         else if ((*tokens)->type == PIPE)
         {
             (*tokens) = (*tokens)->forward;
@@ -56,25 +75,12 @@ t_command_table *create_node(t_token **tokens)
         }
         (*tokens) = (*tokens)->forward;
     }
-    node->cmds_array = ft_calloc(sizeof(char *),i-j+1);
-    //if failed ret
-    i = -1;
-    t_redirection *red_ptr;
-    t_redirection *tmp;
-    while(++i < j)
-    {
-        red_ptr = ft_calloc(sizeof(t_redirection),1);
-        // if failed
-        if (i == 0)
-            node->redirections = red_ptr;
-        else
-            tmp->next = red_ptr;
-        // red_ptr->fd = i;
-        tmp = red_ptr;
-        red_ptr = red_ptr->next;
-    }
+    node->cmds_array = ft_calloc(sizeof(char *),content-red_nbr+1);
+    if(!node->cmds_array)
+        return (NULL);
+    if (create_redirection(node,red_nbr) == TRUE)
+        return (free2d(node->cmds_array),red_free(node->redirections,0), NULL);
     return (node);
-
 }
 
 bool	allocate_groups(t_mini_data *var)
@@ -82,14 +88,18 @@ bool	allocate_groups(t_mini_data *var)
     int i;
     t_token *arrow = var->tokens;
     t_command_table *test;
+    t_command_table *node;
 
 	i = -1;
 	while (++i < var->nodes)
 	{
-        test = create_node(&arrow); // if this gives null fail
-        test->var = var;
-        if(ft_lstcmds(&var->exec_data,test) == TRUE)
-            return(1);
+        node = ft_calloc(sizeof(t_command_table),1);
+        if(!node)
+            return (1);
+        node->var = var;
+        node->redirections = NULL;
+        if (ft_lstcmds(&var->exec_data,create_node(&arrow,node)) == TRUE)
+            return (free(node),1);
 	}
 	return (0);
 }
