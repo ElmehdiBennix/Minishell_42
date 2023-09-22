@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/22 06:46:21 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 07:46:32 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int get_env(t_env **Henv, char **env)
 }
 
 // void exceute_it(t_token **data, t_env **env)
-
 static void	exec_loop(t_mini_data *var)
 {
     t_command_table *data_iter = var->exec_data;

@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/22 06:02:15 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 08:04:51 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,19 @@ typedef enum s_type
 
 typedef struct s_env
 {
-    char *key;
-    char *value;
-    struct s_env *next;
+    char 		 	*key;
+    char 		 	*value;
+    struct s_env	*next;
 }           t_env;
 
 typedef struct	s_expansions
 {
-	char			*new_arg;
-	int				i;
-	int				j;
+	char	*new_arg;
+	char	*buffer;
+	char	*tmp;
+	int		i;
+	int		j;
+	int 	f;
 }				t_expansions;
 
 typedef struct s_token
@@ -52,8 +55,8 @@ typedef struct s_token
 
 typedef struct s_redirection
 {
+	t_type	r_type;
 	char 	*file_name;
-	t_type	redirection;
 	struct	s_redirection *next;   // ls > a > b > c create a next b till last then dup output only c is // read write flag--
 }			t_redirection;
 
@@ -62,7 +65,7 @@ typedef struct s_command_table
 	char 					**cmds_array;
 	int 					fdin;
 	int 					fdout;
-	struct s_redirection	*redir;
+	struct s_redirection	*redirections;
 	struct s_mini_data		*var;
 	struct s_command_table	*forward;
 	struct s_command_table	*backward;

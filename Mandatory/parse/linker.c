@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:08:32 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/22 06:50:18 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 08:37:51 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 bool	linker(t_mini_data *var)
 {
     int i = 0;
-    // int j = 0;
     t_token *arrow = var->tokens;
     t_command_table *exec = var->exec_data;
-    t_redirection   *redirec = exec->redir;
+    t_redirection   *redirec = exec->redirections;
     char *buffer ;
 
     while (exec && arrow)
@@ -41,7 +40,7 @@ bool	linker(t_mini_data *var)
         }
         else if (arrow->type >= GREAT && arrow->type <= HERE_DOC)
         {
-            redirec->redirection = arrow->type;
+            redirec->r_type = arrow->type;
             arrow = arrow->forward;
             while (arrow->type >= WORD && arrow->type <= DOUBLE_QUOT && arrow->space_after == FALSE)
             {
@@ -60,7 +59,7 @@ bool	linker(t_mini_data *var)
             i = 0;
             exec = exec->forward;
             arrow = arrow->forward;
-            redirec = exec->redir;
+            redirec = exec->redirections;
         }
     }
 }
