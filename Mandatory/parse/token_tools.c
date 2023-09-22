@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:21:30 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/06 21:56:50 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 06:43:34 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,36 +26,36 @@ int ft_iswhite_space(char c)
     return (0);
 }
 
-void    get_type(t_token *token , int moves)
+t_type    get_type(char *token, int moves)
 {
     if (moves == 1)
     {
-        if (*token->content == '|')
-            token->type = PIPE;
-        else if (*token->content == '>')
-            token->type = GREAT;
-        else if (*token->content == '<')
-            token->type = LESS;
+        if (*token == '|')
+            return(PIPE);
+        else if (*token == '>')
+            return(GREAT);
+        else if (*token == '<')
+            return(LESS);
     }
     else
     {
-        if (ft_strncmp(token->content,">>",2) == 0)
-            token->type = APPEND;
-        else if (ft_strncmp(token->content,"<<",2) == 0)
-            token->type = HERE_DOC;
+        if (ft_strncmp(token,">>",2) == 0)
+            return(APPEND);
+        else if (ft_strncmp(token,"<<",2) == 0)
+            return(HERE_DOC);
         else
-            token->type = 10;
+            return(10);
     }
 }
 
-void    ft_lstdoubly(t_token **head , t_token *node)
+int    ft_lstdoubly(t_token **head , t_token *node)
 {
     t_token* arrow = *head;
 
     if (*head == NULL)
         *head = node;
     else if (node == NULL)
-        return; // error
+        return (1);
     else
     {
         while (arrow->forward != NULL)
@@ -64,5 +64,6 @@ void    ft_lstdoubly(t_token **head , t_token *node)
         node->backward = arrow;
         node->forward = NULL;
     }
+    return (0);
 }
 

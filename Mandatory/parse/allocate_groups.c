@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 00:04:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/21 02:57:09 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 05:29:00 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_command_table *create_node(t_token **tokens)
 
 }
 
-bool	group_args(t_mini_data *var) // if there is no after space join them else add it to the char **
+bool	allocate_groups(t_mini_data *var) // if there is no after space join them else add it to the char **
 {
     int i;
     t_token *arrow = var->tokens;

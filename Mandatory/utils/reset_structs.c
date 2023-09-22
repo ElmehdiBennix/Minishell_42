@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 22:52:18 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/21 06:55:55 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 06:25:04 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,3 +45,17 @@
 // 		token = token->forward;
 // 	}
 // }
+
+void	token_free(t_token *node , bool free_content)
+{
+	t_token     *arrow;
+
+	arrow = node;
+	while (arrow)
+	{
+        if (free_content == TRUE)
+            free(arrow->content);
+		free(arrow);
+		arrow = arrow -> forward;
+	}
+}

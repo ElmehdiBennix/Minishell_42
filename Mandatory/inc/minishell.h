@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/21 06:53:50 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 06:46:32 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@
 # include <sys/uio.h>
 # include <sys/wait.h>
 
-void	get_type(t_token *token, int moves);
+t_type    get_type(char *token, int moves);
+void	token_free(t_token *node , bool free_content);
 
-int		expand(t_mini_data *var);
+bool		expander(t_mini_data *var);
 bool	linker(t_mini_data *var);
 // void                ft_lstdoubly_cmds(t_command_table **head ,t_command_table *node);
 int		ft_iseparateur(char c);
 int		ft_iswhite_space(char c);
-void	ft_lstdoubly(t_token **head, t_token *node);
+int    ft_lstdoubly(t_token **head , t_token *node);
 
-t_token	    *get_tokens(char *prompt);
-bool	    tokenizer(t_mini_data *var);
+bool	token_catcher(char *prompt , t_mini_data *var);
+bool	    parser(t_mini_data *var);
 bool	    shell_history(t_mini_data *var, char *prompt);
-void	    get_type(t_token *token, int moves);
-bool	    group_args(t_mini_data *var);
+bool	    allocate_groups(t_mini_data *var);
 /// merge
 
 int		get_env(t_env **Henv, char **env);

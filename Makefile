@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/09/21 06:54:47 by ebennix          ###   ########.fr        #
+#    Updated: 2023/09/22 06:36:40 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ CFLAGS := -g -Wall -Wextra
 HEADER := Mandatory/inc/minishell.h
 
 FILES := Mandatory/minishell\
-		 Mandatory/parse/tokenizer\
-		 Mandatory/parse/catch_tokens\
+		 Mandatory/parse/parser\
+		 Mandatory/parse/token_catcher\
 		 Mandatory/parse/history\
 		 Mandatory/parse/expand\
 		 Mandatory/parse/allocate_groups\
