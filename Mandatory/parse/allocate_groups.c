@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 00:04:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/22 11:09:24 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/23 23:59:22 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,32 @@ t_command_table *create_node(t_token **tokens, t_command_table *node)
     red_nbr = 0;
     while ((*tokens))
     {
-        if (((*tokens)->type >= WORD && (*tokens)->type <= DOUBLE_QUOT) && (*tokens)->space_after == TRUE)
-            content++;
+        // printf("loop %s type == %d\n",(*tokens)->content,(*tokens)->type);
+        if (((*tokens)->type >= WORD && (*tokens)->type <= DOUBLE_QUOT))
+        {
+            // printf("1 toks == %s \n",(*tokens)->content);
+            if((*tokens)->space_after == TRUE)
+                content++;
+            else if ((*tokens)->forward->type >= PIPE && (*tokens)->forward->type <= HERE_DOC)
+            {
+                // printf("7 toks == %s \n",(*tokens)->content);
+                content++;
+            }
+        }
         else if ((*tokens)->type >= GREAT && (*tokens)->type <= HERE_DOC)
+        {
+            // printf("2 toks == %s \n",(*tokens)->content);
             red_nbr++;
+        }
         else if ((*tokens)->type == PIPE)
         {
+            // printf("3 toks == %s \n",(*tokens)->content);
             (*tokens) = (*tokens)->forward;
             break;
         }
         (*tokens) = (*tokens)->forward;
     }
+    printf("char ** = %d\n",content-red_nbr+1);
     node->cmds_array = ft_calloc(sizeof(char *),content-red_nbr+1);
     if(!node->cmds_array)
         return (NULL);

@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/23 21:39:46 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/23 22:51:51 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,27 @@ static bool	parse_loop(t_mini_data *var, char *prompt)
 	if (linker(var) == TRUE) // leaks left
         return(cmd_free(var->exec_data,1),tok_free(var->tokens,1),var->err_no = 8 ,1);
     tok_free(var->tokens,1);
+
+    t_command_table *test = var->exec_data;
+    int i = 0;
+    while(test)
+    {
+        t_redirection *test2 = test->redirections;
+        while(test->cmds_array[i])
+        {
+            printf("command[%d] == %s\n",i,test->cmds_array[i]);
+            i++;
+        }
+        i = 0;
+        while(test2)
+        {
+            printf("type = %d | file = %s\n",test2->r_type,test2->file_name);
+            test2 = test2->next;
+        }
+        test = test->forward;
+        printf("end\n");
+    }
+
     return(0);
 }
 
