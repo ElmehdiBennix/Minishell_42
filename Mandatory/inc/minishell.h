@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/22 10:35:09 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 10:44:15 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <sys/wait.h>
 
 t_type      get_type(char *token, int moves);
-void        token_free(t_token *node , bool free_content);
-void	    commands_free(t_command_table *node , bool free_content);
+void        tok_free(t_token *node , bool free_content);
+void	    cmd_free(t_command_table *node , bool free_content);
 void	    red_free(t_redirection *node , bool free_content);
 
 // void                ft_lstdoubly_cmds(t_command_table **head ,t_command_table *node);

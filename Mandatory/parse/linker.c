@@ -6,60 +6,85 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:08:32 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/22 08:37:51 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/23 21:38:22 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+// bool    func(int flag)
+// {
+//     while (toks->type >= WORD && toks->type <= DOUBLE_QUOT && toks->space_after == FALSE)
+//     {
+//         buffer = ft_strjoin(buffer,toks->content);
+//         toks = toks->forward;
+//     }
+//     if (toks->type >= WORD && toks->type <= DOUBLE_QUOT && toks->space_after == TRUE)
+//     {
+//         if(flag == )
+//         {
+//             buffer = ft_strjoin(buffer,toks->content);
+//             exec->cmds_array[i] = buffer;
+//             i++;
+//             toks = toks->forward;
+//         }
+//         else if (flag == )
+//         {
+//             redi->file_name = ft_strjoin(buffer,toks->content);
+//             redi = redi->next;
+//             toks = toks->forward;
+//         }
+//     }
+// }
+
 bool	linker(t_mini_data *var)
 {
     int i = 0;
-    t_token *arrow = var->tokens;
+    t_token *toks = var->tokens;
     t_command_table *exec = var->exec_data;
-    t_redirection   *redirec = exec->redirections;
-    char *buffer ;
+    t_redirection   *redi = exec->redirections;
+    char *buffer;
 
-    while (exec && arrow)
+    while (exec && toks)
     {
         buffer = NULL;
-        if (arrow->type >= WORD && arrow->type <= DOUBLE_QUOT)
+        if (toks->type >= WORD && toks->type <= DOUBLE_QUOT)
         {
-            while (arrow->type >= WORD && arrow->type <= DOUBLE_QUOT && arrow->space_after == FALSE)
+            while (toks->type >= WORD && toks->type <= DOUBLE_QUOT && toks->space_after == FALSE)
             {
-                buffer = ft_strjoin(buffer,arrow->content);
-                arrow = arrow->forward;
+                buffer = ft_strjoin(buffer,toks->content);
+                toks = toks->forward;
             }
-            if (arrow->type >= WORD && arrow->type <= DOUBLE_QUOT && arrow->space_after == TRUE)
+            if (toks->type >= WORD && toks->type <= DOUBLE_QUOT && toks->space_after == TRUE)
             {
-                buffer = ft_strjoin(buffer,arrow->content);
+                buffer = ft_strjoin(buffer,toks->content);
                 exec->cmds_array[i] = buffer;
                 i++;
-                arrow = arrow->forward;
+                toks = toks->forward;
             }
         }
-        else if (arrow->type >= GREAT && arrow->type <= HERE_DOC)
+        else if (toks->type >= GREAT && toks->type <= HERE_DOC)
         {
-            redirec->r_type = arrow->type;
-            arrow = arrow->forward;
-            while (arrow->type >= WORD && arrow->type <= DOUBLE_QUOT && arrow->space_after == FALSE)
+            redi->r_type = toks->type;
+            toks = toks->forward;
+            while (toks->type >= WORD && toks->type <= DOUBLE_QUOT && toks->space_after == FALSE)
             {
-                buffer = ft_strjoin(buffer,arrow->content);
-                arrow = arrow->forward;
+                buffer = ft_strjoin(buffer,toks->content);
+                toks = toks->forward;
             }
-            if (arrow->type >= WORD && arrow->type <= DOUBLE_QUOT && arrow->space_after == TRUE)
+            if (toks->type >= WORD && toks->type <= DOUBLE_QUOT && toks->space_after == TRUE)
             {
-                redirec->file_name = ft_strjoin(buffer,arrow->content);
-                redirec = redirec->next;
-                arrow = arrow->forward;
+                redi->file_name = ft_strjoin(buffer,toks->content);
+                redi = redi->next;
+                toks = toks->forward;
             }
         }
-        else if (arrow->type == PIPE)
+        else if (toks->type == PIPE)
         {
             i = 0;
             exec = exec->forward;
-            arrow = arrow->forward;
-            redirec = exec->redirections;
+            toks = toks->forward;
+            redi = exec->redirections;
         }
     }
 }

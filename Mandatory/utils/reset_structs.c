@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 22:52:18 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/22 10:36:38 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 10:43:44 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	cmd_free(t_command_table *node , bool free_content)
 	}
 }
 
-void	token_free(t_token *node , bool free_content)
+void	tok_free(t_token *node , bool free_content)
 {
 	t_token     *arrow;
 
