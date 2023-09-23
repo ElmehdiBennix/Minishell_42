@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:21:30 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/22 08:31:20 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 10:45:01 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ t_type    get_type(char *token, int moves)
             return(APPEND);
         else if (ft_strncmp(token,"<<",2) == 0)
             return(HERE_DOC);
-        else
-            return(10);
     }
+    return(10);
 }
 
 int    ft_lstdoubly(t_token **head , t_token *node)

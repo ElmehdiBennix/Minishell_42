@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/22 10:41:16 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/23 21:39:46 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ static void	exec_loop(t_mini_data *var)
 
 static bool	parse_loop(t_mini_data *var, char *prompt)
 {
+    // norm left
     char *prompty = prompt;
 
 	prompt = ft_strtrim(prompty, " ");
@@ -99,18 +100,18 @@ static bool	parse_loop(t_mini_data *var, char *prompt)
     if (!prompt)
         return (var->err_no = 3 ,1);
 	if (token_catcher(prompt ,var) == TRUE)
-        return (token_free(var->tokens,1),var->err_no = 4 ,1);
+        return (tok_free(var->tokens,1),var->err_no = 4 ,1);
 	if (parser(var) == TRUE)
-        return(token_free(var->tokens,1),var->err_no = 5 ,1);
-    if (expander(var) == TRUE)
-        return(token_free(var->tokens,1),var->err_no = 6 ,1);
+        return(tok_free(var->tokens,1),var->err_no = 5 ,1);
+    if (expander(var) == TRUE) // leaks left and $?
+        return(tok_free(var->tokens,1),var->err_no = 6 ,1);
     if (allocate_groups(var) == TRUE)
-        return(commands_free(var->tokens,1),token_free(var->tokens,1),var->err_no = 7 ,1);
-	if (linker(var) == TRUE)
-        return(commands_free(var->tokens,1),token_free(var->tokens,1),var->err_no = 8 ,1);
-    token_free(var->tokens,1);
+        return(cmd_free(var->exec_data,1),tok_free(var->tokens,1),var->err_no = 7 ,1);
+	if (linker(var) == TRUE) // leaks left
+        return(cmd_free(var->exec_data,1),tok_free(var->tokens,1),var->err_no = 8 ,1);
+    tok_free(var->tokens,1);
+    return(0);
 }
-
 
 // int main(int ac, char **av, char **env)
 // {
@@ -143,7 +144,7 @@ int	main(int ac, char **av, char **env)
 		{
             var.tokens = NULL;
             var.exec_data = NULL;
-			// prompt = prompt_generator(var);           
+			// prompt = prompt_generator(var);
             // signals --
             prompt = NULL;
 			prompt = readline(GREEN "-> le minishit" DEFAULT "$ "); // should display corrent dir and exit msgs zith colors sigf when cntr+ c or sm protect read line and make signales work
@@ -152,7 +153,7 @@ int	main(int ac, char **av, char **env)
 			if (parse_loop(&var, prompt) == TRUE)
                 continue;
 			// exec_loop(&var);
-            //free(var.exec_data);
+            cmd_free(var.exec_data,1);
 		}
 		return (0);
 	}

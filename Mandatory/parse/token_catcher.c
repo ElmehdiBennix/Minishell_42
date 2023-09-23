@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/22 06:37:36 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 11:08:27 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static t_token	*char_handler(char *prompt, int *i)
 	}
 	ft_strlcpy(token->content, &prompt[backward], moves + 1);
 	token->type = WORD;
-	if (ft_iswhite_space(prompt[*i]) == 1 || prompt[*i] == '\0')
+	if (ft_iswhite_space(prompt[*i]) == TRUE || prompt[*i] == '\0')
 		token->space_after = 1;
 	else
 		token->space_after = 0;
@@ -69,7 +69,7 @@ static t_token	*QUOT_handler(char *prompt, int *i, char QUOT_type)
 		return(NULL);
 	}
 	ft_strlcpy(token->content, &prompt[backward], moves + 3);
-	if (ft_iswhite_space(prompt[*i]) == 1 || prompt[*i] == '\0')
+	if (ft_iswhite_space(prompt[*i]) == TRUE || prompt[*i] == '\0')
 		token->space_after = 1;
 	else
 		token->space_after = 0;
@@ -114,7 +114,7 @@ static t_token	*separateur_handler(char *prompt, int *i)
 	}
 	ft_strlcpy(token->content, &prompt[backward], moves + 1);
 	token->type = get_type(token->content, moves);
-	if (ft_iswhite_space(prompt[*i]) == 1)
+	if (ft_iswhite_space(prompt[*i]) == TRUE || prompt[*i] == '\0') // added  || prompt[*i] == '\0' might couse errors
 		token->space_after = 1;
 	else
 		token->space_after = 0;

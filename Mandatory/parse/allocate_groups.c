@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 00:04:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/22 10:40:08 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 11:09:24 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ static bool ft_lstcmds(t_command_table **head, t_command_table *node)
 
 bool    create_redirection(t_command_table *node, int red_nbr)
 {
-    int i = -1;
+    int i;
     t_redirection *red_ptr;
     t_redirection *tmp;
 
+    i = -1;
     while(++i < red_nbr)
     {
         red_ptr = ft_calloc(sizeof(t_redirection),1);
@@ -59,12 +60,14 @@ bool    create_redirection(t_command_table *node, int red_nbr)
 
 t_command_table *create_node(t_token **tokens, t_command_table *node)
 {
-    int content = 0;
-    int red_nbr = 0;
+    int content;
+    int red_nbr;
 
+    content = 0;
+    red_nbr = 0;
     while ((*tokens))
     {
-        if (((*tokens)->type >= WORD && (*tokens)->type <= DOUBLE_QUOT) && (*tokens)->space_after == 1)
+        if (((*tokens)->type >= WORD && (*tokens)->type <= DOUBLE_QUOT) && (*tokens)->space_after == TRUE)
             content++;
         else if ((*tokens)->type >= GREAT && (*tokens)->type <= HERE_DOC)
             red_nbr++;
@@ -86,11 +89,11 @@ t_command_table *create_node(t_token **tokens, t_command_table *node)
 bool	allocate_groups(t_mini_data *var)
 {
     int i;
-    t_token *arrow = var->tokens;
-    t_command_table *test;
+    t_token *arrow;
     t_command_table *node;
 
 	i = -1;
+    arrow = var->tokens;
 	while (++i < var->nodes)
 	{
         node = ft_calloc(sizeof(t_command_table),1);
@@ -100,6 +103,7 @@ bool	allocate_groups(t_mini_data *var)
         node->redirections = NULL;
         if (ft_lstcmds(&var->exec_data,create_node(&arrow,node)) == TRUE)
             return (free(node),1);
+        node = NULL;
 	}
 	return (0);
 }

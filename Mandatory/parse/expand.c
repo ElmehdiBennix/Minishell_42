@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/22 08:24:20 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/22 11:11:51 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,10 @@ char    *get_value(char *content , t_mini_data *var) // algor wroking fine need 
         ft_memcpy(exp.new_arg,content+exp.i-exp.j-exp.f,exp.f); // code managment
     }
     buffer = ft_strjoin(buffer , exp.new_arg);
-    // printf("joined == %s§\n",buffer);
     return (buffer);
 }
 
-bool expander(t_mini_data *var)
+bool expander(t_mini_data *var) // ok
 {
     char    c;
     char    *tmp;
