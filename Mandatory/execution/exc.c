@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 21:05:55 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/24 01:46:59 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/24 04:12:49 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int excute_one_cmd(char **contents, t_env *env)
 		splited_path = ft_split(path, ':');// check for NULL if returned
 		str = check_path(splited_path, contents[0]);
 		if (!str)
-			return (printf("Error :command not found\n"), 2);
+			return (printf("%s: command not found\n", contents[0]), 2);
 		free2d(splited_path);
 		if (execve(str, contents, get_normal_env(env)) < 0)
 			return (perror(""), 2);
