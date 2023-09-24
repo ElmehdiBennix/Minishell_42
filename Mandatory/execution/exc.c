@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exc.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 21:05:55 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/21 07:07:23 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/24 01:46:59 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int excute_one_cmd(char **contents, t_env *env)
 		return (2);
 	else
 	{
-		// if (access(str, F_OK) == -1)
-		// 	return(ft_putstr_fd("PERMISSION DENIED ÁA WLD L9AHBA\n", 2), 2);
 		path = value_by_key(env, "PATH");
 		if (path == NULL)
 			return (printf("%s: No such file or directory\n", contents[0]), 2);
@@ -65,32 +63,32 @@ int excute_one_cmd(char **contents, t_env *env)
 	}
 }
 
-void 	one_cmd(t_command_table *exec_data, t_env *env)
+int	one_cmd(t_command_table *exec_data, t_env *env)
 {
 	int save;
 	int out;
-
-	// args == commands array
-	if (exec_data->cmds_array == NULL)
-		return ;
+	
+	if (exec_data->cmds_array == NULL || !exec_data->cmds_array[0])
+		return (2);
 	out = dup(1);
 	if (is_bult_in(exec_data->cmds_array[0]) == 1)
 	{
-		// if (exec_data->fdin != 0)
-		// {
-		// 	dup2(exec_data->fdin, STDIN_FILENO);
-		// 	close(exec_data->fdin);
-		// }
-		// if (exec_data->fdout != 1)
-		// {
-		// 	dup2(exec_data->fdout, STDOUT_FILENO);
-		// 	close(exec_data->fdout);
-		// }
+		if (exec_data->fdin != 0)
+		{
+			dup2(exec_data->fdin, STDIN_FILENO);
+			close(exec_data->fdin);
+		}
+		if (exec_data->fdout != 1)
+		{
+			dup2(exec_data->fdout, STDOUT_FILENO);
+			close(exec_data->fdout);
+		}
 		save = ft_bultin(exec_data, env);
-		// dup2(out, STDOUT_FILENO);
+		dup2(out, STDOUT_FILENO);
 	}
 	else
 		multi_cmd(exec_data, env);
+	return 0;
 }
 
 // void exceute_it(t_token **data, t_env **env)

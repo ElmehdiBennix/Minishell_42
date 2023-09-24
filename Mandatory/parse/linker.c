@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linker.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:08:32 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/24 00:29:57 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/24 00:54:19 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,5 @@ bool	linker(t_mini_data *var)
             redi = exec->redirections;
         }
     }
+	return (0);
 }

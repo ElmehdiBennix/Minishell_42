@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/23 22:51:51 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/24 03:21:54 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,19 @@ static void	exec_loop(t_mini_data *var)
 {
     t_command_table *data_iter = var->exec_data;
 
-	// while (data_iter)
-	// {
-	// 	open_red(data_iter);
-	// 	data_iter = data_iter->forward;
-	// }
+	while (data_iter)
+	{
+		open_red(data_iter);
+		data_iter = data_iter->forward;
+	}
 	if (var->nodes == 1)
-		one_cmd(var->exec_data, var->env_var);
+	{
+		if (one_cmd(var->exec_data, var->env_var) == 2)
+			return ;
+	}
 	else
 		multi_cmd(var->exec_data, var->env_var);
+	unlink_opened_files();
 }
 
 static bool	parse_loop(t_mini_data *var, char *prompt)
@@ -110,45 +114,45 @@ static bool	parse_loop(t_mini_data *var, char *prompt)
 	if (linker(var) == TRUE) // leaks left
         return(cmd_free(var->exec_data,1),tok_free(var->tokens,1),var->err_no = 8 ,1);
     tok_free(var->tokens,1);
-
     t_command_table *test = var->exec_data;
     int i = 0;
-    while(test)
-    {
-        t_redirection *test2 = test->redirections;
-        while(test->cmds_array[i])
-        {
-            printf("command[%d] == %s\n",i,test->cmds_array[i]);
-            i++;
-        }
-        i = 0;
-        while(test2)
-        {
-            printf("type = %d | file = %s\n",test2->r_type,test2->file_name);
-            test2 = test2->next;
-        }
-        test = test->forward;
-        printf("end\n");
-    }
-
+    // while(test)
+    // {
+    //     t_redirection *test2 = test->redirections;
+    //     while(test->cmds_array[i])
+    //     {
+    //         printf("command[%d] == %s\n",i,test->cmds_array[i]);
+    //         i++;
+    //     }
+	//     printf("command[%d] == %s\n",i,test->cmds_array[i]);
+    //     i = 0;
+    //     while(test2)
+    //     {
+    //         printf("type = %d | file = %s\n",test2->r_type,test2->file_name);
+    //         test2 = test2->next;
+    //     }
+	// 	printf("file = %p\n",test2);
+    //     test = test->forward;
+    //     printf("end\n");
+    // }
     return(0);
 }
 
-// int main(int ac, char **av, char **env)
-// {
-// 	{
-// 		exceute_it(&token, &l_env);
-// 		int i = 0;
-// 		char *s = ft_strjoin("/tmp/here_doc", ft_itoa(i));
-// 		while (access(s, F_OK) == 0)
-// 		{
-// 			unlink(s);
-// 			free(s);
-// 			i++;
-// 			s = ft_strjoin("/tmp/here_doc", ft_itoa(i));//leaks
-// 		}
-// 	}
-// }
+void	unlink_opened_files()
+{
+		int i = 0;
+		char *str = ft_itoa(i);
+		char *s = ft_strjoin("/tmp/here_doc", str);
+		while (access(s, F_OK) == 0)
+		{
+			unlink(s);
+			free(s);
+			i++;
+			str = ft_itoa(i);
+			s = ft_strjoin("/tmp/here_doc", str);
+			free(str);//leaks
+		}
+}
 
 int	main(int ac, char **av, char **env)
 {
@@ -173,7 +177,7 @@ int	main(int ac, char **av, char **env)
 				continue;
 			if (parse_loop(&var, prompt) == TRUE)
                 continue;
-			// exec_loop(&var);
+			exec_loop(&var);
             cmd_free(var.exec_data,1);
 		}
 		return (0);
