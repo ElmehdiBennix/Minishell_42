@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 00:04:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/24 03:05:25 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/24 03:51:50 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_command_table *create_node(t_token **tokens, t_command_table *node)
         }
         (*tokens) = (*tokens)->forward;
     }
-    printf("char ** = %d\n",content-red_nbr+1);
+    // printf("char ** = %d\n",content-red_nbr+1);
     node->cmds_array = ft_calloc(sizeof(char *),content-red_nbr+1);
     if(!node->cmds_array)
         return (NULL);
@@ -116,6 +116,8 @@ bool	allocate_groups(t_mini_data *var)
             return (1);
         node->var = var;
         node->redirections = NULL;
+        node->fdin = 0;
+        node->fdout = 1;
         if (ft_lstcmds(&var->exec_data,create_node(&arrow,node)) == TRUE)
             return (free(node),1);
         node = NULL;
