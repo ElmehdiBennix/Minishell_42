@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 19:52:57 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/29 18:48:18 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/24 00:42:45 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[++j])
 		str[i + j] = s2[j];
 	str[i + j] = '\0';
-	free (s1);
+	// free (s1);
 	return (str);
 }
