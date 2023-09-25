@@ -3,21 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bultins.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:50:58 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/21 04:37:29 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/25 03:15:01 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_bultin(t_command_table *exec_data, t_env *env)
+int	ft_bultin(t_command_table *exec_data, t_env **env)
 {
 	static int exit_s = 0;
-	
+	if (env == NULL)
+	{
+		return 0;
+	}
 	if (ft_strcmp(exec_data->cmds_array[0], "env") == 0)
-		exit_s = ft_env(1, env);
+		exit_s = ft_env(1, *env);
 	else if (ft_strcmp(exec_data->cmds_array[0], "unset") == 0)
 		ft_unset(exec_data->cmds_array, env);
 	else if (ft_strcmp(exec_data->cmds_array[0], "cd") == 0)

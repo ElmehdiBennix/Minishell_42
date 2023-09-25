@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/24 03:30:53 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/25 03:56:04 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,12 @@ bool expander(t_mini_data *var) // ok
                 free(tmp);
             }
             if (arrow->type == WORD || arrow->type == DOUBLE_QUOT)
-                arrow->content = get_value(arrow->content,var);
+			{
+				if(arrow->type == WORD && ft_strncmp(arrow->content,"~",2) == 0)
+					arrow->content = ft_strdup(value_by_key(var->env_var,"HOME"));
+				else
+                	arrow->content = get_value(arrow->content,var);
+			}
         }
         if (arrow->content == NULL)
             return (1);

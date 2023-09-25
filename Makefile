@@ -6,7 +6,7 @@
 #    By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/09/24 01:31:50 by otaraki          ###   ########.fr        #
+#    Updated: 2023/09/24 23:32:16 by otaraki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ ARCH := lib/lib_42.a
 
 CC := cc 
 
-CFLAGS := -g -Wall -Wextra 
+CFLAGS := -g -Wall -Werror -Wextra
 # -Werror
 # -fsanitize=address
 
@@ -66,7 +66,7 @@ library:
 	make -C lib
 
 $(EXE) : $(OBJ)
-	$(CC) -o $(EXE) $(OBJ) $(ARCH) -lreadline
+	$(CC) $(CFLAGS) $(OBJ) $(ARCH) -o $(EXE) -lreadline
 
 %.o : %.c $(HEADER) | library
 	$(CC) $(CFLAGS) -c $< -o $@

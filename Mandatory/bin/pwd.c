@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:30 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/21 04:36:20 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/25 03:16:04 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	me_pwd(int fd, t_env *env)
+void	me_pwd(int fd, t_env **env)
 {
 	t_env	*tmp;
 	
-	tmp = env;
+	tmp = *env;
 	if (!value_by_key(tmp, "PWD"))
 	{
-		tmp = env;
+		tmp = *env;
 		tmp = update_pwd(&tmp, getcwd(NULL, 0));
 	}
 	ft_putstr_fd(value_by_key(tmp, "PWD"), fd);
