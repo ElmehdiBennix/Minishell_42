@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:50:58 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/25 03:15:01 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/26 00:31:35 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ int	ft_bultin(t_command_table *exec_data, t_env **env)
 {
 	static int exit_s = 0;
 	if (env == NULL)
-	{
 		return 0;
-	}
 	if (ft_strcmp(exec_data->cmds_array[0], "env") == 0)
 		exit_s = ft_env(1, *env);
 	else if (ft_strcmp(exec_data->cmds_array[0], "unset") == 0)

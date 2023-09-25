@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/25 20:17:46 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/26 00:41:13 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ char    *get_value(char *content , t_mini_data *var) // algor wroking fine need 
                 buff = ft_calloc(exp.j + 1 , sizeof(char));
                 ft_memcpy(buff,content+exp.i-exp.j,exp.j); // might sigf in some cases
                 if (*buff == '?')
-                {
                     x = ft_strjoin(exp.new_arg,ft_itoa(var->err_no));
-                }
                 else
                     x = ft_strjoin(exp.new_arg,value_by_key(var->env_var,buff)); // can the value function
                 buffer = ft_strjoin(buffer,x);
@@ -73,8 +71,8 @@ char    *get_value(char *content , t_mini_data *var) // algor wroking fine need 
                 exp.new_arg = NULL;
             }
         }
-		if(content[exp.i]=='\0')
-			break;
+		if(content[exp.i] == '\0')
+			break ;
         exp.f++;
         exp.i++;
     }
