@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 21:05:55 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/24 04:12:49 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/25 03:29:55 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char *check_path(char **s_path, char *cmd)
 	return (NULL);
 }
 
-int excute_one_cmd(char **contents, t_env *env)
+int excute_one_cmd(char **contents, t_env **env)
 {
 	char *path;
 	char *str;
@@ -47,9 +47,19 @@ int excute_one_cmd(char **contents, t_env *env)
 
 	if (!contents[0])// don't check about it, should be handled by the parser!
 		return (2);
+	if (!ft_strncmp(contents[0], "/", 1))
+	{
+		if (access(contents[0], X_OK) < 0)
+			return (printf("%s: No such file or directory\n", contents[0]), 2);// also check for files permissions
+		else
+		{
+			if (execve(contents[0], contents, get_normal_env(*env)) < 0)
+				return (perror(""), 2);
+		}
+	}
 	else
 	{
-		path = value_by_key(env, "PATH");
+		path = value_by_key(*env, "PATH");
 		if (path == NULL)
 			return (printf("%s: No such file or directory\n", contents[0]), 2);
 		splited_path = ft_split(path, ':');// check for NULL if returned
@@ -57,13 +67,14 @@ int excute_one_cmd(char **contents, t_env *env)
 		if (!str)
 			return (printf("%s: command not found\n", contents[0]), 2);
 		free2d(splited_path);
-		if (execve(str, contents, get_normal_env(env)) < 0)
+		if (execve(str, contents, get_normal_env(*env)) < 0)
 			return (perror(""), 2);
 		return 1;
 	}
+	return 1;
 }
 
-int	one_cmd(t_command_table *exec_data, t_env *env)
+int	one_cmd(t_command_table *exec_data, t_env **env)
 {
 	int save;
 	int out;
@@ -71,6 +82,8 @@ int	one_cmd(t_command_table *exec_data, t_env *env)
 	if (exec_data->cmds_array == NULL || !exec_data->cmds_array[0])
 		return (2);
 	out = dup(1);
+	save = 0;
+	
 	if (is_bult_in(exec_data->cmds_array[0]) == 1)
 	{
 		if (exec_data->fdin != 0)

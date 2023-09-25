@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:24 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/21 04:39:59 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/25 03:16:53 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int	check_valid_key(char *key)
 	return (i);
 }
 
-int	seen_bef(char *seen, char *new_val, t_env *env)
+int	seen_bef(char *seen, char *new_val, t_env **env)
 {
 	t_env *tmp;
 
-	tmp = env;
+	tmp = *env;
 	while(tmp)
 	{
 		if(ft_strcmp(seen, tmp->key) == 0)
@@ -76,7 +76,7 @@ void	export_item(char **arg, t_env **ev)
 		{
 			key = get_key(arg[i]);
 			value = get_val(arg[i]);
-			if (seen_bef(key, value,  *ev) != 0)
+			if (seen_bef(key, value,  ev) != 0)
 			{
 				tmp = ft_lstnew_env(key, value);
 				ft_lstadd_back_env(ev, tmp);
@@ -86,11 +86,11 @@ void	export_item(char **arg, t_env **ev)
 	}
 }
 
-void	export_it(char **av, t_env *env)
+void	export_it(char **av, t_env **env)
 {
 	t_env *tmp;
 
-	tmp = env;
+	tmp = *env;
 	if (tmp)
 		sort_list(tmp, compare);
 	if (!av[1])// av[0] = "export" av[1] = NULL .. av[n] == NULL 
@@ -105,7 +105,7 @@ void	export_it(char **av, t_env *env)
 		}
 	}
 	else
-		export_item(av, &env);
+		export_item(av, env);
 
 }
 // i sill need to handel the rest of the cases to not crash

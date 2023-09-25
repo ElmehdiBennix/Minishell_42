@@ -6,13 +6,13 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:57:12 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/24 01:43:58 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/25 03:17:25 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	multi_cmd(t_command_table *exec_data, t_env *env)
+void	multi_cmd(t_command_table *exec_data, t_env **env)
 {
 	t_command_table		*arrow;
 	int			        fd[2];
@@ -50,9 +50,7 @@ void	multi_cmd(t_command_table *exec_data, t_env *env)
 			else
 			{
 				if (excute_one_cmd(arrow->cmds_array, env) == 2)
-				{
 					exit(0);
-				}
 			}
 			exit(0);
 		}

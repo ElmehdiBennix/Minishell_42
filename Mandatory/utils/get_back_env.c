@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:43:50 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/03 21:56:49 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/25 00:02:23 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char	**get_normal_env(t_env *env)
 	char	**envir;
 	int		i;
 	
+	if (!env)
+		return (NULL);
 	tmp = env;
 	i = 0;
 	while (tmp)

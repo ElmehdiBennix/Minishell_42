@@ -8,7 +8,7 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug",
-            "program": "/Users/ebennix/Documents/Minishell_42/Minishell",
+            "program": "/Users/otaraki/Desktop/gha_clone/Minishell",
             "args": [],
             "cwd": "${workspaceFolder}"
         }

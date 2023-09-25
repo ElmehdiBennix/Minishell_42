@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reset_structs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 22:52:18 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/22 10:43:44 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/25 03:59:25 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	red_free(t_redirection *node , bool free_content)
 	arrow = node;
 	while (arrow)
 	{
-        if (free_content == TRUE)
+        if (arrow->file_name && free_content == TRUE)
             free(arrow->file_name);
 		free(arrow);
 		arrow = arrow->next;
@@ -66,7 +66,7 @@ void	cmd_free(t_command_table *node , bool free_content)
 	arrow = node;
 	while (arrow)
 	{
-        if (free_content == TRUE)
+        if (arrow->cmds_array && free_content == TRUE)
 		{
             free2d(arrow->cmds_array);
 			red_free(arrow->redirections,1);
@@ -82,8 +82,8 @@ void	tok_free(t_token *node , bool free_content)
 
 	arrow = node;
 	while (arrow)
-	{
-        if (free_content == TRUE)
+	{    
+		if (arrow->content && free_content == TRUE)
             free(arrow->content);
 		free(arrow);
 		arrow = arrow -> forward;

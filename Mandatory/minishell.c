@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/24 03:48:06 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/25 03:43:46 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int get_env(t_env **Henv, char **env)
     return 1;
 }
 
-// void exceute_it(t_token **data, t_env **env)
 static void	exec_loop(t_mini_data *var)
 {
     t_command_table *data_iter = var->exec_data;
@@ -86,12 +85,12 @@ static void	exec_loop(t_mini_data *var)
 	}
 	if (var->nodes == 1)
 	{
-		if (one_cmd(var->exec_data, var->env_var) == 2)
+		if (one_cmd(var->exec_data, &var->env_var) == 2)
 			return ;
 	}
 	else
-		multi_cmd(var->exec_data, var->env_var);
-	unlink_opened_files();
+		multi_cmd(var->exec_data, &var->env_var);
+	// unlink_opened_files();
 }
 
 static bool	parse_loop(t_mini_data *var, char *prompt)
@@ -114,6 +113,57 @@ static bool	parse_loop(t_mini_data *var, char *prompt)
 	if (linker(var) == TRUE) // leaks left
         return(cmd_free(var->exec_data,1),tok_free(var->tokens,1),var->err_no = 8 ,1);
     tok_free(var->tokens,1);
+    return(0);
+}
+
+void	unlink_opened_files()
+{
+		int i = 0;
+		char *str = ft_itoa(i);
+		char *s = ft_strjoin("/tmp/here_doc", str);
+		while (access(s, F_OK) == 0)
+		{
+			unlink(s);
+			free(s);
+			i++;
+			str = ft_itoa(i);
+			s = ft_strjoin("/tmp/here_doc", str);
+			free(str);
+		}
+}
+
+int	main(int ac, char **av, char **env)
+{
+	char		*prompt;
+	t_mini_data	var;
+
+	(void)av;
+	var.err_no = 0;
+	var.env_var = NULL;
+	get_env(&var.env_var, env);
+	if (ac == 1)
+	{
+		while (1)
+		{
+            var.tokens = NULL;
+            var.exec_data = NULL;
+			// prompt = prompt_generator(var);
+            // signals --
+            prompt = NULL;
+			prompt = readline(GREEN "-> le minishit" DEFAULT "$ "); // should display corrent dir and exit msgs zith colors sigf when cntr+ c or sm protect read line and make signales work
+            if (shell_history(&var, prompt) == TRUE)
+				continue;
+			if (parse_loop(&var, prompt) == TRUE)
+                continue;
+			// printf("%s\n", var);
+			exec_loop(&var);
+            cmd_free(var.exec_data,1);
+		}
+		return (0);
+	}
+	return (ft_fprintf(2,"le minishell: this shell does not accept any arguments !!\n"),127);
+}
+
     // t_command_table *test = var->exec_data;
     // int i = 0;
     // while(test)
@@ -135,52 +185,3 @@ static bool	parse_loop(t_mini_data *var, char *prompt)
     //     test = test->forward;
     //     printf("end\n");
     // }
-    return(0);
-}
-
-void	unlink_opened_files()
-{
-		int i = 0;
-		char *str = ft_itoa(i);
-		char *s = ft_strjoin("/tmp/here_doc", str);
-		while (access(s, F_OK) == 0)
-		{
-			unlink(s);
-			free(s);
-			i++;
-			str = ft_itoa(i);
-			s = ft_strjoin("/tmp/here_doc", str);
-			free(str);//leaks
-		}
-}
-
-int	main(int ac, char **av, char **env)
-{
-	char		*prompt;
-	t_mini_data	var;
-
-	(void)av;
-	var.err_no = 0;
-	var.env_var = NULL;
-	get_env(&var.env_var,env);
-	if (ac == 1)
-	{
-		while (1)
-		{
-            var.tokens = NULL;
-            var.exec_data = NULL;
-			// prompt = prompt_generator(var);
-            // signals --
-            prompt = NULL;
-			prompt = readline(GREEN "-> le minishit" DEFAULT "$ "); // should display corrent dir and exit msgs zith colors sigf when cntr+ c or sm protect read line and make signales work
-            if (shell_history(&var, prompt) == TRUE)
-				continue;
-			if (parse_loop(&var, prompt) == TRUE)
-                continue;
-			exec_loop(&var);
-            cmd_free(var.exec_data,1);
-		}
-		return (0);
-	}
-	return (ft_fprintf(2,"le minishell: this shell does not accept any arguments !!\n"),127);
-}
