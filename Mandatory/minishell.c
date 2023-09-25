@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/25 23:10:34 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/26 00:38:17 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ static void	exec_loop(t_mini_data *var)
 	if (var->nodes == 1)
 	{
 		if (one_cmd(var->exec_data, &var->env_var) == 2)
+		{
+			var->err_no = 2;
 			return ;
+		}
 	}
 	else
 		multi_cmd(var->exec_data, &var->env_var);
@@ -127,9 +130,13 @@ static bool	parse_loop(t_mini_data *var, char *prompt)
 
 void	unlink_opened_files()
 {
-		int i = 0;
-		char *str = ft_itoa(i);
-		char *s = ft_strjoin("/tmp/here_doc", str);
+		int		i;
+		char	*str; 
+		char	*s;
+
+		i = 0;
+		str = ft_itoa(i);
+		s = ft_strjoin("/tmp/here_doc", str);
 		free(str);
 		while (access(s, F_OK) == 0)
 		{
@@ -141,10 +148,6 @@ void	unlink_opened_files()
 			s = ft_strjoin("/tmp/here_doc", str);
 			free(str);
 		}
-		// if (s)
-		// 	free(s);
-		// if (str)
-		// 	free(str);
 }
 
 int	main(int ac, char **av, char **env)
@@ -170,7 +173,6 @@ int	main(int ac, char **av, char **env)
 				continue;
 			if (parse_loop(&var, prompt) == TRUE)
                 continue;
-			// printf("%s\n", var);
 			exec_loop(&var);
             cmd_free(var.exec_data,1);
 		}

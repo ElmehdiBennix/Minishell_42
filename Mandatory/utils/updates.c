@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 15:05:44 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/25 20:00:54 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/26 00:32:53 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ t_env	*update_pwd(t_env **env, char *pwd)
 			fod = 1;
 			if (tmp->value)
 				free(tmp->value);
-			tmp->value = ft_strdup(pwd);
+			if(pwd != NULL) 
+				tmp->value = ft_strdup(pwd);
 			tmp  = *env;
 			return (tmp);
 		}
@@ -49,9 +50,9 @@ t_env	*update_old_pwd(t_env **env, char *oldpwd)
 	{
 		if (ft_strcmp(tmp->key, "OLDPWD") == 0)
 		{
-			if(tmp->value)
+			if( tmp->value)
 				free(tmp->value);
-			if(oldpwd != NULL)
+			if (oldpwd != NULL)
 				tmp->value = ft_strdup(oldpwd);
 			tmp  = *env;
 			return (tmp); ;

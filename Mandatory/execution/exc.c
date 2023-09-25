@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 21:05:55 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/25 20:06:41 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/26 00:32:00 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	one_cmd(t_command_table *exec_data, t_env **env)
 		return (2);
 	out = dup(1);
 	save = 0;
-	
 	if (is_bult_in(exec_data->cmds_array[0]) == 1)
 	{
 		if (exec_data->fdin != 0)
@@ -104,22 +103,3 @@ int	one_cmd(t_command_table *exec_data, t_env **env)
 	close(out);
 	return 0;
 }
-
-// void exceute_it(t_token **data, t_env **env)
-// {
-// 	t_token		*iter;
-// 	int			numb_pipes;
-
-// 	iter = *data;
-// 	numb_pipes = -1;
-// 	while (iter)
-// 	{
-// 		open_red(&iter, iter->content);
-// 		numb_pipes++;
-// 		iter = iter->forward;
-// 	}
-// 	if (numb_pipes == 0)
-// 		one_cmd(data, (*data)->content, env);
-// 	else
-// 		multi_cmd(data, env);
-// }

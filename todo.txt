@@ -1,5 +1,5 @@
-- leaks of fds in redirection
-- trim space of exanded value
+- leaks of fds in redirection √
+- split white space of exanded value
 - expand inside heredoc
 - don't print dollar sign in case of key is not an alphabetic character
 
