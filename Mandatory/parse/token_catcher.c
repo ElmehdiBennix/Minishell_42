@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_catcher.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/22 11:08:27 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/25 20:17:56 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static t_token	*char_handler(char *prompt, int *i)
 		moves++;
 	}
 	backward = (*i) - moves;
-	token->content = ft_calloc(moves + 1, sizeof(char));
+	//todo: check
+	token->content = ft_calloc(moves+ 1, sizeof(char));
 	if (!token->content)
 	{
 		free(token);

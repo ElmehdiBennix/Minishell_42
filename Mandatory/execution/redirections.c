@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/24 01:40:31 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/25 22:44:02 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char *herdoc_name(void)
 	free(n);
 	while (access(s, F_OK) == 0)
 	{
+		printf("%s--\n", s);
 		n = NULL;
 		free(s);
 		i++;

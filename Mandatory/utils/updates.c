@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   updates.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 15:05:44 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/21 04:32:49 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/25 20:00:54 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ t_env	*update_old_pwd(t_env **env, char *oldpwd)
 		{
 			if(tmp->value)
 				free(tmp->value);
-			tmp->value = ft_strdup(oldpwd);
+			if(oldpwd != NULL)
+				tmp->value = ft_strdup(oldpwd);
 			tmp  = *env;
 			return (tmp); ;
 		}

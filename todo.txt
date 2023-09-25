@@ -1,0 +1,11 @@
+- leaks of fds in redirection
+- trim space of exanded value
+- expand inside heredoc
+- don't print dollar sign in case of key is not an alphabetic character
+
+
+for testing fds: while lsof -p $(pgrep Minishell )
+do
+sleep 3
+clean
+done
