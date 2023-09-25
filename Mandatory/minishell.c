@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/25 03:43:46 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/25 23:10:34 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,16 @@ static void	exec_loop(t_mini_data *var)
 	}
 	else
 		multi_cmd(var->exec_data, &var->env_var);
-	// unlink_opened_files();
+	while(var->nodes != 0)
+	{
+		if (var->exec_data->fdout != 1)
+			close(var->exec_data->fdout);
+		if (var->exec_data->fdin != 0)
+			close(var->exec_data->fdin);
+		var->exec_data = var->exec_data->forward;
+		var->nodes--;
+	}
+	unlink_opened_files();
 }
 
 static bool	parse_loop(t_mini_data *var, char *prompt)
@@ -121,8 +130,10 @@ void	unlink_opened_files()
 		int i = 0;
 		char *str = ft_itoa(i);
 		char *s = ft_strjoin("/tmp/here_doc", str);
+		free(str);
 		while (access(s, F_OK) == 0)
 		{
+			str = NULL;
 			unlink(s);
 			free(s);
 			i++;
@@ -130,6 +141,10 @@ void	unlink_opened_files()
 			s = ft_strjoin("/tmp/here_doc", str);
 			free(str);
 		}
+		// if (s)
+		// 	free(s);
+		// if (str)
+		// 	free(str);
 }
 
 int	main(int ac, char **av, char **env)
@@ -150,7 +165,7 @@ int	main(int ac, char **av, char **env)
 			// prompt = prompt_generator(var);
             // signals --
             prompt = NULL;
-			prompt = readline(GREEN "-> le minishit" DEFAULT "$ "); // should display corrent dir and exit msgs zith colors sigf when cntr+ c or sm protect read line and make signales work
+			prompt = readline(GREEN "-> MINISHELL DZB" DEFAULT "$ "); // should display corrent dir and exit msgs zith colors sigf when cntr+ c or sm protect read line and make signales work
             if (shell_history(&var, prompt) == TRUE)
 				continue;
 			if (parse_loop(&var, prompt) == TRUE)

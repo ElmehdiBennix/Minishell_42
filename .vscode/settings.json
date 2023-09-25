@@ -10,6 +10,15 @@
 		"complex": "c",
 		"__node_handle": "c",
 		"type_traits": "c",
-		"ios": "c"
+		"ios": "c",
+		"_size_t.h": "c",
+		"__locale": "c",
+		"atomic": "c",
+		"cstdlib": "c",
+		"locale": "c",
+		"ostream": "c",
+		"typeinfo": "c",
+		"algorithm": "c",
+		"new": "c"
 	}
 }

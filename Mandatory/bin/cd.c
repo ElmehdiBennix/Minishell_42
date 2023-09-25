@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:52:57 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/25 03:57:57 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/25 23:27:56 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,13 @@ void	me_cd(char **cmd_array, t_env **env)
 {
 	t_env	*tmp;
 	char	*path;
+	int		flg;
 
 	tmp = *env;
 	path = getcwd(NULL, 0);
+	flg = 0;
+	if (!path)
+		return(perror("getcwd"));
 	if (!cmd_array[1])
 	{
 		if (chdir(value_by_key(tmp, "HOME")))
@@ -41,6 +45,7 @@ void	me_cd(char **cmd_array, t_env **env)
 			tmp = *env;
 			if (chdir(value_by_key(tmp, "OLDPWD")))
 				printf("error: cannot find directory\n");
+			flg = 1;
 		}
 		else if (chdir(cmd_array[1]))
 			printf("error: cannot find directory\n");
@@ -49,9 +54,11 @@ void	me_cd(char **cmd_array, t_env **env)
 	}
 	free(path);
 	path = getcwd(NULL, 0);
+	if (!path)
+		return (perror("getcwd: "));
 	update_old_current(*env, path, 1);
-	// me_pwd(1, env);
+	if (flg)
+		me_pwd(1, env);
 	free(path);
 }
-// if someone unseted  HOME delet the node with OLDPWD AS KEY 
 // check for leaks

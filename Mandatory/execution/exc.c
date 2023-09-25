@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 21:05:55 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/25 03:29:55 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/25 20:06:41 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int excute_one_cmd(char **contents, t_env **env)
 
 	if (!contents[0])// don't check about it, should be handled by the parser!
 		return (2);
-	if (!ft_strncmp(contents[0], "/", 1))
+	if (ft_strchr(contents[0], '/'))
 	{
 		if (access(contents[0], X_OK) < 0)
 			return (printf("%s: No such file or directory\n", contents[0]), 2);// also check for files permissions
@@ -101,6 +101,7 @@ int	one_cmd(t_command_table *exec_data, t_env **env)
 	}
 	else
 		multi_cmd(exec_data, env);
+	close(out);
 	return 0;
 }
 

@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/25 03:56:04 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/25 20:17:46 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ char    *get_value(char *content , t_mini_data *var) // algor wroking fine need 
                 exp.new_arg = NULL;
             }
         }
+		if(content[exp.i]=='\0')
+			break;
         exp.f++;
         exp.i++;
     }

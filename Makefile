@@ -6,7 +6,7 @@
 #    By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/09/25 04:05:05 by otaraki          ###   ########.fr        #
+#    Updated: 2023/09/25 19:55:00 by otaraki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,10 @@ ARCH := lib/lib_42.a
 
 CC := cc 
 
-CFLAGS := -g -Wall -Werror -Wextra
+CFLAGS := -g -Wall -Werror -Wextra -fsanitize=address -g
 # -Werror
-# -fsanitize=address
+# CFLAFS := 
+
 
 HEADER := Mandatory/inc/minishell.h
 
