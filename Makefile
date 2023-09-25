@@ -6,7 +6,7 @@
 #    By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/09/24 23:32:16 by otaraki          ###   ########.fr        #
+#    Updated: 2023/09/25 04:05:05 by otaraki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,7 @@ fclean : clean
 re : fclean all
 
 git :
+	make fclean
 	git add .
 	git status
 	git commit -m "$(m)"
