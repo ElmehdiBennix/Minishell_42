@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/22 08:38:29 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/26 07:16:02 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,6 @@ typedef struct s_command_table
 	struct s_command_table	*backward;
 }				t_command_table;
 
-		// typedef struct prototype
-		// {
-		// 	char				**content;
-		// 	t_type				type;
-		// 	int 				fdin;
-		// 	int 				fdout;
-		// 	int					shell_lev;
-		// 	struct prototype	*forward;
-		// 	struct prototype	*backward;
-		// }					_prototype;
-
 typedef struct s_mini_data
 {
 	int						err_no;
@@ -91,15 +80,5 @@ typedef struct s_mini_data
 	struct s_token			*tokens;
 	struct s_command_table	*exec_data;
 }					t_mini_data;
-
-// typedef struct	s_sig
-// {
-// 	int				sigint;
-// 	int				sigquit;
-// 	int				exit_status;
-// 	pid_t			pid;
-// }				t_sig;
-
-// proto
 
 #endif

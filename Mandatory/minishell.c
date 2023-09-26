@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/26 00:38:17 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/26 08:38:55 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ static void	exec_loop(t_mini_data *var)
 
 static bool	parse_loop(t_mini_data *var, char *prompt)
 {
-    // norm left
     char *prompty = prompt;
 
 	prompt = ft_strtrim(prompty, " ");
@@ -150,6 +149,17 @@ void	unlink_opened_files()
 		}
 }
 
+void	signal_handler(int signal)
+{
+	(void)signal;
+	if (waitpid(-1, NULL, WNOHANG) == 0)
+		return ;
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char		*prompt;
@@ -166,8 +176,9 @@ int	main(int ac, char **av, char **env)
             var.tokens = NULL;
             var.exec_data = NULL;
 			// prompt = prompt_generator(var);
-            // signals --
             prompt = NULL;
+            signal(SIGQUIT, SIG_IGN);
+            signal(SIGINT, signal_handler);
 			prompt = readline(GREEN "-> MINISHELL DZB" DEFAULT "$ "); // should display corrent dir and exit msgs zith colors sigf when cntr+ c or sm protect read line and make signales work
             if (shell_history(&var, prompt) == TRUE)
 				continue;

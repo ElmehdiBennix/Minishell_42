@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+         #
+#    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/09/25 19:55:00 by otaraki          ###   ########.fr        #
+#    Updated: 2023/09/26 08:32:50 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,11 @@ RM := rm -rf
 
 m := MakefileAutoPush
 
+LDFLAGS := "-L/Users/ebennix/homebrew/opt/readline/lib"
+
+CPPFLAGS := "-I/Users/ebennix/homebrew/opt/readline/include"
+
+VAR := $(CPPFLAGS) $(LDFLAGS)
 
 all : $(EXE)
 
@@ -67,10 +72,10 @@ library:
 	make -C lib
 
 $(EXE) : $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(ARCH) -o $(EXE) -lreadline
+	$(CC) $(CFLAGS) $(VAR) $(OBJ) $(ARCH) -o $(EXE) -lreadline
 
 %.o : %.c $(HEADER) | library
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 clean :
 	make clean -C lib

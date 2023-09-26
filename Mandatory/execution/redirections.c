@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/25 22:44:02 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/26 07:15:48 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ char *herdoc_name(void)
 	free(n);
 	while (access(s, F_OK) == 0)
 	{
-		printf("%s--\n", s);
 		n = NULL;
 		free(s);
 		i++;
@@ -31,6 +30,13 @@ char *herdoc_name(void)
 		free(n);
 	}
 	return s;
+}
+
+void	fhandler(int sig)
+{
+	(void)sig;
+	write(1 ,"\n",1);
+	close(STDIN_FILENO);
 }
 
 int here_doc(int *fdin, char *str, char **f_name)
@@ -44,6 +50,7 @@ int here_doc(int *fdin, char *str, char **f_name)
 	while (1)
 	{
 		rd = readline(">");
+		signal(SIGINT,fhandler);
 		if (!rd || (!ft_strcmp(rd, str)))
 			break;
 		rd = ft_strjoin(rd, "\n");
@@ -79,7 +86,7 @@ int	red_open(int *fds, t_type red, char *f_name)
 	{
 		*fds = open(f_name, O_RDONLY, 0654);
 		if (*fds < 0)
-			return (-1);			
+			return (-1);	
 	}
 	return (0);
 }
@@ -116,4 +123,10 @@ void	open_red(t_command_table *exec_data)
 		}
 		exec_data->redirections = exec_data->redirections->next;
 	}
+	// int new_stdin = open("/dev/tty", O_RDONLY);
+    // if (new_stdin == -1) 
+	// {
+    //     perror("Failed to open standard input");
+    //     // return 1;
+    // }
 }
