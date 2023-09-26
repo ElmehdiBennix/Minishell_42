@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:51:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/26 21:26:14 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/26 23:17:49 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,10 @@ bool	shell_history(t_mini_data *var, char *prompt)
 		return (free(prompt), var->err_no = 2, 1);
 	int err = open_quote(var , prompt);
 	if (err == 1)
-	{
-		ft_fprintf(2, "le minishell: syntax error `open quote'\n");
-		return (free(prompt), var->err_no = 2, 1);
-	}
+		return (ft_fprintf(2, "le minishell: syntax error `open quote'\n"),free(prompt), var->err_no = 2, 1);
 	else if (err == -1)
-	{
-		ft_fprintf(2, "le minishell: syntax error near unexpected token `|'\n");
-		return (free(prompt), var->err_no = 2, 1);
-	}
+		return (ft_fprintf(2, "le minishell: syntax error near unexpected token `|'\n"),free(prompt), var->err_no = 2, 1);
+	if (var->nodes >= 500)
+		return(ft_fprintf(2,"le minishell: fork: Resource temporarily unavailable \n"),free(prompt), var->err_no = 2, 1);
 	return (0);
 }

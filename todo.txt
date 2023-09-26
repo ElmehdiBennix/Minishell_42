@@ -1,8 +1,9 @@
-- leaks of fds in redirection √
-- ~ join  √
+- leaks of fds in redirection 
 
 - signals
-- split white space of exanded value
+
+- signal children
+
 - expand inside heredoc
 
 for testing fds: while lsof -p $(pgrep Minishell )
@@ -11,8 +12,7 @@ sleep 3
 clean
 done
 
-
-
+shell lvl
 
 -> le minishit$ echo -nnnnnnnn -n -n -n  "              dddd "
               dddd -> le minishit$ echo -nnnnnnnn -n -n - -n  "              dddd "
@@ -20,16 +20,4 @@ done
 -n               dddd -> le minishit$ echo -nnnnnnnn -n -n ----  "              dddd "
 ----               dddd -> le minishit$ echo -nnnnnnnn -n -n -d -n "              dddd "
 -n               dddd -> le minishit$ 
-
--> le minishit$ ""
-Permission denied
--> le minishit$ ''
-Permission denied
--> le minishit$ çç^C
-
-
-
-
--> le minishit$ > cat
--> le minishit$ > cat l
 

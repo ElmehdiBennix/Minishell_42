@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:57:12 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/26 22:46:34 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/26 23:23:12 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void	multi_cmd(t_command_table *exec_data, t_env **env)
 			ft_bultin(arrow, env); // catch errors
 		pipe(fd);
 		pid = fork();
-		if (pid == -1)
-		{
-			printf("error\n");
-			exit(1);
-		}
 		if (!pid)
 		{
+			if (pid == -1)
+			{
+				ft_fprintf(2,"le minishell: fork: Resource temporarily unavailable \n"); // dosnt print
+				return ;
+			}
 			if (arrow->fdin != 0)
 			{
 				dup2(arrow->fdin, STDIN_FILENO);
