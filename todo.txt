@@ -1,10 +1,9 @@
 - leaks of fds in redirection √
-- signals
-- ~ join
+- ~ join  √
 
+- signals
 - split white space of exanded value
 - expand inside heredoc
-
 
 for testing fds: while lsof -p $(pgrep Minishell )
 do
