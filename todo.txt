@@ -21,7 +21,6 @@ done
 ----               dddd -> le minishit$ echo -nnnnnnnn -n -n -d -n "              dddd "
 -n               dddd -> le minishit$ 
 
-
 -> le minishit$ ""
 Permission denied
 -> le minishit$ ''
