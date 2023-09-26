@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/26 09:20:11 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/26 21:04:29 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int here_doc(int *fdin, char *str, char **f_name)
 {
 	char			*rd;
 
-	// signal(SIGINT,fhandler); // should be in a child porcess
+	// sigaction(SIGINT,); // should be in a child porcess
 	*f_name = herdoc_name();
 	*fdin = open((*f_name), O_RDWR | O_CREAT | O_TRUNC, 0654);
 	if (*fdin < 0)

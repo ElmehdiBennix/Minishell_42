@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:51:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/26 09:03:43 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/26 21:26:14 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ static int	open_quote(t_mini_data *var, char *prompt)
 	status = FALSE;
 	while (prompt[i])
 	{
-		if (prompt[i] == '|')
+		if (prompt[i] && prompt[i] == '|')
 		{
 			if (prompt[++i] && prompt[i] == '|')
 				return (-1);
 			i--;
 			command_table++;
 		}
-		if (prompt[i] == 34 || prompt[i] == 39)
+		if (prompt[i] && (prompt[i] == 34 || prompt[i] == 39))
 		{
 			quot = prompt[i];
 			status = TRUE;
@@ -82,6 +82,8 @@ static int	open_quote(t_mini_data *var, char *prompt)
 			if (prompt[i] == quot)
 				status = FALSE;
 		}
+		if(prompt[i] == '\0')
+			break;
 		i++;
 	}
 	var->nodes = command_table;
