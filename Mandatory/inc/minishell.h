@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/25 03:14:38 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/26 05:14:52 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "mini_defs.h"
 # include "mini_structs.h"
-# include <readline/history.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include <sys/uio.h>
 # include <sys/wait.h>
 
