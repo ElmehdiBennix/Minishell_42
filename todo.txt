@@ -10,3 +10,27 @@ do
 sleep 3
 clean
 done
+
+
+
+
+-> le minishit$ echo -nnnnnnnn -n -n -n  "              dddd "
+              dddd -> le minishit$ echo -nnnnnnnn -n -n - -n  "              dddd "
+-n               dddd -> le minishit$ echo -nnnnnnnn -n -n ---- -n  "              dddd "
+-n               dddd -> le minishit$ echo -nnnnnnnn -n -n ----  "              dddd "
+----               dddd -> le minishit$ echo -nnnnnnnn -n -n -d -n "              dddd "
+-n               dddd -> le minishit$ 
+
+
+-> le minishit$ ""
+Permission denied
+-> le minishit$ ''
+Permission denied
+-> le minishit$ çç^C
+
+
+
+
+-> le minishit$ > cat
+-> le minishit$ > cat l
+
