@@ -21,3 +21,4 @@ shell lvl
 ----               dddd -> le minishit$ echo -nnnnnnnn -n -n -d -n "              dddd "
 -n               dddd -> le minishit$ 
 
+error managment..
