@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/26 05:03:45 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/26 09:18:32 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char    *get_value(char *content , t_mini_data *var) // algor wroking fine need 
     char *buffer = ft_strdup("");
     while (content[exp.i])
     {
-        while (content[exp.i] == '$') // token identifier for an expand
+        while (content[exp.i] && content[exp.i] == '$') // token identifier for an expand
         {
             exp.i++;
             exp.f++;
@@ -46,7 +46,7 @@ char    *get_value(char *content , t_mini_data *var) // algor wroking fine need 
             }
             else
             {
-                while (valid_key(content[exp.i]) == TRUE) // collect valid key
+                while (content[exp.i] && valid_key(content[exp.i]) == TRUE) // collect valid key
                 {
                     exp.i++;
                     exp.j++;
@@ -71,7 +71,7 @@ char    *get_value(char *content , t_mini_data *var) // algor wroking fine need 
                 exp.new_arg = NULL;
             }
         }
-		if(content[exp.i] == '\0')
+		if (content[exp.i] == '\0')
 			break ;
         exp.f++;
         exp.i++;
@@ -105,8 +105,10 @@ bool expander(t_mini_data *var) // ok
             }
             if (arrow->type == WORD || arrow->type == DOUBLE_QUOT)
 			{
-				if(arrow->type == WORD && ft_strncmp(arrow->content,"~",2) == 0)
+				if (arrow->type == WORD && ft_strncmp(arrow->content,"~",2) == 0)
 					arrow->content = ft_strdup(value_by_key(var->env_var,"HOME"));
+                else if(arrow->type == WORD && ft_strncmp(arrow->content,"~/",2) == 0)
+					arrow->content = ft_strjoin(value_by_key(var->env_var,"HOME"),get_value(arrow->content+1,var));
 				else
                 	arrow->content = get_value(arrow->content,var);
 			}

@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/26 07:15:48 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/26 09:20:11 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,20 @@ char *herdoc_name(void)
 	return s;
 }
 
-void	fhandler(int sig)
-{
-	(void)sig;
-	write(1 ,"\n",1);
-	close(STDIN_FILENO);
-}
+// void	fhandler(int sig)
+// {
+// 	(void)sig;
+// 	write(1 ,"\n",1);
+// 	close(STDIN_FILENO);
+// }
+
+// char    *get_value(char *content , t_mini_data *var); // algor wroking fine need work need to be done to make it understandable
 
 int here_doc(int *fdin, char *str, char **f_name)
 {
 	char			*rd;
 
+	// signal(SIGINT,fhandler); // should be in a child porcess
 	*f_name = herdoc_name();
 	*fdin = open((*f_name), O_RDWR | O_CREAT | O_TRUNC, 0654);
 	if (*fdin < 0)
@@ -50,7 +53,7 @@ int here_doc(int *fdin, char *str, char **f_name)
 	while (1)
 	{
 		rd = readline(">");
-		signal(SIGINT,fhandler);
+		// rd = get_value()
 		if (!rd || (!ft_strcmp(rd, str)))
 			break;
 		rd = ft_strjoin(rd, "\n");
@@ -82,7 +85,7 @@ int	red_open(int *fds, t_type red, char *f_name)
 		if (*fds < 0)
 			return (-1);
 	}
-	else if (red == HERE_DOC)// need to check on signles
+	else if (red == HERE_DOC) // need to check on signles
 	{
 		*fds = open(f_name, O_RDONLY, 0654);
 		if (*fds < 0)

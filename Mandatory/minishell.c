@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/26 08:38:55 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/26 09:07:48 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ int	main(int ac, char **av, char **env)
             prompt = NULL;
             signal(SIGQUIT, SIG_IGN);
             signal(SIGINT, signal_handler);
-			prompt = readline(GREEN "-> MINISHELL DZB" DEFAULT "$ "); // should display corrent dir and exit msgs zith colors sigf when cntr+ c or sm protect read line and make signales work
+			prompt = readline(GREEN "-> le minishit" DEFAULT "$ "); // should display corrent dir and exit msgs zith colors sigf when cntr+ c or sm protect read line and make signales work
             if (shell_history(&var, prompt) == TRUE)
 				continue;
 			if (parse_loop(&var, prompt) == TRUE)
