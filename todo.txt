@@ -1,14 +1,10 @@
 - leaks of fds in redirection 
 
-- expand inside heredoc
-
 for testing fds: while lsof -p $(pgrep Minishell )
 do
 sleep 3
 clean
 done
-
-shell lvl
 
 -> le minishit$ echo -nnnnnnnn -n -n -n  "              dddd "
               dddd -> le minishit$ echo -nnnnnnnn -n -n - -n  "              dddd "
@@ -17,11 +13,12 @@ shell lvl
 ----               dddd -> le minishit$ echo -nnnnnnnn -n -n -d -n "              dddd "
 -n               dddd -> le minishit$ 
 
-error managment..
 
 declare -x a="dsdsds"
 declare -x a+="b"
 declare -x asda+="b"
 declare -x b="dxxxx√
 
- export a+=b
+export a+=b
+
+error managment..

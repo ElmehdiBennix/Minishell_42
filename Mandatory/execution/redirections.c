@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/27 23:00:45 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/27 23:47:17 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ int here_doc(int *fdin, char *str, char **f_name, t_mini_data *var) // var
 	{
 		signal(SIGINT,fhandler); // should be in a child porcess
 		rd = readline(">");
-		if (!rd || !ft_strcmp(rd, str))
+		if (!rd)
+			break;
+		rd = get_value(rd ,var);
+		if(!ft_strcmp(rd, str))
 			break;
 		rd = ft_strjoin(rd, "\n");
 		ft_putstr_fd(rd, *fdin);
@@ -84,7 +87,7 @@ int	red_open(int *fds, t_type red, char *f_name)
 		if (*fds < 0)
 			return (-1);
 	}
-	else if (red == HERE_DOC) // need to check on signles
+	else if (red == HERE_DOC)
 	{
 		*fds = open(f_name, O_RDONLY, 0654);
 		if (*fds < 0)
@@ -113,8 +116,7 @@ int	open_red(t_command_table *exec_data)
 			here_doc(&exec_data->fdin ,exec_data->redirections->file_name, &f_name, exec_data->var);
 			if (isatty(STDIN_FILENO) == 0)
 			{
-				dup2(STDIN_FILENO,open(ttyname(1),O_RDONLY , 0644));
-				printf("dsds\n");
+				dup2(STDIN_FILENO,open(ttyname(1),O_RDONLY , 0654));
 				return (1);
 			}
 			status = red_open(&exec_data->fdin, HERE_DOC, f_name);
