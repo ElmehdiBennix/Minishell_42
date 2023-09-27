@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/26 05:14:52 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/27 23:01:34 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	    red_free(t_redirection *node , bool free_content);
 int		ft_iseparateur(char c);
 int		ft_iswhite_space(char c);
 int     ft_lstdoubly(t_token **head , t_token *node);
+char    *get_value(char *content , t_mini_data *var); // algor wroking fine need work need to be done to make it understandable
 
 //parse functions
 bool	    shell_history(t_mini_data *var, char *prompt);
@@ -68,9 +69,9 @@ int		is_bult_in(char *arg);
 //exec functions:
 int		one_cmd(t_command_table *exec_data, t_env **env);
 int		red_open(int *fds, t_type red, char *f_name);
-int		here_doc(int *fdin, char *str, char **f_name);
+int		here_doc(int *fdin, char *str, char **f_name ,t_mini_data *var);
 int     excute_one_cmd(char **contents, t_env **env);
-void	open_red(t_command_table *exec_data);
+int     open_red(t_command_table *exec_data);
 void	multi_cmd(t_command_table *exec_data, t_env **env);
 
 //free functions

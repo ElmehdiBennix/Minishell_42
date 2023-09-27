@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/26 21:11:00 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/27 23:01:19 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,13 @@ int get_env(t_env **Henv, char **env)
 static void	exec_loop(t_mini_data *var)
 {
     t_command_table *data_iter = var->exec_data;
+    int flg;
 
+    flg = 0;
 	while (data_iter)
 	{
-		open_red(data_iter);
+		if(open_red(data_iter) == 1)
+            break ;
 		data_iter = data_iter->forward;
 	}
 	if (var->nodes == 1)
@@ -127,26 +130,26 @@ static bool	parse_loop(t_mini_data *var, char *prompt)
     return(0);
 }
 
-void	unlink_opened_files()
+void	unlink_opened_files(void)
 {
-		int		i;
-		char	*str; 
-		char	*s;
+	int		i;
+	char	*str; 
+	char	*s;
 
-		i = 0;
+	i = 0;
+	str = ft_itoa(i);
+	s = ft_strjoin("/tmp/here_doc", str);
+	free(str);
+	while (access(s, F_OK) == 0)
+	{
+		str = NULL;
+		unlink(s);
+		free(s);
+		i++;
 		str = ft_itoa(i);
 		s = ft_strjoin("/tmp/here_doc", str);
 		free(str);
-		while (access(s, F_OK) == 0)
-		{
-			str = NULL;
-			unlink(s);
-			free(s);
-			i++;
-			str = ft_itoa(i);
-			s = ft_strjoin("/tmp/here_doc", str);
-			free(str);
-		}
+	}
 }
 
 void	signal_handler(int signal)
@@ -176,6 +179,7 @@ int	main(int ac, char **av, char **env)
             var.tokens = NULL;
             var.exec_data = NULL;
 			// prompt = prompt_generator(var);
+            rl_catch_signals = 0;
             prompt = NULL;
             signal(SIGQUIT, SIG_IGN);
             signal(SIGINT, signal_handler);

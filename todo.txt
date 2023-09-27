@@ -1,9 +1,5 @@
 - leaks of fds in redirection 
 
-- signals
-
-- signal children
-
 - expand inside heredoc
 
 for testing fds: while lsof -p $(pgrep Minishell )
@@ -22,3 +18,10 @@ shell lvl
 -n               dddd -> le minishit$ 
 
 error managment..
+
+declare -x a="dsdsds"
+declare -x a+="b"
+declare -x asda+="b"
+declare -x b="dxxxx√
+
+ export a+=b
