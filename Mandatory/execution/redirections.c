@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/27 00:58:33 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/27 23:00:45 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,39 +32,29 @@ char *herdoc_name(void)
 	return s;
 }
 
-bool silly_glob = 0;
 
 void	fhandler(int sig)
 {
 	(void)sig;
-	write(1 ,"\n",1);
-	// silly_glob = 1;
-	// rl_on_new_line();
-	// rl_replace_line("", 0);
-	// rl_redisplay();
+	close(STDIN_FILENO);
 }
 
 // char    *get_value(char *content , t_mini_data *var); // algor wroking fine need work need to be done to make it understandable
 
-int here_doc(int *fdin, char *str, char **f_name) // var
+int here_doc(int *fdin, char *str, char **f_name, t_mini_data *var) // var
 {
 	char			*rd;
-
-	signal(SIGINT,fhandler); // should be in a child porcess
+	(void) var;
 	*f_name = herdoc_name();
 	*fdin = open((*f_name), O_RDWR | O_CREAT | O_TRUNC, 0654);
 	if (*fdin < 0)
 		return -1;
 	while (1)
 	{
-		
+		signal(SIGINT,fhandler); // should be in a child porcess
 		rd = readline(">");
-		// rd = get_value()
-		if (!rd || silly_glob == 1 || (!ft_strcmp(rd, str)))
-		{
-			silly_glob = 0;
+		if (!rd || !ft_strcmp(rd, str))
 			break;
-		}
 		rd = ft_strjoin(rd, "\n");
 		ft_putstr_fd(rd, *fdin);
 		free(rd);
@@ -103,7 +93,7 @@ int	red_open(int *fds, t_type red, char *f_name)
 	return (0);
 }
 
-void	open_red(t_command_table *exec_data)
+int	open_red(t_command_table *exec_data)
 {
 	int		status;
 	char 	*f_name;
@@ -120,7 +110,13 @@ void	open_red(t_command_table *exec_data)
 			status = red_open(&exec_data->fdin, APPEND, exec_data->redirections->file_name);
 		else if (exec_data->redirections->r_type == HERE_DOC)
 		{
-			here_doc(&exec_data->fdin ,exec_data->redirections->file_name, &f_name);
+			here_doc(&exec_data->fdin ,exec_data->redirections->file_name, &f_name, exec_data->var);
+			if (isatty(STDIN_FILENO) == 0)
+			{
+				dup2(STDIN_FILENO,open(ttyname(1),O_RDONLY , 0644));
+				printf("dsds\n");
+				return (1);
+			}
 			status = red_open(&exec_data->fdin, HERE_DOC, f_name);
 			free(f_name);
 		}
@@ -131,14 +127,10 @@ void	open_red(t_command_table *exec_data)
 				free(exec_data->cmds_array);
 			exec_data->cmds_array = NULL;
 			exec_data->fdin = 0;
-			return ;
+			return (2);
 		}
 		exec_data->redirections = exec_data->redirections->next;
 	}
+	return (0);
 	// int new_stdin = open("/dev/tty", O_RDONLY);
-    // if (new_stdin == -1) 
-	// {
-    //     perror("Failed to open standard input");
-    //     // return 1;
-    // }
 }

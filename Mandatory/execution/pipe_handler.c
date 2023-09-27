@@ -6,11 +6,13 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:57:12 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/26 23:23:12 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/27 22:56:08 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+// void	fhandler(int sig);
 
 void	multi_cmd(t_command_table *exec_data, t_env **env)
 {
@@ -31,6 +33,13 @@ void	multi_cmd(t_command_table *exec_data, t_env **env)
 		pid = fork();
 		if (!pid)
 		{
+			signal(SIGQUIT,SIG_DFL);
+			// signal(SIGINT,fhandler); 
+			if (isatty(STDIN_FILENO) == 0)
+			{
+				dup2(STDIN_FILENO,open(ttyname(1),O_RDONLY , 0644));
+				// break;
+			}
 			if (pid == -1)
 			{
 				ft_fprintf(2,"le minishell: fork: Resource temporarily unavailable \n"); // dosnt print
