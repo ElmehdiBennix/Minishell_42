@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:52:57 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/25 23:27:56 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/28 00:05:14 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	update_old_current(t_env *env, char *path,  int flag)
 {	
 	if (flag == 0)
-		env = update_old_pwd(&env, path);
+		env = update_env(&env, path,"OLDPWD");
 	else if(flag == 1)
-		env = update_pwd(&env, path);
+		env = update_env(&env, path,"PWD");
 }
 
 void	me_cd(char **cmd_array, t_env **env)

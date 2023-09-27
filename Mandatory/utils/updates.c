@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   updates.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 15:05:44 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/26 00:32:53 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/28 00:05:00 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_env	*update_pwd(t_env **env, char *pwd)
+t_env	*update_env(t_env **env, char *value, char *key)
 {
 	t_env	*tmp;
 	int		fod;
@@ -21,13 +21,13 @@ t_env	*update_pwd(t_env **env, char *pwd)
 	fod = 0;
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->key, "PWD") == 0)
+		if (ft_strcmp(tmp->key, key) == 0)
 		{
 			fod = 1;
 			if (tmp->value)
 				free(tmp->value);
-			if(pwd != NULL) 
-				tmp->value = ft_strdup(pwd);
+			if(value != NULL) 
+				tmp->value = ft_strdup(value);
 			tmp  = *env;
 			return (tmp);
 		}
@@ -35,7 +35,7 @@ t_env	*update_pwd(t_env **env, char *pwd)
 	}
 	tmp  = *env;
 	if (!fod)
-		ft_lstadd_back_env(&tmp, ft_lstnew_env(ft_strdup("PWD"), ft_strdup(pwd)));
+		ft_lstadd_back_env(&tmp, ft_lstnew_env(ft_strdup(key), ft_strdup(value)));
 	return(tmp);
 }
 
