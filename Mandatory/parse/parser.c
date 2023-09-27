@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:18:41 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/22 06:44:17 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/26 23:46:58 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ bool	parser(t_mini_data *var)
 		else if (arrow->type >= WORD && arrow->type <= DOUBLE_QUOT)
 			token_number = 0;
 		if (token_number == 3 || arrow->type == 10)
-		{
-			ft_fprintf(2, "le minishell: syntax error near unexpected token `%s'\n", arrow->content);
-			return(1);
-		}
+			return(ft_fprintf(2, "le minishell: syntax error near unexpected token `%s'\n", arrow->content),1);
 		arrow = arrow->forward;
 	}
 	return (0);

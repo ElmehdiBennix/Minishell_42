@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/26 21:04:29 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/27 00:58:33 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,39 @@ char *herdoc_name(void)
 	return s;
 }
 
-// void	fhandler(int sig)
-// {
-// 	(void)sig;
-// 	write(1 ,"\n",1);
-// 	close(STDIN_FILENO);
-// }
+bool silly_glob = 0;
+
+void	fhandler(int sig)
+{
+	(void)sig;
+	write(1 ,"\n",1);
+	// silly_glob = 1;
+	// rl_on_new_line();
+	// rl_replace_line("", 0);
+	// rl_redisplay();
+}
 
 // char    *get_value(char *content , t_mini_data *var); // algor wroking fine need work need to be done to make it understandable
 
-int here_doc(int *fdin, char *str, char **f_name)
+int here_doc(int *fdin, char *str, char **f_name) // var
 {
 	char			*rd;
 
-	// sigaction(SIGINT,); // should be in a child porcess
+	signal(SIGINT,fhandler); // should be in a child porcess
 	*f_name = herdoc_name();
 	*fdin = open((*f_name), O_RDWR | O_CREAT | O_TRUNC, 0654);
 	if (*fdin < 0)
 		return -1;
 	while (1)
 	{
+		
 		rd = readline(">");
 		// rd = get_value()
-		if (!rd || (!ft_strcmp(rd, str)))
+		if (!rd || silly_glob == 1 || (!ft_strcmp(rd, str)))
+		{
+			silly_glob = 0;
 			break;
+		}
 		rd = ft_strjoin(rd, "\n");
 		ft_putstr_fd(rd, *fdin);
 		free(rd);
