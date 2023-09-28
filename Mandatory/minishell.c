@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/28 01:12:24 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/28 02:42:45 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static void	exec_loop(t_mini_data *var)
     int flg;
 
     flg = 0;
-
 	while (data_iter)
 	{
 		if(open_red(data_iter) == 1)
@@ -129,28 +128,6 @@ static bool	parse_loop(t_mini_data *var, char *prompt)
         return(cmd_free(var->exec_data,1),tok_free(var->tokens,1),var->err_no = 8 ,1);
     tok_free(var->tokens,1);
     return(0);
-}
-
-void	unlink_opened_files(void)
-{
-	int		i;
-	char	*str; 
-	char	*s;
-
-	i = 0;
-	str = ft_itoa(i);
-	s = ft_strjoin("/tmp/here_doc", str);
-	free(str);
-	while (access(s, F_OK) == 0)
-	{
-		str = NULL;
-		unlink(s);
-		free(s);
-		i++;
-		str = ft_itoa(i);
-		s = ft_strjoin("/tmp/here_doc", str);
-		free(str);
-	}
 }
 
 void	signal_handler(int signal)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/28 00:05:52 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/28 02:41:50 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int     open_red(t_command_table *exec_data);
 void	multi_cmd(t_command_table *exec_data, t_env **env);
 
 //free functions
-void	unlink_opened_files();
+void	unlink_opened_files(void);
 void	free_struct_data(t_token *token);
 void	free_struct_env(t_env *env);
 void	free_array(char **arr);

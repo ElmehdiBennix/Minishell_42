@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 21:05:55 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/28 01:52:32 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/28 02:44:09 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	excute_one_cmd(char **contents, t_env **env)
 	char	*str;
 	char	**splited_path;
 
+	if (ft_strchr(contents[0], ' '))
+		contents = ft_split(contents[0], ' ');
 	if (ft_strchr(contents[0], '/'))
 	{
 		if (access(contents[0], X_OK) < 0)
