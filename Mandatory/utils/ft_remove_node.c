@@ -6,19 +6,19 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 11:25:30 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/25 03:13:52 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/28 02:27:27 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void ft_remove_node(t_env **begin_list, void *data_ref, int (*cmp)())
+void	ft_remove_node(t_env **begin_list, void *data_ref, int (*cmp)())
 {
+	t_env	*cur;
+
 	if (begin_list == NULL || *begin_list == NULL)
-		return;
-
-	t_env *cur = *begin_list;
-
+		return ;
+	cur = *begin_list;
 	if (cmp(cur->key, data_ref) == 0)
 	{
 		if (cur->next)

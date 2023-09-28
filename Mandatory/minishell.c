@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/28 00:11:41 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/28 01:12:24 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static void	exec_loop(t_mini_data *var)
     int flg;
 
     flg = 0;
+
 	while (data_iter)
 	{
 		if(open_red(data_iter) == 1)
@@ -172,9 +173,9 @@ int	main(int ac, char **av, char **env)
 	var.err_no = 0;
 	var.env_var = NULL;
 	get_env(&var.env_var, env);
-    var.env_var = update_env(&var.env_var, ft_itoa(ft_atoi(value_by_key(var.env_var,"SHLVL")) + 1),"SHLVL");
+    var.env_var = update_env(&var.env_var, ft_itoa(ft_atoi(value_by_key(var.env_var, "SHLVL")) + 1), "SHLVL");
 	if (ac == 1)
-	{
+	{ 
 		while (1)
 		{
             var.tokens = NULL;

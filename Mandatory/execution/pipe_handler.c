@@ -3,46 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:57:12 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/27 22:56:08 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/28 01:58:18 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-// void	fhandler(int sig);
-
 void	multi_cmd(t_command_table *exec_data, t_env **env)
 {
 	t_command_table		*arrow;
-	int			        fd[2];
-	pid_t		        pid;
-	int			        save;
+	int					fd[2];
+	pid_t				pid;
+	int					save;
 
-	arrow	= exec_data;
+	arrow = exec_data;
 	save = dup(0);
-	while(arrow)
-	{		
+	while (arrow)
+	{
 		if (!arrow->cmds_array[0])
 			return ;
 		if (!ft_strcmp(arrow->cmds_array[0], "cd"))
-			ft_bultin(arrow, env); // catch errors
+			ft_bultin(arrow, env);
 		pipe(fd);
 		pid = fork();
 		if (!pid)
 		{
-			signal(SIGQUIT,SIG_DFL);
-			// signal(SIGINT,fhandler); 
+			signal(SIGQUIT, SIG_DFL);
 			if (isatty(STDIN_FILENO) == 0)
-			{
-				dup2(STDIN_FILENO,open(ttyname(1),O_RDONLY , 0644));
-				// break;
-			}
+				dup2(STDIN_FILENO, open(ttyname(1), O_RDONLY, 0644));
 			if (pid == -1)
 			{
-				ft_fprintf(2,"le minishell: fork: Resource temporarily unavailable \n"); // dosnt print
+				printf("le minishell: fork: Resource\
+						temporarily unavailable \n");
 				return ;
 			}
 			if (arrow->fdin != 0)
@@ -50,7 +45,7 @@ void	multi_cmd(t_command_table *exec_data, t_env **env)
 				dup2(arrow->fdin, STDIN_FILENO);
 				close(arrow->fdin);
 			}
-			if (arrow->forward && arrow->fdout == 1)
+			if (arrow->forward && (arrow->fdout == 1))
 				dup2(fd[1], STDOUT_FILENO);
 			if (arrow->fdout != 1)
 			{
