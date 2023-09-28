@@ -6,19 +6,19 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 10:53:31 by otaraki           #+#    #+#             */
-/*   Updated: 2023/08/08 11:24:58 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/28 02:28:14 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_env *sort_list(t_env *lst, int (*cmp)(char *, char *))
+t_env	*sort_list(t_env *lst, int (*cmp)(char *, char *))
 {
 	char	*swap[2];
-	t_env 	*tmp;
+	t_env	*tmp;
 
 	tmp = lst;
-	while(lst->next != NULL)
+	while (lst->next != NULL)
 	{
 		if (((*cmp)(lst->key, lst->next->key)) == 0)
 		{

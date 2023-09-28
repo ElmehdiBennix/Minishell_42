@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:43:50 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/25 00:02:23 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/28 02:30:32 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,13 @@ char	*ft_strjoin_env(char const *s1, char const *s2)
 	return (str);
 }
 
-
 char	**get_normal_env(t_env *env)
 {
 	t_env	*tmp;
 	char	*arr;
 	char	**envir;
 	int		i;
-	
+
 	if (!env)
 		return (NULL);
 	tmp = env;
@@ -54,7 +53,7 @@ char	**get_normal_env(t_env *env)
 	while (tmp)
 	{
 		tmp = tmp->next;
-		++i;	
+		++i;
 	}
 	envir = malloc(sizeof(char *) * (i + 1));
 	if (!envir)

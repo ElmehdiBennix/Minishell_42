@@ -3,26 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:18 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/21 04:38:50 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/28 02:14:24 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../inc/minishell.h"
 
 void	check_valid_args(char **cmd_array, int *ex, int *index)
 {
-	int i;
-	int c;
+	int	i;
+	int	c;
 
 	i = 0;
 	c = 1;
 	if (cmd_array[1][0] == '-' || cmd_array[1][0] == '+')
 		i++;
-	while(cmd_array[c])
+	while (cmd_array[c])
 		c++;
 	while (cmd_array[1][i])
 	{
@@ -31,7 +30,6 @@ void	check_valid_args(char **cmd_array, int *ex, int *index)
 		else
 		{
 			printf("problem encountered\n");
-			// free_env();
 			exit (255);
 		}
 	}
@@ -42,7 +40,8 @@ void	check_valid_args(char **cmd_array, int *ex, int *index)
 		printf("too many args\n");
 	}
 }
-int		mini_exit(char **cmd_array, int exit_status)
+
+int	mini_exit(char **cmd_array, int exit_status)
 {
 	int		i;
 
@@ -53,6 +52,5 @@ int		mini_exit(char **cmd_array, int exit_status)
 		check_valid_args(cmd_array, &exit_status, &i);
 	if (i < 0)
 		return (exit_status);
-	// free_env();//
 	exit(ft_atoi(cmd_array[1]));
 }

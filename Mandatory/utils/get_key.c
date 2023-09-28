@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 11:39:43 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/25 03:34:55 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/28 02:31:39 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 char	*value_by_key(t_env *env, char *key)
 {
-	t_env *tmp;
- // check env
+	t_env	*tmp;
+
 	tmp = env;
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->key, key) == 0)  // if ( $? return error code atoi)
-			return(tmp->value);
+		if (ft_strcmp(tmp->key, key) == 0)
+			return (tmp->value);
 		tmp = tmp->next;
 	}
 	return (NULL);
@@ -28,7 +28,7 @@ char	*value_by_key(t_env *env, char *key)
 
 char	*key_by_value(t_env *env, char *value)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = env;
 	while (tmp)

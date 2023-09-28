@@ -22,3 +22,29 @@ declare -x b="dxxxx√
 export a+=b
 
 error managment..
+
+
+
+------> functions need to be separated:
+exc.c: Error!
+Error: TOO_MANY_LINES       (line:  73, col:   1):      Function has more than 25 lines
+Error: TOO_MANY_LINES       (line: 103, col:   1):      Function has more than 25 lines
+pipe_handler.c: Error!
+Error: TOO_MANY_LINES       (line:  78, col:   1):      Function has more than 25 lines
+redirections.c: Error!
+Error: TOO_MANY_LINES       (line: 141, col:   1):      Function has more than 25 lines
+➜  execution git:(main) ✗ cd ..
+➜  Mandatory git:(main) ✗ ls
+bin         execution   inc         minishell.c parse       utils
+➜  Mandatory git:(main) ✗ cd bin 
+➜  bin git:(main) ✗ norminette
+cd.c: Error!
+Error: TOO_MANY_LINES       (line:  63, col:   1):      Function has more than 25 lines
+echo.c: OK!
+env.c: OK!
+exit.c: OK!
+export.c: OK!
+ft_bultins.c: OK!
+pwd.c: OK!
+unset.c: OK!
+➜  bin git:(main) ✗ 

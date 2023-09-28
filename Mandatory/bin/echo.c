@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:03 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/21 05:35:01 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/28 02:11:23 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static int	check_option(char **av)
 {
 	int	i;
-	int j;
+	int	j;
 	int	flg;
-	
+
 	flg = 0;
 	i = 1;
 	while (av[i])
@@ -25,7 +25,7 @@ static int	check_option(char **av)
 		if (!ft_strncmp(av[i], "-n", 2))
 		{
 			j = 1;
-			while(av[i][j] && av[i][j] == 'n')
+			while (av[i][j] && av[i][j] == 'n')
 				j++;
 			if (!av[i][j])
 				flg += 1;
@@ -41,7 +41,7 @@ void	my_echo(char **cmd_array)
 {
 	int	i;
 	int	option;
-	int flag;
+	int	flag;
 
 	i = 1;
 	option = check_option(cmd_array);
@@ -52,7 +52,7 @@ void	my_echo(char **cmd_array)
 	{
 		if (!flag)
 			write(1, " ", 1);
-		ft_putstr_fd(cmd_array[i], 1);		
+		ft_putstr_fd(cmd_array[i], 1);
 		flag = 0;
 		i++;
 	}
