@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_catcher.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/25 20:17:56 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/30 21:41:36 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,20 @@ static t_token	*char_handler(char *prompt, int *i)
 	moves = 0;
 	token = (t_token *)ft_calloc(sizeof(t_token), 1);
 	if (!token)
-		return(NULL);
+		return (NULL);
 	while (prompt[*i] && ft_iswhite_space(prompt[*i]) == FALSE
-		&& ft_iseparateur(prompt[*i]) == FALSE && prompt[*i] != 39 && prompt[*i] != 34)
+		&& ft_iseparateur(prompt[*i]) == FALSE && prompt[*i] != 39
+		&& prompt[*i] != 34)
 	{
 		(*i)++;
 		moves++;
 	}
 	backward = (*i) - moves;
-	//todo: check
-	token->content = ft_calloc(moves+ 1, sizeof(char));
+	token->content = ft_calloc(moves + 1, sizeof(char));
 	if (!token->content)
 	{
 		free(token);
-		return(NULL);
+		return (NULL);
 	}
 	ft_strlcpy(token->content, &prompt[backward], moves + 1);
 	token->type = WORD;
@@ -54,7 +54,7 @@ static t_token	*QUOT_handler(char *prompt, int *i, char QUOT_type)
 	moves = 0;
 	token = (t_token *)ft_calloc(sizeof(t_token), 1);
 	if (!token)
-		return(NULL);
+		return (NULL);
 	(*i)++;
 	while (prompt[*i] != QUOT_type)
 	{
@@ -67,7 +67,7 @@ static t_token	*QUOT_handler(char *prompt, int *i, char QUOT_type)
 	if (!token->content)
 	{
 		free(token);
-		return(NULL);
+		return (NULL);
 	}
 	ft_strlcpy(token->content, &prompt[backward], moves + 3);
 	if (ft_iswhite_space(prompt[*i]) == TRUE || prompt[*i] == '\0')
@@ -90,7 +90,7 @@ static t_token	*separateur_handler(char *prompt, int *i)
 	moves = 0;
 	token = (t_token *)ft_calloc(sizeof(t_token), 1);
 	if (!token)
-		return(NULL);
+		return (NULL);
 	if (prompt[*i] == '|')
 	{
 		(*i)++;
@@ -111,18 +111,18 @@ static t_token	*separateur_handler(char *prompt, int *i)
 	if (!token->content)
 	{
 		free(token);
-		return(NULL);
+		return (NULL);
 	}
 	ft_strlcpy(token->content, &prompt[backward], moves + 1);
 	token->type = get_type(token->content, moves);
-	if (ft_iswhite_space(prompt[*i]) == TRUE || prompt[*i] == '\0') // added  || prompt[*i] == '\0' might couse errors
+	if (ft_iswhite_space(prompt[*i]) == TRUE || prompt[*i] == '\0')
 		token->space_after = 1;
 	else
 		token->space_after = 0;
 	return (token);
 }
 
-bool	token_catcher(char *prompt , t_mini_data *var)
+bool	token_catcher(char *prompt, t_mini_data *var)
 {
 	int		i;
 	int		err;
@@ -136,7 +136,7 @@ bool	token_catcher(char *prompt , t_mini_data *var)
 		if (ft_iswhite_space(prompt[i]) == TRUE)
 			i++;
 		else if (prompt[i] == '|' || prompt[i] == '<' || prompt[i] == '>')
-			err = ft_lstdoubly(&tokens, separateur_handler(prompt, &i)); // if returns null free all prev nodes and return NULL;
+			err = ft_lstdoubly(&tokens, separateur_handler(prompt, &i)); // if returns null free all prev nodes and return (NULL);
 		else if (prompt[i] == 34 || prompt[i] == 39)
 			err = ft_lstdoubly(&tokens, QUOT_handler(prompt, &i, prompt[i]));
 		else

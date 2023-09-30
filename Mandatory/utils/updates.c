@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   updates.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 15:05:44 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/28 02:41:19 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/30 22:04:05 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_env	*update_env(t_env **env, char *value, char *key)
 			fod = 1;
 			if (tmp->value)
 				free(tmp->value);
-			if (value != NULL) 
+			if (value != NULL)
 				tmp->value = ft_strdup(value);
 			tmp = *env;
 			return (tmp);
@@ -35,15 +35,14 @@ t_env	*update_env(t_env **env, char *value, char *key)
 	}
 	tmp = *env;
 	if (!fod)
-		ft_lstadd_back_env(&tmp, ft_lstnew_env(ft_strdup(key), \
-			ft_strdup(value)));
+		ft_lstadd_back_env(&tmp, ft_lstnew_env(ft_strdup(key), ft_strdup(value)));
 	return (tmp);
 }
 
 void	unlink_opened_files(void)
 {
 	int		i;
-	char	*str; 
+	char	*str;
 	char	*s;
 
 	i = 0;

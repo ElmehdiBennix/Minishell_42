@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:18 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/28 02:14:24 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/30 22:06:47 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	check_valid_args(char **cmd_array, int *ex, int *index)
 		else
 		{
 			printf("problem encountered\n");
-			exit (255);
+			exit(255);
 		}
 	}
 	if (c > 2)
@@ -43,7 +43,7 @@ void	check_valid_args(char **cmd_array, int *ex, int *index)
 
 int	mini_exit(char **cmd_array, int exit_status)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (!cmd_array[1])

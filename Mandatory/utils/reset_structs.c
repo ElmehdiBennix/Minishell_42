@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reset_structs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 22:52:18 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/28 02:35:38 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/30 22:04:12 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	tok_free(t_token *node, bool free_content)
 	{
 		if (arrow->content && free_content == TRUE)
 			free(arrow->content);
-		arrow = arrow -> forward;
+		arrow = arrow->forward;
 	}
 }
 

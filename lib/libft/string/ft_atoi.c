@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 05:07:00 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/28 01:12:07 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/30 22:17:30 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ static int	skip(const char *str, int i)
 {
 	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\r' || str[i] == '\v'
 		|| str[i] == '\n' || str[i] == '\f')
-	{
 		i++;
-	}
 	return (i);
 }
 
@@ -45,7 +43,7 @@ int	ft_atoi(const char *str)
 	res = 0;
 	overflow = 0;
 	if (!str)
-		return 0;
+		return (0);
 	i = skip(str, i);
 	i = signop(str, i, &sign);
 	while (str[i] >= '0' && str[i] <= '9')

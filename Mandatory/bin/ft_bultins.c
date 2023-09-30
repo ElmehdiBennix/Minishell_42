@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bultins.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:50:58 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/28 02:20:55 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/30 22:08:54 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,19 @@ int	ft_bultin(t_command_table *exec_data, t_env **env)
 
 int	is_bult_in(char *arg)
 {
-	if (arg && ft_strcmp(arg, "env") == 0)
+	if (arg && ft_strncmp(arg, "env", 4) == 0)
 		return (1);
-	else if (arg && ft_strcmp(arg, "unset") == 0)
+	else if (arg && ft_strncmp(arg, "unset", 6) == 0)
 		return (1);
-	else if (arg && ft_strcmp(arg, "cd") == 0)
+	else if (arg && ft_strncmp(arg, "cd", 3) == 0)
 		return (1);
-	else if (arg && ft_strncmp(arg, "export", 6) == 0)
+	else if (arg && ft_strncmp(arg, "export", 7) == 0)
 		return (1);
-	else if (arg && ft_strcmp(arg, "exit") == 0)
+	else if (arg && ft_strncmp(arg, "exit", 5) == 0)
 		return (1);
-	else if (arg && ft_strcmp(arg, "pwd") == 0)
+	else if (arg && ft_strncmp(arg, "pwd", 4) == 0)
 		return (1);
-	else if (arg && ft_strcmp(arg, "echo") == 0)
+	else if (arg && ft_strncmp(arg, "echo", 5) == 0)
 		return (1);
 	else
 		return (0);

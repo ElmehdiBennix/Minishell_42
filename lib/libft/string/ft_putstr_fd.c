@@ -6,19 +6,11 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 01:07:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/21 05:42:50 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/30 22:16:31 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
-
-#if !defined(libss)
-#define libss
-
-#include <stdio.h>
-
-#endif // libss
-
 
 void	ft_putstr_fd(char *s, int fd)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back_env.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 21:06:46 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/28 02:26:19 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/30 22:04:49 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new)
 	else
 	{
 		arrow = ft_lstlast_env(*lst);
-		arrow -> next = new;
+		arrow->next = new;
 	}
 }

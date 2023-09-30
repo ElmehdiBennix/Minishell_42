@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:18:41 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/26 23:46:58 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/30 21:41:52 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int	tokens_checker(t_token *token, int *nodes)
 {
-	t_token *tmp = NULL;
+	t_token	*tmp;
 
+	tmp = NULL;
 	if ((token->type == PIPE && token->forward->type == PIPE)
 		|| (token->type == GREAT && token->forward->type == GREAT)
 		|| (token->type == GREAT && token->forward->type == LESS)
@@ -44,7 +45,7 @@ int	tokens_checker(t_token *token, int *nodes)
 		return (1); // set erno and free repeat loop
 	}
 	else if ((token->type == GREAT && token->space_after == FALSE
-			&& token->forward->type == PIPE))
+				&& token->forward->type == PIPE))
 	{
 		tmp = token->forward;
 		token->forward->forward->backward = token;
@@ -58,8 +59,8 @@ int	tokens_checker(t_token *token, int *nodes)
 
 bool	parser(t_mini_data *var)
 {
-	t_token			*arrow;
-	int				token_number;
+	t_token	*arrow;
+	int		token_number;
 
 	arrow = var->tokens;
 	token_number = 0;
@@ -67,14 +68,14 @@ bool	parser(t_mini_data *var)
 	{
 		if ((arrow->type >= PIPE && arrow->type <= HERE_DOC))
 		{
-			if (tokens_checker(arrow , &var->nodes) == TRUE)
+			if (tokens_checker(arrow, &var->nodes) == TRUE)
 				return (1);
 			token_number++;
 		}
 		else if (arrow->type >= WORD && arrow->type <= DOUBLE_QUOT)
 			token_number = 0;
 		if (token_number == 3 || arrow->type == 10)
-			return(ft_fprintf(2, "le minishell: syntax error near unexpected token `%s'\n", arrow->content),1);
+			return (ft_fprintf(2, "le minishell: syntax error near unexpected token `%s'\n", arrow->content), 1);
 		arrow = arrow->forward;
 	}
 	return (0);

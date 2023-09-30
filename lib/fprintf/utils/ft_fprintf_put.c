@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:14:29 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/14 16:40:32 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/28 17:35:12 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_printstr(int fd, char *c)
 	return (i);
 }
 
-int	ft_printunsigned(int fd, unsigned int n)
+int	ft_printunsigned(int fd, int n)
 {
 	int	i;
 
