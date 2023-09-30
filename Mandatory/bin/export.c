@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:24 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/28 02:18:19 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/30 22:06:50 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int	check_valid_key(char *key)
 	i = 0;
 	while (key[i])
 	{
-		if (!(key[i] == '_' || key[i] == '+' \
-			|| ft_isalpha(key[i])))
+		if (!(key[i] == '_' || key[i] == '+' || ft_isalpha(key[i])))
 			return (-1);
 		i++;
 	}
@@ -103,8 +102,8 @@ void	export_it(char **av, t_env **env)
 			if (!tmp->value)
 				printf("declare -x %s=%c%c\n", tmp->key, '"', '"');
 			else
-				printf("declare -x %s=%c%s%c\n", tmp->key, '"', \
-					tmp->value, '"');
+				printf("declare -x %s=%c%s%c\n", tmp->key, '"', tmp->value,
+						'"');
 			tmp = tmp->next;
 		}
 	}

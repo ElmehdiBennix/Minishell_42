@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:57:12 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/28 01:58:18 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/30 22:09:16 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	multi_cmd(t_command_table *exec_data, t_env **env)
 {
-	t_command_table		*arrow;
-	int					fd[2];
-	pid_t				pid;
-	int					save;
+	t_command_table	*arrow;
+	int				fd[2];
+	pid_t			pid;
+	int				save;
 
 	arrow = exec_data;
 	save = dup(0);

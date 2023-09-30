@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/28 02:06:45 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/09/30 22:10:25 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*herdoc_name(void)
 void	fhandler(int sig)
 {
 	(void)sig;
-	close(STDIN_FILENO);
+	close (STDIN_FILENO);
 }
 
 int	here_doc(int *fdin, char *str, char **f_name, t_mini_data *var)
@@ -105,18 +105,14 @@ int	open_red(t_command_table *exec_data)
 	while (exec_data->redirections && (status >= 0))
 	{
 		if (exec_data->redirections->r_type == GREAT)
-			status = red_open(&exec_data->fdout, GREAT, \
-				exec_data->redirections->file_name);
+			status = red_open(&exec_data->fdout, GREAT, exec_data->redirections->file_name);
 		else if (exec_data->redirections->r_type == LESS)
-			status = red_open(&exec_data->fdin, LESS, \
-				exec_data->redirections->file_name);
+			status = red_open(&exec_data->fdin, LESS, exec_data->redirections->file_name);
 		else if (exec_data->redirections->r_type == APPEND)
-			status = red_open(&exec_data->fdin, APPEND, \
-				exec_data->redirections->file_name);
+			status = red_open(&exec_data->fdin, APPEND, exec_data->redirections->file_name);
 		else if (exec_data->redirections->r_type == HERE_DOC)
 		{
-			here_doc(&exec_data->fdin, exec_data->redirections->file_name, \
-				&f_name, exec_data->var);
+			here_doc(&exec_data->fdin, exec_data->redirections->file_name, &f_name, exec_data->var);
 			if (isatty(STDIN_FILENO) == 0)
 			{
 				dup2(STDIN_FILENO, open(ttyname(1), O_RDONLY, 0654));
@@ -127,8 +123,7 @@ int	open_red(t_command_table *exec_data)
 		}
 		if (status < 0)
 		{
-			printf("%s: No such file or directory\n", \
-				exec_data->redirections->file_name);
+			printf("%s: No such file or directory\n", exec_data->redirections->file_name);
 			if (exec_data->cmds_array)
 				free(exec_data->cmds_array);
 			exec_data->cmds_array = NULL;

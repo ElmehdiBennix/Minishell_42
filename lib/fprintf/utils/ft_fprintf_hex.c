@@ -6,13 +6,13 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:51:42 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/14 16:41:28 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/28 17:34:55 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
 
-int	ft_hex(int fd, unsigned int n, char flag)
+int	ft_hex(int fd, int n, char flag)
 {
 	int	i;
 

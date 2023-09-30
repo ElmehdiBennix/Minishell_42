@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 05:05:48 by ebennix           #+#    #+#             */
-/*   Updated: 2023/08/14 16:41:46 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/09/30 22:17:50 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ typedef struct s_list
 
 int					ft_printchar(int fd, char c);
 int					ft_printstr(int fd, char *c);
-int					ft_printunsigned(int fd, unsigned int n);
+int					ft_printunsigned(int fd, int n);
 int					ft_printnbr(int fd, int n);
-int					ft_hex(int fd, unsigned int n, char flag);
+int					ft_hex(int fd, int n, char flag);
 int					ft_fprintf(int fd, const char *str, ...);
 
 void				failure(int erno);
