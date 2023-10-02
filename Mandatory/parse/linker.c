@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:08:32 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/30 21:43:35 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/02 18:06:11 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ bool	linker(t_mini_data *var)
 	t_command_table	*exec;
 	t_redirection	*redi;
 	char			*buffer;
+	char			*tmp;
 
 	i = 0;
 	toks = var->tokens;
@@ -31,7 +32,9 @@ bool	linker(t_mini_data *var)
 		{
 			while (toks->type >= WORD && toks->type <= DOUBLE_QUOT && toks->space_after == FALSE)
 			{
+				tmp = buffer;
 				buffer = ft_strjoin(buffer, toks->content);
+				free(tmp);
 				toks = toks->forward;
 				if (toks->type >= PIPE && toks->type <= HERE_DOC)
 				{
