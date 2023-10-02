@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:24 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/02 14:35:51 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/02 20:21:04 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,28 @@ int	compare(char *a, char *b)
 		return (-1);
 }
 
-int	check_valid_key(char *key)
+char	*get_key_plus(char *line)
 {
-	int	i;
+	char	*key;
+	int		i;
 
 	i = 0;
-	while (key[i])
+	while (line[i] && (line[i] != '=' && line[i] != '+'))
+		i++;
+	key = malloc(sizeof(char) * i + 1);
+	if (!key)
+		return (NULL);
+	i = 0;
+	while (line[i] && (line[i] != '=' && line[i] != '+'))
 	{
-		if (!(key[i] == '_' || key[i] == '+' || ft_isalpha(key[i])))
-			return (-1);
+		key[i] = line[i];
 		i++;
 	}
-	return (i);
+	key[i] = '\0';
+	return (key);
 }
 
-int	seen_bef(char *seen, char *new_val, t_env **env)
+int	seen_bef(char *seen, char *new_val, t_env **env, int plus_flg)
 {
 	t_env	*tmp;
 
@@ -46,9 +53,11 @@ int	seen_bef(char *seen, char *new_val, t_env **env)
 	{
 		if (ft_strcmp(seen, tmp->key) == 0)
 		{
-			if ((tmp->value != NULL))
+			if ((tmp->value) && (plus_flg == 0))
 				free(tmp->value);
-			if (new_val != NULL)
+			else if ((tmp->value) && (new_val != NULL) && (plus_flg != 0))
+				tmp->value = ft_strjoin(tmp->value, new_val);
+			if (new_val != NULL && (plus_flg == 0))
 				tmp->value = ft_strdup(new_val);
 			else if (new_val == NULL)
 				tmp->value = ft_strdup("");
@@ -59,30 +68,52 @@ int	seen_bef(char *seen, char *new_val, t_env **env)
 	return (1);
 }
 
+int	check_valid_key(char *key, int *plus_flg)
+{
+	int	i;
+
+	i = 0;
+	while (key[i])
+	{
+		if (key[i] == '+')
+			(*plus_flg)++;
+		if (!(key[i] == '_' || key[i] == '+' || ft_isalpha(key[i])) || ((*plus_flg) > 1))
+			return (-1);
+		i++;
+	}
+	return (i);
+}
+
 void	export_item(char **arg, t_env **ev)
 {
 	int		i;
 	int		v;
+	int		plus_flg;
 	char	*key;
 	char	*value;
 	t_env	*tmp;
 
 	i = 1;
 	v = 0;
+	plus_flg = 0;
 	while (arg[i])
 	{
-		v = check_valid_key(get_key(arg[i]));
+		key = get_key(arg[i]);
+		v = check_valid_key(key, &plus_flg);
+		free(key);
+		key = NULL;
 		if (v == -1)
 			printf("`%s': not a valid identifier\n", arg[i]);
 		else
 		{
-			key = get_key(arg[i]);
+			key = get_key_plus(arg[i]);
 			value = get_val(arg[i]);
-			if (seen_bef(key, value, ev) != 0)
+			if (seen_bef(key, value, ev, plus_flg) != 0)
 			{
 				tmp = ft_lstnew_env(key, value);
 				ft_lstadd_back_env(ev, tmp);
 			}
+			plus_flg = 0;
 		}
 		i++;
 	}
