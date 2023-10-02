@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/02 18:16:11 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/02 21:09:07 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	open_red(t_command_table *exec_data)
 		else if (exec_data->redirections->r_type == LESS)
 			status = red_open(&exec_data->fdin, LESS, exec_data->redirections->file_name);
 		else if (exec_data->redirections->r_type == APPEND)
-			status = red_open(&exec_data->fdin, APPEND, exec_data->redirections->file_name);
+			status = red_open(&exec_data->fdout, APPEND, exec_data->redirections->file_name);
 		else if (exec_data->redirections->r_type == HERE_DOC)
 		{
 			here_doc(&exec_data->fdin, exec_data->redirections->file_name, &f_name, exec_data->var);
