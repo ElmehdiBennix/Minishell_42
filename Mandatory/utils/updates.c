@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 15:05:44 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/30 22:04:05 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/02 19:26:18 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ void	unlink_opened_files(void)
 		str = NULL;
 		unlink(s);
 		free(s);
+		s = NULL;
 		i++;
 		str = ft_itoa(i);
 		s = ft_strjoin("/tmp/here_doc", str);
 		free(str);
 	}
+	free(s);
 }
