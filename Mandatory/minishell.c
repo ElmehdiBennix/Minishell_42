@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/02 19:22:34 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/02 19:59:44 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,13 @@ char	*get_key(char *line)
 	int		i;
 
 	i = 0;
-	while (line[i] && (line[i] != '=' && line[i] != '+')) // aded
+	while (line[i] && (line[i] != '='))
 		i++;
-	if (line[i] == '+' && line[i + 1] != '=')
-		printf("%s\n", "Error");
 	key = malloc(sizeof(char) * i + 1);
 	if (!key)
 		return (NULL);
 	i = 0;
-	while (line[i] && (line[i] != '=' && line[i] != '+'))
+	while (line[i] && (line[i] != '='))
 	{
 		key[i] = line[i];
 		i++;
