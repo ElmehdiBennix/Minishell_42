@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:18:41 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/30 21:41:52 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/02 17:58:57 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ int	tokens_checker(t_token *token, int *nodes)
 		|| (token->type == GREAT && token->space_after == TRUE
 			&& token->forward->type == PIPE))
 	{
-		ft_fprintf(2, "le minishell: syntax error near unexpected token `%s'\n",
-				token->forward->content);
-		return (1); // set erno and free repeat loop
+		return(ft_fprintf(2, "le minishell: syntax error near unexpected token `%s'\n", token->forward->content), 1);
 	}
 	else if ((token->type == GREAT && token->space_after == FALSE
 				&& token->forward->type == PIPE))
@@ -56,6 +54,9 @@ int	tokens_checker(t_token *token, int *nodes)
 	}
 	return (0);
 }
+
+// bash-3.2$ echo "dsa" <> ls
+// dsa
 
 bool	parser(t_mini_data *var)
 {

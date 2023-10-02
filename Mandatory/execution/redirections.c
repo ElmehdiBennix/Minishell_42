@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/30 22:10:25 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/02 18:16:11 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	open_red(t_command_table *exec_data)
 				free(exec_data->cmds_array);
 			exec_data->cmds_array = NULL;
 			exec_data->fdin = 0;
-			return (2);
+			return (exec_data->var->err_no = 1 , 2);
 		}
 		exec_data->redirections = exec_data->redirections->next;
 	}

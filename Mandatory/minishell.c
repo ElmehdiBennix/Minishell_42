@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/30 22:03:17 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/02 18:07:43 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ char	*get_key(char *line)
 	int		i;
 
 	i = 0;
-	while (line[i] && line[i] != '=')
+	while (line[i] && (line[i] != '=' && line[i] != '+')) // aded
 		i++;
+	if (line[i] == '+' && line[i + 1] != '=')
+		printf("%s\n", "Error");
 	key = malloc(sizeof(char) * i + 1);
 	if (!key)
 		return (NULL);
 	i = 0;
-	while (line[i] && line[i] != '=')
+	while (line[i] && (line[i] != '=' && line[i] != '+'))
 	{
 		key[i] = line[i];
 		i++;
@@ -32,6 +34,7 @@ char	*get_key(char *line)
 	key[i] = '\0';
 	return (key);
 }
+//  le minishit$ export a++=b error set erno
 
 char	*get_val(char *line)
 {
@@ -114,20 +117,16 @@ static bool	parse_loop(t_mini_data *var, char *prompt)
 	prompty = prompt;
 	prompt = ft_strtrim(prompty, " ");
 	free(prompty);
-	// if (!prompt)
-	//     return (var->err_no = 3 ,1);
 	if (token_catcher(prompt, var) == TRUE)
-		return (tok_free(var->tokens, 1), var->err_no = 4, 1);
+		return (tok_free(var->tokens, 1), var->err_no = 258, 1);
 	if (parser(var) == TRUE)
-		return (tok_free(var->tokens, 1), var->err_no = 5, 1);
+		return (tok_free(var->tokens, 1), var->err_no = 258, 1);
 	if (expander(var) == TRUE) // leaks left and $?
-		return (tok_free(var->tokens, 1), var->err_no = 6, 1);
+		return (tok_free(var->tokens, 1), var->err_no = 258, 1);
 	if (allocate_groups(var) == TRUE)
-		return (cmd_free(var->exec_data, 1), tok_free(var->tokens, 1),
-			var->err_no = 7, 1);
+		return (cmd_free(var->exec_data, 1), tok_free(var->tokens, 1), var->err_no = 258, 1);
 	if (linker(var) == TRUE) // leaks left
-		return (cmd_free(var->exec_data, 1), tok_free(var->tokens, 1),
-			var->err_no = 8, 1);
+		return (cmd_free(var->exec_data, 1), tok_free(var->tokens, 1), var->err_no = 258, 1);
 	tok_free(var->tokens, 1);
 	return (0);
 }
@@ -143,24 +142,46 @@ void	signal_handler(int signal)
 	rl_redisplay();
 }
 
-// char	*prompt_generator(t_mini_data *var)
-// {    
-//     char *prompt = ft_strdup("->" GREEN "le minishit" BLUE pwd  DEFAULT "$ ");
-//     char *line = getcwd(NULL, 0);
-//     ft_strjoin(,);
-//     // char *pormpt =  if else "->" GREEN "le minishit" BLUE pwd  DEFAULT "$ ";
-// }
+char	*prompt_generator(t_mini_data *var)
+{
+	char *prompt;
+	char *code;
+	char *tmp;
 
+	if (var->err_no == 0)
+		code = GREEN;
+	else
+		code = RED;
+
+	code = ft_strjoin(code,"->");
+    prompt = ft_strjoin(CYAN "  le minishit " YELLOW, getcwd(NULL, 0));
+	tmp = prompt;
+	prompt = ft_strjoin(code , prompt);
+	free(code);
+	free(tmp);
+	tmp = prompt;
+	prompt = ft_strjoin(prompt , DEFAULT "$ ");
+	free(tmp);
+	return (prompt);
+}
+void lk()
+{
+	system("leaks Minishell");
+}
 int	main(int ac, char **av, char **env)
 {
 	char		*prompt;
+	char 		*tmp;
 	t_mini_data	var;
 
 	(void)av;
+	atexit(lk);
 	var.err_no = 0;
 	var.env_var = NULL;
 	get_env(&var.env_var, env);
-	var.env_var = update_env(&var.env_var, ft_itoa(ft_atoi(value_by_key(var.env_var, "SHLVL")) + 1), "SHLVL");
+	tmp = ft_itoa(ft_atoi(value_by_key(var.env_var, "SHLVL")) + 1);
+	var.env_var = update_env(&var.env_var, tmp, "SHLVL");
+	free(tmp);
 	if (ac == 1)
 	{
 		while (1)
@@ -169,10 +190,11 @@ int	main(int ac, char **av, char **env)
 			var.tokens = NULL;
 			var.exec_data = NULL;
 			prompt = NULL;
-			prompt = prompt_generator(var);
 			signal(SIGQUIT, SIG_IGN);
 			signal(SIGINT, signal_handler);
-			prompt = readline(GREEN "->" DEFAULT "le minishit" DEFAULT "$ "); // should display corrent dir and exit msgs zith colors sigf when cntr+ c or sm protect read line and make signales work
+			tmp = prompt_generator(&var);
+			prompt = readline(tmp);
+			free(tmp);
 			if (shell_history(&var, prompt) == TRUE)
 				continue ;
 			if (parse_loop(&var, prompt) == TRUE)
