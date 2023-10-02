@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/02 18:07:43 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/02 19:22:34 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,9 @@ char	*prompt_generator(t_mini_data *var)
 		code = RED;
 
 	code = ft_strjoin(code,"->");
-    prompt = ft_strjoin(CYAN "  le minishit " YELLOW, getcwd(NULL, 0));
+	tmp = getcwd(NULL, 0);
+    prompt = ft_strjoin(CYAN "  le minishit " YELLOW, tmp);
+	free(tmp);
 	tmp = prompt;
 	prompt = ft_strjoin(code , prompt);
 	free(code);
@@ -164,10 +166,7 @@ char	*prompt_generator(t_mini_data *var)
 	free(tmp);
 	return (prompt);
 }
-void lk()
-{
-	system("leaks Minishell");
-}
+
 int	main(int ac, char **av, char **env)
 {
 	char		*prompt;
@@ -175,7 +174,6 @@ int	main(int ac, char **av, char **env)
 	t_mini_data	var;
 
 	(void)av;
-	atexit(lk);
 	var.err_no = 0;
 	var.env_var = NULL;
 	get_env(&var.env_var, env);
