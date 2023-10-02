@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/30 22:06:33 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/02 20:26:39 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	ft_remove_node(t_env **begin_list, void *data_ref, int (*cmp)());
 t_env	*sort_list(t_env *lst, int (*cmp)(char *, char *));
 char	*key_by_value(t_env *env, char *value);
 char	*value_by_key(t_env *env, char *key);
+char	*get_key_plus(char *line);
 t_env	*update_env(t_env **env, char *value, char *key);
 char	**get_normal_env(t_env *env);
 

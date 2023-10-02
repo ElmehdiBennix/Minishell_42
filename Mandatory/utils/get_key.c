@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 11:39:43 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/28 02:31:39 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/02 20:26:24 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,25 @@ char	*key_by_value(t_env *env, char *value)
 		tmp = tmp->next;
 	}
 	return (NULL);
+}
+
+char	*get_key_plus(char *line)
+{
+	char	*key;
+	int		i;
+
+	i = 0;
+	while (line[i] && (line[i] != '=' && line[i] != '+'))
+		i++;
+	key = malloc(sizeof(char) * i + 1);
+	if (!key)
+		return (NULL);
+	i = 0;
+	while (line[i] && (line[i] != '=' && line[i] != '+'))
+	{
+		key[i] = line[i];
+		i++;
+	}
+	key[i] = '\0';
+	return (key);
 }
