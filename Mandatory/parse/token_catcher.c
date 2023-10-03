@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/30 21:41:36 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/02 23:59:32 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ bool	token_catcher(char *prompt, t_mini_data *var)
 			err = ft_lstdoubly(&tokens, char_handler(prompt, &i)); // can optimize this after
 	}
 	free(prompt);
+	var->tokens = tokens;
 	if (err == TRUE)
 		return (1);
-	var->tokens = tokens;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:08:32 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/02 18:06:11 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/02 19:28:50 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ bool	linker(t_mini_data *var)
 			}
 			if (toks->type >= WORD && toks->type <= DOUBLE_QUOT && toks->space_after == TRUE)
 			{
+				tmp = buffer;
 				buffer = ft_strjoin(buffer, toks->content);
+				free(tmp);
 				exec->cmds_array[i] = buffer;
 				i++;
 				toks = toks->forward;
@@ -56,7 +58,9 @@ bool	linker(t_mini_data *var)
 			toks = toks->forward;
 			while (toks->type >= WORD && toks->type <= DOUBLE_QUOT && toks->space_after == FALSE)
 			{
+				tmp = buffer;
 				buffer = ft_strjoin(buffer, toks->content);
+				free(tmp);
 				toks = toks->forward;
 				if (toks->type >= PIPE && toks->type <= HERE_DOC)
 				{
@@ -66,7 +70,9 @@ bool	linker(t_mini_data *var)
 			}
 			if (toks->type >= WORD && toks->type <= DOUBLE_QUOT && toks->space_after == TRUE)
 			{
+				tmp = buffer;
 				redi->file_name = ft_strjoin(buffer, toks->content);
+				free(tmp);
 				redi = redi->next;
 				toks = toks->forward;
 			}
