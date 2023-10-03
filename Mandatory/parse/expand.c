@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/03 01:54:13 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/03 22:55:56 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@ int	valid_key(int c)
 {
 	if ((c >= 65 && c <= 90) || (c >= 97 && c < 123) || (c >= '0' && c <= '9')
 		|| c == '_')
+		return (1);
+	return (0);
+}
+
+int single_key(int c)
+{
+	if (c == '?' || c == '@'|| c == '#'|| c == '$'|| c == '-'|| c == '&' || c == '*' || c == ';' || c == '!'|| (c >= '0' && c <= '9'))
 		return (1);
 	return (0);
 }
@@ -38,7 +45,7 @@ char	*get_value(char *content, t_mini_data *var)// algor wroking fine need work 
 		{
 			exp.i++;
 			exp.f++;
-			if (content[exp.i] == '?') // collect valid key to expand
+			if (content[exp.i] && single_key(content[exp.i]) == TRUE) // collect valid key to expand
 			{
 				exp.i++;
 				exp.j++;

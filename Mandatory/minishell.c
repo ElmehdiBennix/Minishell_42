@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/03 01:26:30 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/03 19:33:30 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,52 +77,52 @@ int	get_env(t_env **Henv, char **env)
 	return (0);
 }
 
-static void	exec_loop(t_mini_data *var)
-{
-	t_command_table	*data_iter;
-	int				return_type;
+// static void	exec_loop(t_mini_data *var)
+// {
+// 	t_command_table	*data_iter;
+// 	int				return_type;
 
-	data_iter = var->exec_data;
-	while (data_iter)
-	{
-		return_type = open_red(data_iter);
-		if (return_type == 1)
-			break ;
-		else if (return_type == 2)
-			var->err_no = 1;
-		data_iter = data_iter->forward;
-	}
-	if (var->nodes == 1)
-	{
-		if (one_cmd(var->exec_data, &var->env_var) == 2)
-		{
-			if (!var->err_no)
-				var->err_no = 127;
-		}
-		else
-			var->err_no = 0;
-	}
-	else
-	{
-		if (multi_cmd(var->exec_data, &var->env_var) == 1)
-		{
-			if (!var->err_no)
-				var->err_no = 127;
-		}
-		else
-			var->err_no = 0;
-	}
-	while (var->nodes != 0)
-	{
-		if (var->exec_data->fdout != 1)
-			close(var->exec_data->fdout);
-		if (var->exec_data->fdin != 0)
-			close(var->exec_data->fdin);
-		var->exec_data = var->exec_data->forward;
-		var->nodes--;
-	}
-	unlink_opened_files();
-}
+// 	data_iter = var->exec_data;
+// 	while (data_iter)
+// 	{
+// 		return_type = open_red(data_iter);
+// 		if (return_type == 1)
+// 			break ;
+// 		else if (return_type == 2)
+// 			var->err_no = 1;
+// 		data_iter = data_iter->forward;
+// 	}
+// 	if (var->nodes == 1)
+// 	{
+// 		if (one_cmd(var->exec_data, &var->env_var) == 2)
+// 		{
+// 			if (!var->err_no)
+// 				var->err_no = 127;
+// 		}
+// 		else
+// 			var->err_no = 0;
+// 	}
+// 	else
+// 	{
+// 		if (multi_cmd(var->exec_data, &var->env_var) == 1)
+// 		{
+// 			if (!var->err_no)
+// 				var->err_no = 127;
+// 		}
+// 		else
+// 			var->err_no = 0;
+// 	}
+// 	while (var->nodes != 0)
+// 	{
+// 		if (var->exec_data->fdout != 1)
+// 			close(var->exec_data->fdout);
+// 		if (var->exec_data->fdin != 0)
+// 			close(var->exec_data->fdin);
+// 		var->exec_data = var->exec_data->forward;
+// 		var->nodes--;
+// 	}
+// 	unlink_opened_files();
+// }
 
 static bool	parse_loop(t_mini_data *var, char *prompt)
 {
@@ -140,8 +140,29 @@ static bool	parse_loop(t_mini_data *var, char *prompt)
 	if (allocate_groups(var) == TRUE)
 		return (cmd_free(var->exec_data, 1), tok_free(var->tokens, 1), var->err_no = 258, 1);
 	if (linker(var) == TRUE) // leaks left
-		return (cmd_free(var->exec_data, 1), tok_free(var->tokens, 1), var->err_no = 258, 1);
-	tok_free(var->tokens, 1);
+		return (cmd_free(var->exec_data, 1), var->err_no = 258, 1);
+	printf("-------------------------------------------------\n");
+	t_command_table *test = var->exec_data;
+	int i = 0;
+	while(test)
+	{
+	    t_redirection *test2 = test->redirections;
+	    while(test->cmds_array[i])
+	    {
+	        printf("command[%d] == %s\n",i,test->cmds_array[i]);
+	        i++;
+	    }
+	    printf("command[%d] == %s\n",i,test->cmds_array[i]);
+	    i = 0;
+	    while(test2)
+	    {
+	        printf("type = %d | file = %s\n",test2->r_type,test2->file_name);
+	        test2 = test2->next;
+	    }
+		printf("file = %p\n",test2);
+	    test = test->forward;
+	    printf("end\n");
+	}
 	return (0);
 }
 
@@ -211,8 +232,7 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			if (parse_loop(&var, prompt) == TRUE)
 				continue ;
-			exec_loop(&var);
-			
+			// exec_loop(&var);
 			cmd_free(var.exec_data, 1);
 		}
 		return (0);
@@ -220,24 +240,3 @@ int	main(int ac, char **av, char **env)
 	return (ft_fprintf(2, "le minishell: this shell does not accept any arguments !!\n"), 127);
 }
 
-// t_command_table *test = var->exec_data;
-// int i = 0;
-// while(test)
-// {
-//     t_redirection *test2 = test->redirections;
-//     while(test->cmds_array[i])
-//     {
-//         printf("command[%d] == %s\n",i,test->cmds_array[i]);
-//         i++;
-//     }
-//     printf("command[%d] == %s\n",i,test->cmds_array[i]);
-//     i = 0;
-//     while(test2)
-//     {
-//         printf("type = %d | file = %s\n",test2->r_type,test2->file_name);
-//         test2 = test2->next;
-//     }
-// 	printf("file = %p\n",test2);
-//     test = test->forward;
-//     printf("end\n");
-// }
