@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   allocate_groups.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 00:04:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/03 19:02:13 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/04 00:05:43 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ t_command_table	*create_node(t_token **tokens, t_command_table *node)
 		}
 		(*tokens) = (*tokens)->forward;
 	}
-	printf("commad array = %d | red_nbr = %d \n",content - red_nbr + 1,red_nbr);
 	node->cmds_array = ft_calloc(sizeof(char *), content - red_nbr + 1);
 	if (!node->cmds_array)
 		return (NULL);
@@ -103,7 +102,6 @@ bool	allocate_groups(t_mini_data *var)
 
 	i = -1;
 	arrow = var->tokens;
-	printf("nodes n %d\n",var->nodes);
 	while (++i < var->nodes)
 	{
 		node = ft_calloc(sizeof(t_command_table), 1);

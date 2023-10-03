@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:52:57 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/28 02:09:30 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/03 23:26:40 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void	me_cd(char **cmd_array, t_env **env)
 	path = getcwd(NULL, 0);
 	flg = 0;
 	if (!path)
+	{
+		chdir(cmd_array[1]);
 		return (perror("getcwd"));
+	}
 	if (!cmd_array[1])
 	{
 		if (chdir(value_by_key(tmp, "HOME")))
@@ -48,7 +51,13 @@ void	me_cd(char **cmd_array, t_env **env)
 			flg = 1;
 		}
 		else if (chdir(cmd_array[1]))
-			printf("error: cannot find directory\n");
+		{
+			if(access(cmd_array[1], F_OK) == 0)
+				printf("error: Permission denied\n");
+			else 
+				printf("error: cannot find directory\n");
+			
+		}
 		else
 			update_old_current(*env, path, 0);
 	}
