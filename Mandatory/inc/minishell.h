@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/02 20:26:39 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/03 01:08:02 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_env	*update_env(t_env **env, char *value, char *key);
 char	**get_normal_env(t_env *env);
 
 //built-in functions:
-int		ft_env(int fd, t_env *env);
+int		ft_env(int fd, char **av, t_env *env);
 int		mini_exit(char **av, int exit_status);
 int		ft_bultin(t_command_table *data, t_env **env);
 void	ft_unset(char **arg, t_env **env);
@@ -73,7 +73,7 @@ int		red_open(int *fds, t_type red, char *f_name);
 int		here_doc(int *fdin, char *str, char **f_name, t_mini_data *var);
 int		excute_one_cmd(char **contents, t_env **env);
 int		open_red(t_command_table *exec_data);
-void	multi_cmd(t_command_table *exec_data, t_env **env);
+int		multi_cmd(t_command_table *exec_data, t_env **env);
 
 //free functions
 void	unlink_opened_files(void);

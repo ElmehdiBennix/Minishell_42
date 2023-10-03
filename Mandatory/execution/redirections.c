@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/02 21:09:07 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/03 01:31:34 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,18 +117,18 @@ int	open_red(t_command_table *exec_data)
 			{
 				dup2(STDIN_FILENO, open(ttyname(1), O_RDONLY, 0654));
 				return (1);
-			}
+			}//check for later
 			status = red_open(&exec_data->fdin, HERE_DOC, f_name);
 			free(f_name);
 		}
 		if (status < 0)
 		{
-			printf("%s: No such file or directory\n", exec_data->redirections->file_name);
+			ft_fprintf(2, "%s: No such file or directory\n", exec_data->redirections->file_name);
 			if (exec_data->cmds_array)
 				free(exec_data->cmds_array);
 			exec_data->cmds_array = NULL;
 			exec_data->fdin = 0;
-			return (exec_data->var->err_no = 1 , 2);
+			return (2);
 		}
 		exec_data->redirections = exec_data->redirections->next;
 	}

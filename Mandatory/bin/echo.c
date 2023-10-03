@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:03 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/28 02:11:23 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/03 01:34:58 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,3 @@ void	my_echo(char **cmd_array)
 	if (option == 0)
 		ft_putstr_fd("\n", 1);
 }
-//all fixed

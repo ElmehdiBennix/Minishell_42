@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bultins.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:50:58 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/30 22:08:54 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/03 01:12:58 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	ft_bultin(t_command_table *exec_data, t_env **env)
 {
-	static int	exit_s;
+	int	exit_s;
 
 	exit_s = 0;
 	if (env == NULL || !exec_data->cmds_array[0])
-		return (exit_s);
+		return (-1);
 	if (ft_strncmp(exec_data->cmds_array[0], "env", 4) == 0)
-		exit_s = ft_env(1, *env);
+		exit_s = ft_env(1, exec_data->cmds_array, *env);
 	else if (ft_strncmp(exec_data->cmds_array[0], "unset", 6) == 0)
 		ft_unset(exec_data->cmds_array, env);
 	else if (ft_strncmp(exec_data->cmds_array[0], "cd", 3) == 0)

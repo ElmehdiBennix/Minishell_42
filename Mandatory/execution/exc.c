@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 21:05:55 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/28 02:44:09 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/03 01:14:37 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	excute_one_cmd(char **contents, t_env **env)
 	if (ft_strchr(contents[0], '/'))
 	{
 		if (access(contents[0], X_OK) < 0)
-			return (printf("%s: No such file or directory\n", contents[0]), 2);
+			return (ft_fprintf(2, "%s: No such file or directory\n", contents[0]), 2);
 		else
 		{
 			if (execve(contents[0], contents, get_normal_env(*env)) < 0)
@@ -61,11 +61,11 @@ int	excute_one_cmd(char **contents, t_env **env)
 	{
 		path = value_by_key(*env, "PATH");
 		if (path == NULL)
-			return (printf("%s: No such file or directory\n", contents[0]), 2);
+			return (ft_fprintf(2, "%s: No such file or directory\n", contents[0]), 2);
 		splited_path = ft_split(path, ':');
 		str = check_path(splited_path, contents[0]);
 		if (!str)
-			return (printf("%s: command not found\n", contents[0]), 2);
+			return (ft_fprintf(2, "%s: command not found\n", contents[0]), 2);
 		free2d(splited_path);
 		if (execve(str, contents, get_normal_env(*env)) < 0)
 			return (perror(""), 2);
@@ -97,9 +97,13 @@ int	one_cmd(t_command_table *exec_data, t_env **env)
 		}
 		save = ft_bultin(exec_data, env);
 		dup2(out, STDOUT_FILENO);
+		return (save);
 	}
 	else
-		multi_cmd(exec_data, env);
+	{
+		if (multi_cmd(exec_data, env) == 1)
+			return (exec_data->var->err_no = 127, 2);
+	}
 	close(out);
 	return (0);
 }

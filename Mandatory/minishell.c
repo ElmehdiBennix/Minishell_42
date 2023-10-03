@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/02 19:59:44 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/03 01:26:30 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	get_env(t_env **Henv, char **env)
 	int		i;
 
 	i = 0;
+	if (!env)
+		return (1);
 	while (env[i])
 	{
 		tmp = ft_lstnew_env(get_key(env[i]), get_val(env[i]));
@@ -72,30 +74,44 @@ int	get_env(t_env **Henv, char **env)
 			ft_lstadd_back_env(Henv, tmp);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 static void	exec_loop(t_mini_data *var)
 {
 	t_command_table	*data_iter;
+	int				return_type;
 
 	data_iter = var->exec_data;
 	while (data_iter)
 	{
-		if (open_red(data_iter) == 1)
+		return_type = open_red(data_iter);
+		if (return_type == 1)
 			break ;
+		else if (return_type == 2)
+			var->err_no = 1;
 		data_iter = data_iter->forward;
 	}
 	if (var->nodes == 1)
 	{
 		if (one_cmd(var->exec_data, &var->env_var) == 2)
 		{
-			var->err_no = 2;
-			return ;
+			if (!var->err_no)
+				var->err_no = 127;
 		}
+		else
+			var->err_no = 0;
 	}
 	else
-		multi_cmd(var->exec_data, &var->env_var);
+	{
+		if (multi_cmd(var->exec_data, &var->env_var) == 1)
+		{
+			if (!var->err_no)
+				var->err_no = 127;
+		}
+		else
+			var->err_no = 0;
+	}
 	while (var->nodes != 0)
 	{
 		if (var->exec_data->fdout != 1)
@@ -172,11 +188,11 @@ int	main(int ac, char **av, char **env)
 	t_mini_data	var;
 
 	(void)av;
-	var.err_no = 0;
 	var.env_var = NULL;
 	get_env(&var.env_var, env);
 	tmp = ft_itoa(ft_atoi(value_by_key(var.env_var, "SHLVL")) + 1);
 	var.env_var = update_env(&var.env_var, tmp, "SHLVL");
+	var.err_no = 0;
 	free(tmp);
 	if (ac == 1)
 	{
@@ -196,6 +212,7 @@ int	main(int ac, char **av, char **env)
 			if (parse_loop(&var, prompt) == TRUE)
 				continue ;
 			exec_loop(&var);
+			
 			cmd_free(var.exec_data, 1);
 		}
 		return (0);
