@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:24 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/02 20:29:08 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/03 19:36:44 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,33 @@ int	seen_bef(char *seen, char *new_val, t_env **env, int plus_flg)
 	{
 		if (ft_strcmp(seen, tmp->key) == 0)
 		{
-			if ((tmp->value) && (plus_flg == 0))
-				free(tmp->value);
-			else if ((tmp->value) && (new_val != NULL) && (plus_flg != 0))
-				tmp->value = ft_strjoin(tmp->value, new_val);
-			if (new_val != NULL && (plus_flg == 0))
+			if (!(tmp->value) && (plus_flg == 0) && new_val)
 				tmp->value = ft_strdup(new_val);
-			else if (new_val == NULL)
+			else if ((tmp->value) && (plus_flg == 0) && new_val)
+			{
+				free(tmp->value);
+				tmp->value = ft_strdup(new_val);
+			}
+			else if(!(tmp->value) && !(new_val) && (plus_flg == 0))
 				tmp->value = ft_strdup("");
+			else if ((tmp->value) && (plus_flg != 0))
+				tmp->value = ft_strjoin(tmp->value, new_val);
 			return (0);
 		}
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+int	seen_it(char *seen, t_env **env)
+{
+	t_env	*tmp;
+
+	tmp = *env;
+	while (tmp)
+	{
+		if (!ft_strcmp(seen, tmp->key))
+			return (0);
 		tmp = tmp->next;
 	}
 	return (1);
@@ -63,17 +80,18 @@ int	check_valid_key(char *key, int *plus_flg)
 	}
 	return (i);
 }
-
 void	export_item(char **arg, t_env **ev)
 {
 	int		i;
 	int		plus_flg;
 	char	*key;
 	char	*value;
+	int		assigned;
 	t_env	*tmp;
 
 	i = 1;
 	plus_flg = 0;
+	assigned = 0;
 	while (arg[i])
 	{
 		key = get_key(arg[i]);
@@ -85,7 +103,12 @@ void	export_item(char **arg, t_env **ev)
 			key = NULL;
 			key = get_key_plus(arg[i]);
 			value = get_val(arg[i]);
-			if (seen_bef(key, value, ev, plus_flg) != 0)
+			if (seen_it(key, ev) != 0 && !value)
+			{
+				tmp = ft_lstnew_env(key, value);
+				ft_lstadd_back_env(ev, tmp);
+			}
+			else if (seen_bef(key, value, ev, plus_flg) != 0 && value)
 			{
 				tmp = ft_lstnew_env(key, value);
 				ft_lstadd_back_env(ev, tmp);
@@ -103,12 +126,12 @@ void	export_it(char **av, t_env **env)
 	tmp = *env;
 	if (tmp)
 		sort_list(tmp, compare);
-	if (!av[1])
+	if (!av[1] || !(*av[1]))
 	{
 		while (tmp != 0)
 		{
 			if (!tmp->value)
-				printf("declare -x %s=%c%c\n", tmp->key, '"', '"');
+				printf("declare -x %s\n", tmp->key);
 			else
 				printf("declare -x %s=%c%s%c\n", tmp->key, '"', tmp->value,
 					'"');

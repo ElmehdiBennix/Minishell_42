@@ -6,25 +6,17 @@ sleep 3
 clean
 done
 
--> le minishit$ echo -nnnnnnnn -n -n -n  "              dddd "
-              dddd -> le minishit$ echo -nnnnnnnn -n -n - -n  "              dddd "
--n               dddd -> le minishit$ echo -nnnnnnnn -n -n ---- -n  "              dddd "
--n               dddd -> le minishit$ echo -nnnnnnnn -n -n ----  "              dddd "
-----               dddd -> le minishit$ echo -nnnnnnnn -n -n -d -n "              dddd "
--n               dddd -> le minishit$ 
+error managment.. in ft_bultins <----------------------------------------------------------------
 
 
-declare -x a="dsdsds"
-declare -x a+="b"
-declare -x asda+="b"
-declare -x b="dxxxx√
+ls -la > out | cat out; <----------------------------------------------------------------
 
-export a+=b
+exit with args;
 
-error managment..
+herdoc with expanding;
 
 
-
+norminette  <----------------------------------------------------------------
 ------> functions need to be separated:
 exc.c: Error!
 Error: TOO_MANY_LINES       (line:  73, col:   1):      Function has more than 25 lines

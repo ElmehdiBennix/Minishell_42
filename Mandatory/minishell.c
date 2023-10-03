@@ -3,126 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/03 19:33:30 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/04 00:05:57 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
 
-char	*get_key(char *line)
+static void	exec_loop(t_mini_data *var)
 {
-	char	*key;
-	int		i;
+	t_command_table	*data_iter;
+	int				return_type;
 
-	i = 0;
-	while (line[i] && (line[i] != '='))
-		i++;
-	key = malloc(sizeof(char) * i + 1);
-	if (!key)
-		return (NULL);
-	i = 0;
-	while (line[i] && (line[i] != '='))
+	data_iter = var->exec_data;
+	while (data_iter)
 	{
-		key[i] = line[i];
-		i++;
+		return_type = open_red(data_iter);
+		if (return_type == 1)
+			break ;
+		else if (return_type == 2)
+			var->err_no = 1;
+		data_iter = data_iter->forward;
 	}
-	key[i] = '\0';
-	return (key);
-}
-//  le minishit$ export a++=b error set erno
-
-char	*get_val(char *line)
-{
-	char	*val;
-	int		i;
-	int		j;
-
-	i = 0;
-	while (line[i] && line[i] != '=')
-		i++;
-	if (!line[i] || !line[i + 1])
-		return (NULL);
-	j = i + 1;
-	while (line[j])
-		j++;
-	val = malloc(sizeof(char) * (j - i + 1));
-	j = i + 1;
-	i = 0;
-	while (line[j])
-		val[i++] = line[j++];
-	val[i] = '\0';
-	return (val);
-}
-
-int	get_env(t_env **Henv, char **env)
-{
-	t_env	*tmp;
-	int		i;
-
-	i = 0;
-	if (!env)
-		return (1);
-	while (env[i])
+	if (var->nodes == 1)
 	{
-		tmp = ft_lstnew_env(get_key(env[i]), get_val(env[i]));
-		if (!Henv)
-			Henv = &tmp;
+		if (one_cmd(var->exec_data, &var->env_var) == 2)
+		{
+			if (!var->err_no)
+				var->err_no = 127;
+		}
 		else
-			ft_lstadd_back_env(Henv, tmp);
-		i++;
+			var->err_no = 0;
 	}
-	return (0);
+	else
+	{
+		if (multi_cmd(var->exec_data, &var->env_var) == 1)
+		{
+			if (!var->err_no)
+				var->err_no = 127;
+		}
+		else
+			var->err_no = 0;
+	}
+	while (var->nodes != 0)
+	{
+		if (var->exec_data->fdout != 1)
+			close(var->exec_data->fdout);
+		if (var->exec_data->fdin != 0)
+			close(var->exec_data->fdin);
+		var->exec_data = var->exec_data->forward;
+		var->nodes--;
+	}
+	unlink_opened_files();
 }
-
-// static void	exec_loop(t_mini_data *var)
-// {
-// 	t_command_table	*data_iter;
-// 	int				return_type;
-
-// 	data_iter = var->exec_data;
-// 	while (data_iter)
-// 	{
-// 		return_type = open_red(data_iter);
-// 		if (return_type == 1)
-// 			break ;
-// 		else if (return_type == 2)
-// 			var->err_no = 1;
-// 		data_iter = data_iter->forward;
-// 	}
-// 	if (var->nodes == 1)
-// 	{
-// 		if (one_cmd(var->exec_data, &var->env_var) == 2)
-// 		{
-// 			if (!var->err_no)
-// 				var->err_no = 127;
-// 		}
-// 		else
-// 			var->err_no = 0;
-// 	}
-// 	else
-// 	{
-// 		if (multi_cmd(var->exec_data, &var->env_var) == 1)
-// 		{
-// 			if (!var->err_no)
-// 				var->err_no = 127;
-// 		}
-// 		else
-// 			var->err_no = 0;
-// 	}
-// 	while (var->nodes != 0)
-// 	{
-// 		if (var->exec_data->fdout != 1)
-// 			close(var->exec_data->fdout);
-// 		if (var->exec_data->fdin != 0)
-// 			close(var->exec_data->fdin);
-// 		var->exec_data = var->exec_data->forward;
-// 		var->nodes--;
-// 	}
-// 	unlink_opened_files();
-// }
 
 static bool	parse_loop(t_mini_data *var, char *prompt)
 {
@@ -140,29 +75,7 @@ static bool	parse_loop(t_mini_data *var, char *prompt)
 	if (allocate_groups(var) == TRUE)
 		return (cmd_free(var->exec_data, 1), tok_free(var->tokens, 1), var->err_no = 258, 1);
 	if (linker(var) == TRUE) // leaks left
-		return (cmd_free(var->exec_data, 1), var->err_no = 258, 1);
-	printf("-------------------------------------------------\n");
-	t_command_table *test = var->exec_data;
-	int i = 0;
-	while(test)
-	{
-	    t_redirection *test2 = test->redirections;
-	    while(test->cmds_array[i])
-	    {
-	        printf("command[%d] == %s\n",i,test->cmds_array[i]);
-	        i++;
-	    }
-	    printf("command[%d] == %s\n",i,test->cmds_array[i]);
-	    i = 0;
-	    while(test2)
-	    {
-	        printf("type = %d | file = %s\n",test2->r_type,test2->file_name);
-	        test2 = test2->next;
-	    }
-		printf("file = %p\n",test2);
-	    test = test->forward;
-	    printf("end\n");
-	}
+		return (cmd_free(var->exec_data, 1), tok_free(var->tokens, 1), var->err_no = 258, 1);
 	return (0);
 }
 
@@ -202,19 +115,26 @@ char	*prompt_generator(t_mini_data *var)
 	return (prompt);
 }
 
+void	sh_lvl(t_env **env)
+{
+	char	*tmp;
+	
+	tmp = ft_itoa(ft_atoi(value_by_key((*env), "SHLVL")) + 1);
+	(*env) = update_env(env, tmp, "SHLVL");
+	free(tmp);
+}
+
 int	main(int ac, char **av, char **env)
 {
-	char		*prompt;
-	char 		*tmp;
-	t_mini_data	var;
+	char			*prompt;
+	char			*tmp;
+	t_mini_data		var;
 
 	(void)av;
 	var.env_var = NULL;
 	get_env(&var.env_var, env);
-	tmp = ft_itoa(ft_atoi(value_by_key(var.env_var, "SHLVL")) + 1);
-	var.env_var = update_env(&var.env_var, tmp, "SHLVL");
+	sh_lvl(&var.env_var);
 	var.err_no = 0;
-	free(tmp);
 	if (ac == 1)
 	{
 		while (1)
@@ -232,7 +152,7 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			if (parse_loop(&var, prompt) == TRUE)
 				continue ;
-			// exec_loop(&var);
+			exec_loop(&var);
 			cmd_free(var.exec_data, 1);
 		}
 		return (0);
@@ -240,3 +160,24 @@ int	main(int ac, char **av, char **env)
 	return (ft_fprintf(2, "le minishell: this shell does not accept any arguments !!\n"), 127);
 }
 
+// t_command_table *test = var->exec_data;
+// int i = 0;
+// while(test)
+// {
+//     t_redirection *test2 = test->redirections;
+//     while(test->cmds_array[i])
+//     {
+//         printf("command[%d] == %s\n",i,test->cmds_array[i]);
+//         i++;
+//     }
+//     printf("command[%d] == %s\n",i,test->cmds_array[i]);
+//     i = 0;
+//     while(test2)
+//     {
+//         printf("type = %d | file = %s\n",test2->r_type,test2->file_name);
+//         test2 = test2->next;
+//     }
+// 	printf("file = %p\n",test2);
+//     test = test->forward;
+//     printf("end\n");
+// }
