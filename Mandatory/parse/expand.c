@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/28 18:07:11 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/03 01:54:13 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	valid_key(int c)
 	return (0);
 }
 
-char	*get_value(char *content, t_mini_data *var)
-	// algor wroking fine need work need to be done to make it understandable
+char	*get_value(char *content, t_mini_data *var)// algor wroking fine need work need to be done to make it understandable
 {
 	t_expansions exp;
 	char *buff;
 	char *x;
-	// protect content if NULL;
+	char *tmp;
+
 	exp.new_arg = NULL;
 	exp.i = 0;
 	exp.j = 0;
@@ -56,16 +56,27 @@ char	*get_value(char *content, t_mini_data *var)
 				if (exp.f - 1 > 0)
 				{
 					exp.new_arg = ft_calloc(exp.f, sizeof(char));
-					ft_memcpy(exp.new_arg, content + exp.i - exp.j - exp.f,
-							exp.f - 1);
+					ft_memcpy(exp.new_arg, content + exp.i - exp.j - exp.f, exp.f - 1);
 				}
 				buff = ft_calloc(exp.j + 1, sizeof(char));
-				ft_memcpy(buff, content + exp.i - exp.j, exp.j); // might sigf in some cases
+				ft_memcpy(buff, content + exp.i - exp.j, exp.j);
 				if (*buff == '?')
-					x = ft_strjoin(exp.new_arg, ft_itoa(var->err_no));
+				{
+					tmp = ft_itoa(var->err_no);
+					x = ft_strjoin(exp.new_arg, tmp);
+					free(exp.new_arg);
+					free(tmp);
+				}
 				else
-					x = ft_strjoin(exp.new_arg, value_by_key(var->env_var, buff)); // can the value function
+				{
+					x = ft_strjoin(exp.new_arg,value_by_key(var->env_var, buff));
+					free(exp.new_arg);
+					free(buff);
+				}
+				tmp = buffer;
 				buffer = ft_strjoin(buffer, x);
+				free(x);
+				free(tmp);
 				exp.f = 0;
 				exp.j = 0;
 				exp.new_arg = NULL;
@@ -81,7 +92,10 @@ char	*get_value(char *content, t_mini_data *var)
 		exp.new_arg = ft_calloc(exp.f + 1, sizeof(char)); // not working with spaces
 		ft_memcpy(exp.new_arg, content + exp.i - exp.j - exp.f, exp.f); // code managment
 	}
+	tmp = buffer;
 	buffer = ft_strjoin(buffer, exp.new_arg);
+	free(tmp);
+	free(exp.new_arg);
 	return (buffer);
 }
 
@@ -106,11 +120,23 @@ bool	expander(t_mini_data *var) // ok
 			if (arrow->type == WORD || arrow->type == DOUBLE_QUOT)
 			{
 				if (arrow->type == WORD && ft_strncmp(arrow->content, "~", 2) == 0)
+				{
+					tmp = arrow->content;
 					arrow->content = ft_strdup(value_by_key(var->env_var, "HOME"));
+					free(tmp);
+				}
 				else if (arrow->type == WORD && ft_strncmp(arrow->content, "~/", 2) == 0)
+				{
+					tmp = arrow->content;
 					arrow->content = ft_strjoin(value_by_key(var->env_var, "HOME"), get_value(arrow->content + 1, var));
+					free(tmp);
+				}
 				else
+				{
+					tmp = arrow->content;
 					arrow->content = get_value(arrow->content, var);
+					free(tmp);
+				}
 			}
 		}
 		if (arrow->content == NULL)

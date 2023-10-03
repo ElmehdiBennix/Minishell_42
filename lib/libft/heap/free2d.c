@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:11:15 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/21 07:08:41 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/03 01:30:40 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@ char	**free2d(char **array)
 	int		i;
 
 	i = -1;
-	if (!array)
+	if (array == NULL)
 		return (NULL);
 	while (array[++i])
 	{
-		free(array[i]);
-		array[i] = NULL;
+		if(array[i] != NULL)
+		{
+			free(array[i]);
+			array[i] = NULL;
+		}
 	}
+	free(array);
 	array = NULL;
 	return (array);
 }
