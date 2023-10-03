@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:08:32 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/02 19:28:50 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/03 22:23:29 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ bool	linker(t_mini_data *var)
 	redi = exec->redirections;
 	while (exec && toks)
 	{
-		buffer = NULL;
+		buffer = ft_strdup("");
 		if (toks->type >= WORD && toks->type <= DOUBLE_QUOT)
 		{
 			while (toks->type >= WORD && toks->type <= DOUBLE_QUOT && toks->space_after == FALSE)
 			{
 				tmp = buffer;
-				buffer = ft_strjoin(buffer, toks->content);
+				buffer = ft_strjoin(tmp, toks->content);
 				free(tmp);
 				toks = toks->forward;
 				if (toks->type >= PIPE && toks->type <= HERE_DOC)
@@ -45,7 +45,7 @@ bool	linker(t_mini_data *var)
 			if (toks->type >= WORD && toks->type <= DOUBLE_QUOT && toks->space_after == TRUE)
 			{
 				tmp = buffer;
-				buffer = ft_strjoin(buffer, toks->content);
+				buffer = ft_strjoin(tmp, toks->content);
 				free(tmp);
 				exec->cmds_array[i] = buffer;
 				i++;
@@ -59,7 +59,7 @@ bool	linker(t_mini_data *var)
 			while (toks->type >= WORD && toks->type <= DOUBLE_QUOT && toks->space_after == FALSE)
 			{
 				tmp = buffer;
-				buffer = ft_strjoin(buffer, toks->content);
+				buffer = ft_strjoin(tmp, toks->content);
 				free(tmp);
 				toks = toks->forward;
 				if (toks->type >= PIPE && toks->type <= HERE_DOC)
@@ -71,13 +71,13 @@ bool	linker(t_mini_data *var)
 			if (toks->type >= WORD && toks->type <= DOUBLE_QUOT && toks->space_after == TRUE)
 			{
 				tmp = buffer;
-				redi->file_name = ft_strjoin(buffer, toks->content);
+				redi->file_name = ft_strjoin(tmp, toks->content);
 				free(tmp);
 				redi = redi->next;
 				toks = toks->forward;
 			}
 		}
-		else if (toks->type == PIPE) // think over
+		else if (toks->type == PIPE)
 		{
 			i = 0;
 			exec = exec->forward;
@@ -85,5 +85,6 @@ bool	linker(t_mini_data *var)
 			redi = exec->redirections;
 		}
 	}
+	tok_free(var->tokens, 1);
 	return (0);
 }
