@@ -6,13 +6,13 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/03 22:55:56 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/04 01:40:51 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	valid_key(int c)
+int	multi_key(int c)
 {
 	if ((c >= 65 && c <= 90) || (c >= 97 && c < 123) || (c >= '0' && c <= '9')
 		|| c == '_')
@@ -30,15 +30,16 @@ int single_key(int c)
 char	*get_value(char *content, t_mini_data *var)// algor wroking fine need work need to be done to make it understandable
 {
 	t_expansions exp;
-	char *buff;
-	char *x;
+
+	char *key;
+	char *expnd_d;
 	char *tmp;
 
 	exp.new_arg = NULL;
 	exp.i = 0;
 	exp.j = 0;
 	exp.f = 0;
-	char *buffer = ft_strdup("");
+	char *buffer = NULL;
 	while (content[exp.i])
 	{
 		while (content[exp.i] && content[exp.i] == '$') // token identifier for an expand
@@ -52,7 +53,7 @@ char	*get_value(char *content, t_mini_data *var)// algor wroking fine need work 
 			}
 			else
 			{
-				while (content[exp.i] && valid_key(content[exp.i]) == TRUE) // collect valid key
+				while (content[exp.i] && multi_key(content[exp.i]) == TRUE) // collect valid key
 				{
 					exp.i++;
 					exp.j++;
@@ -65,24 +66,25 @@ char	*get_value(char *content, t_mini_data *var)// algor wroking fine need work 
 					exp.new_arg = ft_calloc(exp.f, sizeof(char));
 					ft_memcpy(exp.new_arg, content + exp.i - exp.j - exp.f, exp.f - 1);
 				}
-				buff = ft_calloc(exp.j + 1, sizeof(char));
-				ft_memcpy(buff, content + exp.i - exp.j, exp.j);
-				if (*buff == '?')
+				key = ft_calloc(exp.j + 1, sizeof(char));
+				ft_memcpy(key, content + exp.i - exp.j, exp.j);
+				if (*key == '?')
 				{
 					tmp = ft_itoa(var->err_no);
-					x = ft_strjoin(exp.new_arg, tmp);
+					expnd_d = ft_strjoin(exp.new_arg, tmp);
 					free(exp.new_arg);
 					free(tmp);
+					free(key);
 				}
 				else
 				{
-					x = ft_strjoin(exp.new_arg,value_by_key(var->env_var, buff));
+					expnd_d = ft_strjoin(exp.new_arg,value_by_key(var->env_var, key));
 					free(exp.new_arg);
-					free(buff);
+					free(key);
 				}
 				tmp = buffer;
-				buffer = ft_strjoin(buffer, x);
-				free(x);
+				buffer = ft_strjoin(tmp, expnd_d);
+				free(expnd_d);
 				free(tmp);
 				exp.f = 0;
 				exp.j = 0;
@@ -96,11 +98,11 @@ char	*get_value(char *content, t_mini_data *var)// algor wroking fine need work 
 	}
 	if (exp.f > 0)
 	{
-		exp.new_arg = ft_calloc(exp.f + 1, sizeof(char)); // not working with spaces
-		ft_memcpy(exp.new_arg, content + exp.i - exp.j - exp.f, exp.f); // code managment
+		exp.new_arg = ft_calloc(exp.f + 1, sizeof(char));
+		ft_memcpy(exp.new_arg, content + exp.i - exp.j - exp.f, exp.f);
 	}
 	tmp = buffer;
-	buffer = ft_strjoin(buffer, exp.new_arg);
+	buffer = ft_strjoin(tmp, exp.new_arg);
 	free(tmp);
 	free(exp.new_arg);
 	return (buffer);
@@ -146,8 +148,6 @@ bool	expander(t_mini_data *var) // ok
 				}
 			}
 		}
-		if (arrow->content == NULL)
-			return (1);
 		arrow = arrow->forward;
 	}
 	return (0);

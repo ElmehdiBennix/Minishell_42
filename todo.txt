@@ -13,8 +13,6 @@ ls -la > out | cat out; <-------------------------------------------------------
 
 exit with args;
 
-herdoc with expanding;
-
 
 norminette  <----------------------------------------------------------------
 ------> functions need to be separated:

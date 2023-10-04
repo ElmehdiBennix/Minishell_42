@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+         #
+#    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/22 04:53:15 by ebennix           #+#    #+#              #
-#    Updated: 2023/09/24 23:10:32 by otaraki          ###   ########.fr        #
+#    Updated: 2023/10/04 01:48:24 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,13 @@ COLORS := /inc/colors.h
 OBJ_DIR := obj_files
 
 FILES := libft/string/ft_atoi		  libft/int/ft_itoa	               libft/int/ft_putnbr_fd	    \
-		 libft/int/ft_strlcpy		  libft/char/ft_tolower	           libft/errors/exit_msg        \
+		 libft/int/ft_strlcpy		  libft/char/ft_tolower	                  \
 		 libft/memory/ft_bzero	      libft/memory/ft_memchr	       libft/string/ft_putstr_fd	\
-		 libft/int/ft_strlen	 	  libft/char/ft_toupper	           libft/errors/error   		\
+		 libft/int/ft_strlen	 	  libft/char/ft_toupper	          		\
 		 libft/heap/ft_calloc	      libft/memory/ft_memcmp	       libft/heap/ft_split	     	\
 		 libft/string/ft_strmapi	  libft/heap/ft_substr	           libft/lst/ft_lstcreate_front	\
 		 libft/char/ft_isalnum	      libft/memory/ft_memcpy	       libft/string/ft_strchr	 	\
-		 libft/int/ft_strncmp		  libft/lst/ft_lstclear	           get_next_line/get_next_line	\
+		 libft/int/ft_strncmp		  libft/lst/ft_lstclear	           \
 		 libft/char/ft_isalpha	 	  libft/heap/ft_strdup	       	   libft/string/ft_strnstr		\
 		 libft/char/ft_isascii	      libft/memory/ft_memset	       libft/string/ft_striteri		\
 		 libft/string/ft_strrchr	  libft/string/ft_putendl_fd       fprintf/ft_fprintf  	 	  	\

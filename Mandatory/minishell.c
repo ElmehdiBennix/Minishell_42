@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/04 00:05:57 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/04 01:55:33 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ static bool	parse_loop(t_mini_data *var, char *prompt)
 		return (tok_free(var->tokens, 1), var->err_no = 258, 1);
 	if (parser(var) == TRUE)
 		return (tok_free(var->tokens, 1), var->err_no = 258, 1);
-	if (expander(var) == TRUE) // leaks left and $?
+	if (expander(var) == TRUE)
 		return (tok_free(var->tokens, 1), var->err_no = 258, 1);
 	if (allocate_groups(var) == TRUE)
 		return (cmd_free(var->exec_data, 1), tok_free(var->tokens, 1), var->err_no = 258, 1);
-	if (linker(var) == TRUE) // leaks left
-		return (cmd_free(var->exec_data, 1), tok_free(var->tokens, 1), var->err_no = 258, 1);
+	if (linker(var) == TRUE)
+		return (cmd_free(var->exec_data, 1), var->err_no = 258, 1);
 	return (0);
 }
 
@@ -115,26 +115,19 @@ char	*prompt_generator(t_mini_data *var)
 	return (prompt);
 }
 
-void	sh_lvl(t_env **env)
-{
-	char	*tmp;
-	
-	tmp = ft_itoa(ft_atoi(value_by_key((*env), "SHLVL")) + 1);
-	(*env) = update_env(env, tmp, "SHLVL");
-	free(tmp);
-}
-
 int	main(int ac, char **av, char **env)
 {
-	char			*prompt;
-	char			*tmp;
-	t_mini_data		var;
+	char		*prompt;
+	char 		*tmp;
+	t_mini_data	var;
 
 	(void)av;
 	var.env_var = NULL;
 	get_env(&var.env_var, env);
-	sh_lvl(&var.env_var);
+	tmp = ft_itoa(ft_atoi(value_by_key(var.env_var, "SHLVL")) + 1);
+	var.env_var = update_env(&var.env_var, tmp, "SHLVL");
 	var.err_no = 0;
+	free(tmp);
 	if (ac == 1)
 	{
 		while (1)
