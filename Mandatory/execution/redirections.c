@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/03 01:31:34 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/04 20:10:49 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	fhandler(int sig)
 int	here_doc(int *fdin, char *str, char **f_name, t_mini_data *var)
 {
 	char	*rd;
+	char	*line;
 
 	*f_name = herdoc_name();
 	*fdin = open((*f_name), O_RDWR | O_CREAT | O_TRUNC, 0654);
@@ -54,12 +55,17 @@ int	here_doc(int *fdin, char *str, char **f_name, t_mini_data *var)
 		rd = readline(">");
 		if (!rd)
 			break ;
+		line = rd;
 		rd = get_value(rd, var);
+		free(line);
 		if (!ft_strcmp(rd, str))
 			break ;
+		line = rd;
 		rd = ft_strjoin(rd, "\n");
+		free(line);
 		ft_putstr_fd(rd, *fdin);
 		free(rd);
+		rd = NULL;
 	}
 	free(rd);
 	close(*fdin);
@@ -99,38 +105,39 @@ int	open_red(t_command_table *exec_data)
 {
 	int		status;
 	char	*f_name;
+	t_redirection *red = exec_data->redirections;
 
 	f_name = NULL;
 	status = 0;
-	while (exec_data->redirections && (status >= 0))
+	while (red && (status >= 0))
 	{
-		if (exec_data->redirections->r_type == GREAT)
-			status = red_open(&exec_data->fdout, GREAT, exec_data->redirections->file_name);
-		else if (exec_data->redirections->r_type == LESS)
-			status = red_open(&exec_data->fdin, LESS, exec_data->redirections->file_name);
-		else if (exec_data->redirections->r_type == APPEND)
-			status = red_open(&exec_data->fdout, APPEND, exec_data->redirections->file_name);
-		else if (exec_data->redirections->r_type == HERE_DOC)
+		if (red->r_type == GREAT)
+			status = red_open(&exec_data->fdout, GREAT, red->file_name);
+		if (red->r_type == LESS)
+			status = red_open(&exec_data->fdin, LESS, red->file_name);
+		else if (red->r_type == APPEND)
+			status = red_open(&exec_data->fdout, APPEND, red->file_name);
+		else if (red->r_type == HERE_DOC)
 		{
-			here_doc(&exec_data->fdin, exec_data->redirections->file_name, &f_name, exec_data->var);
+			here_doc(&exec_data->fdin, red->file_name, &f_name, exec_data->var);
 			if (isatty(STDIN_FILENO) == 0)
 			{
 				dup2(STDIN_FILENO, open(ttyname(1), O_RDONLY, 0654));
 				return (1);
-			}//check for later
+			}
 			status = red_open(&exec_data->fdin, HERE_DOC, f_name);
 			free(f_name);
 		}
 		if (status < 0)
 		{
-			ft_fprintf(2, "%s: No such file or directory\n", exec_data->redirections->file_name);
+			ft_fprintf(2, "%s: No such file or directory\n", red->file_name);
 			if (exec_data->cmds_array)
-				free(exec_data->cmds_array);
+				free2d(exec_data->cmds_array);
 			exec_data->cmds_array = NULL;
 			exec_data->fdin = 0;
 			return (2);
 		}
-		exec_data->redirections = exec_data->redirections->next;
+		red = red->next;
 	}
 	return (0);
 }

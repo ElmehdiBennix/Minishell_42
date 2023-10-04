@@ -6,16 +6,21 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/04 02:48:15 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/04 20:58:14 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
 
+void god_leaks()
+{
+	system("leaks Minishell");
+}
+
 static void	exec_loop(t_mini_data *var)
 {
 	t_command_table	*data_iter;
-	int				return_type;
+	int				return_type = 0;
 
 	data_iter = var->exec_data;
 	while (data_iter)
@@ -122,6 +127,7 @@ int	main(int ac, char **av, char **env)
 	t_mini_data	var;
 
 	(void)av;
+	// atexit(god_leaks);
 	var.env_var = NULL;
 	get_env(&var.env_var, env);
 	tmp = ft_itoa(ft_atoi(value_by_key(var.env_var, "SHLVL")) + 1);
@@ -147,6 +153,7 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			exec_loop(&var);
 			cmd_free(var.exec_data, 1);
+			system("leaks Minishell");
 		}
 		return (0);
 	}
