@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:08:32 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/03 22:23:29 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/04 00:51:13 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	linker(t_mini_data *var)
 	redi = exec->redirections;
 	while (exec && toks)
 	{
-		buffer = ft_strdup("");
+		buffer = NULL;
 		if (toks->type >= WORD && toks->type <= DOUBLE_QUOT)
 		{
 			while (toks->type >= WORD && toks->type <= DOUBLE_QUOT && toks->space_after == FALSE)
@@ -71,8 +71,9 @@ bool	linker(t_mini_data *var)
 			if (toks->type >= WORD && toks->type <= DOUBLE_QUOT && toks->space_after == TRUE)
 			{
 				tmp = buffer;
-				redi->file_name = ft_strjoin(tmp, toks->content);
+				buffer = ft_strjoin(tmp, toks->content);
 				free(tmp);
+				redi->file_name = buffer;
 				redi = redi->next;
 				toks = toks->forward;
 			}
