@@ -1,0 +1,16 @@
+total 296
+drwxr-xr-x  15 otaraki  candidate    510 Oct  4 03:04 .
+drwxr-xr-x  12 otaraki  candidate    408 Oct  4 00:11 ..
+-rw-r--r--@  1 otaraki  candidate   6148 Oct  4 00:11 .DS_Store
+drwxr-xr-x  15 otaraki  candidate    510 Oct  4 02:03 .git
+-rw-r--r--   1 otaraki  candidate   2368 Oct  4 00:00 .gitignore
+drwxr-xr-x   3 otaraki  candidate    102 Oct  4 00:00 .vscode
+-rw-r--r--   1 otaraki  candidate  35149 Oct  4 00:00 LICENSE
+-rw-r--r--   1 otaraki  candidate   2531 Oct  4 02:40 Makefile
+drwxr-xr-x  10 otaraki  candidate    340 Oct  4 02:53 Mandatory
+-rwxr-xr-x   1 otaraki  candidate  87528 Oct  4 03:04 Minishell
+-rw-r--r--   1 otaraki  candidate    175 Oct  4 00:00 README.md
+drwxr-xr-x   8 otaraki  candidate    272 Oct  4 02:40 lib
+-rw-r-xr--   1 otaraki  candidate      0 Oct  4 03:04 out
+drwxr-xr-x   3 otaraki  candidate    102 Oct  4 00:00 subject
+-rw-r--r--   1 otaraki  candidate   1269 Oct  4 02:40 todo.txt
