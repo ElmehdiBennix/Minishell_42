@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:57:12 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/03 12:05:45 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/04 03:04:14 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,16 @@ int	multi_cmd(t_command_table *exec_data, t_env **env)
 {
 	t_command_table	*arrow;
 	int				fd[2];
-	pid_t			*pid;
-	int				i;
-	int				status;
+	// pid_t			*pid;
+	int forked;
+	// int				i;
+	// int				status;
 	int				save;
 
 	arrow = exec_data;
-	pid = ft_calloc(sizeof(pid_t), (exec_data->var->nodes));
+	// pid = ft_calloc(sizeof(pid_t), (exec_data->var->nodes));
 	save = dup(0);
-	i = 0;
+	// i = 0;
 	if (!arrow->cmds_array)
 		return -1;
 	while (arrow)
@@ -34,13 +35,13 @@ int	multi_cmd(t_command_table *exec_data, t_env **env)
 		if (!ft_strcmp(arrow->cmds_array[0], "cd"))
 			ft_bultin(arrow, env);
 		pipe(fd);
-		pid[i] = fork();
-		if (!pid[i])
+		forked = fork();
+		if (!forked)
 		{
 			signal(SIGQUIT, SIG_DFL);
 			if (isatty(STDIN_FILENO) == 0)
 				dup2(STDIN_FILENO, open(ttyname(1), O_RDONLY, 0644));
-			if (pid[i] == -1)
+			if (forked == -1)
 			{
 				printf("le minishell: fork: Resource\
 						temporarily unavailable \n");
@@ -75,16 +76,19 @@ int	multi_cmd(t_command_table *exec_data, t_env **env)
 			close(STDIN_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		i++;
+		// i++;
 		arrow = arrow->forward;
 	}
 	dup2(save, STDIN_FILENO);
 	close(save);
-	i = 0;
-	while (i < exec_data->var->nodes && pid[i])
-	{
-		waitpid(pid[i], &status, 0);
-		i++;
-	}
-	return (WEXITSTATUS(status));
+		while (wait(NULL) != -1)
+		;
+	return 1;
+	// i = 0;
+	// while (i < exec_data->var->nodes && pid[i])
+	// {
+	// 	waitpid(pid[i], &status, 0);
+	// 	i++;
+	// }
+	// return (WEXITSTATUS(status));
 }

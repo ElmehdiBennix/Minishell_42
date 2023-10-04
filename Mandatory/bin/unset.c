@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:35 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/28 02:22:22 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/04 01:44:13 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_unset(char **arg, t_env **env)
 {
 	int	i;
-
+ 
 	i = 1;
 	while (arg[i])
 	{
