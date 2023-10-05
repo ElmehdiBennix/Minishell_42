@@ -6,7 +6,7 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/06 00:33:27 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 00:46:46 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@ int		ft_iseparateur(char c);
 int		ft_iswhite_space(char c);
 t_type	get_type(char *token, int moves);
 
-char	*join_it(char *s1, char *s2, int flag);
-bool	toks_doubly(t_token **head, t_token *node);
-bool	cmds_doubly(t_command_table **head, t_command_table *node);
-
-char	*get_value(char *content, t_mini_data *var);
-
 bool	last_index(char *prompt);
 bool	first_index(char *prompt);
 bool	skip_space_history(char *prompt);
 
+char	*join_it(char *s1, char *s2, int flag);
+bool	toks_doubly(t_token **head, t_token *node);
+bool	cmds_doubly(t_command_table **head, t_command_table *node);
+
 //parse functions
+char	*prompt_generator(t_mini_data *var);
 bool	shell_history(t_mini_data *var, char *prompt);
 bool	token_catcher(char *prompt, t_mini_data *var);
 bool	parser(t_mini_data *var);
 bool	expander(t_mini_data *var);
+char	*get_value(char *content, t_mini_data *var);
 bool	allocate_groups(t_mini_data *var);
 bool	linker(t_mini_data *var);
 
