@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:51:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 22:41:07 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 23:23:35 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,36 +47,6 @@ static bool	last_index(char *prompt)
 		return (ft_fprintf(2, SYNX_2), 1);
 	return (0);
 }
-
-// static int open_quote(t_mini_data *var, char *prompt)
-// {
-//     int i = 0;
-//     bool status = false;
-//     char quot;
-//     int command_table = 1;
-
-//     while (prompt[i])
-//     {
-//         if (prompt[i] == '|')
-//         {
-//             if (prompt[++i] &&prompt[++i] == '|')
-//                 return -1;
-//             i--;
-//             command_table++;
-//         }
-//         else if ((prompt[i] == 34 || prompt[i] == 39) && !status)
-//         {
-//             quot = prompt[i];
-//             status = true;
-//         }
-//         else if (prompt[i] == quot)
-//             status = false;
-//         i++;
-//     }
-
-//     var->nodes = command_table;
-//     return status;
-// }
 
 static int	open_quote(t_mini_data *var, char *prompt)
 {
