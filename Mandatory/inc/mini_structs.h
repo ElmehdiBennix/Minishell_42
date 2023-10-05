@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/30 22:06:21 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/04 23:08:11 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ typedef struct	s_env
 typedef struct	s_expansions // needs changings
 {
 	char *new_arg;
-	char *buffer;
-	char *tmp;
+	char *key;
+	char *expnd_d;
 	int i;
 	int j;
 	int f;
@@ -51,13 +51,13 @@ typedef struct 	s_token
 	t_type					type;
 	struct s_token			*forward;
 	struct s_token			*backward;
-} 				t_token; // herdoc first == dup input < pipe or file_hiddenz
+} 				t_token;
 
 typedef struct	s_redirection
 {
 	t_type					r_type;
 	char					*file_name;
-	struct s_redirection 	*next; 	// ls > a > b > c create a next b till last then dup output only c is // read write flag--
+	struct s_redirection 	*next;
 }				t_redirection;
 
 typedef struct	s_command_table

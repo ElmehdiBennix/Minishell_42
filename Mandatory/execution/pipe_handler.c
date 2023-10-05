@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:57:12 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/04 19:20:19 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/04 21:39:39 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int	multi_cmd(t_command_table *exec_data, t_env **env)
 		forked = fork();
 		if (!forked)
 		{
-			// signal(SIGQUIT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			// if (isatty(STDIN_FILENO) == 0)
 			// 	dup2(STDIN_FILENO, open(ttyname(1), O_RDONLY, 0644));
 			if (forked == -1)
 			{
-				printf("le minishell: fork: Resource\
+				ft_fprintf(2,"le minishell: fork: Resource\
 						temporarily unavailable \n");
 				return (1);
 			}

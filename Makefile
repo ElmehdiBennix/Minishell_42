@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+         #
+#    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/10/04 19:59:58 by otaraki          ###   ########.fr        #
+#    Updated: 2023/10/04 22:41:53 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,9 +60,9 @@ m := MakefileAutoPush
 
 USER := $(shell whoami)
 
-LDFLAGS := "-L/Users/$(USER)/.brew/opt/readline/lib"
+LDFLAGS := "-L/Users/$(USER)/homebrew/opt/readline/lib"
 
-CPPFLAGS := "-I/Users/$(USER)/.brew/opt/readline/include"
+CPPFLAGS := "-I/Users/$(USER)/homebrew/opt/readline/include"
 
 VAR := $(CPPFLAGS) $(LDFLAGS)
 

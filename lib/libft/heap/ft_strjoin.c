@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 22:11:13 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/04 00:47:04 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/04 23:23:03 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,15 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!str)
 	{
 		if(flag[0] == 1)
+		{
 			free(s1);
+			s1 = NULL;
+		}
 		if(flag[1] == 1)
+		{
 			free(s2);
+			s2 = NULL;
+		}
 		return (NULL);
 	}
 	while (s1[++i])
@@ -48,8 +54,14 @@ char	*ft_strjoin(char *s1, char *s2)
 		str[i + j] = s2[j];
 	str[i + j] = '\0';
 	if(flag[0] == 1)
+	{
 		free(s1);
+		s1 = NULL;
+	}
 	if(flag[1] == 1)
+	{
 		free(s2);
+		s2 = NULL;
+	}
 	return (str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:24 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/03 19:36:44 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/04 22:42:11 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	export_item(char **arg, t_env **ev)
 	{
 		key = get_key(arg[i]);
 		if (check_valid_key(key, &plus_flg) == -1)
-			printf("`%s': not a valid identifier\n", arg[i]);
+			ft_fprintf(2,"`%s': not a valid identifier\n", arg[i]);
 		else
 		{
 			free(key);
@@ -131,9 +131,9 @@ void	export_it(char **av, t_env **env)
 		while (tmp != 0)
 		{
 			if (!tmp->value)
-				printf("declare -x %s\n", tmp->key);
+				ft_fprintf(1,"declare -x %s\n", tmp->key);
 			else
-				printf("declare -x %s=%c%s%c\n", tmp->key, '"', tmp->value,
+				ft_fprintf(1,"declare -x %s=%c%s%c\n", tmp->key, '"', tmp->value,
 					'"');
 			tmp = tmp->next;
 		}
