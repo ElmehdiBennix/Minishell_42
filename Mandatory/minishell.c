@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 01:02:10 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 02:30:34 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,11 @@ char *join_it(char *s1, char *s2, int flag)
 	tmp2 = s2;
 	new_string = ft_strjoin(s1,s2);
 	if (flag == 1)
-		free(tmp1);
+		return (free(tmp1),new_string);
 	else if (flag == 2)
-		free(tmp2);
+		return (free(tmp2),new_string);
+	else if (flag == 3)
+		return (free(tmp1),free(tmp2),new_string);
 	return (new_string);
 }
 
@@ -92,6 +94,27 @@ static bool	parse_loop(t_mini_data *var, char *prompt) // norms notes
 		return (cmd_free(var->exec_data, 1), tok_free(var->tokens, 1), var->err_no = 258, 1);
 	if (linker(var) == TRUE) // ok
 		return (cmd_free(var->exec_data, 1), var->err_no = 258, 1);
+	t_command_table *test = var->exec_data;
+	int i = 0;
+	while(test)
+	{
+	    t_redirection *test2 = test->redirections;
+	    while(test->cmds_array[i])
+	    {
+	        printf("command[%d] == %s\n",i,test->cmds_array[i]);
+	        i++;
+	    }
+	    printf("command[%d] == %s\n",i,test->cmds_array[i]);
+	    i = 0;
+	    while(test2)
+	    {
+	        printf("type = %d | file = %s\n",test2->r_type,test2->file_name);
+	        test2 = test2->next;
+	    }
+	    printf("file = %p\n",test2);
+	    test = test->forward;
+	    printf("end\n");
+	}
 	return (0);
 }
 
@@ -169,24 +192,3 @@ int	main(int ac, char **av, char **env)
 	return (ft_fprintf(2, "le minishell: this shell does not accept any arguments !!\n"), 127);
 }
 
-	// t_command_table *test = var->exec_data;
-	// int i = 0;
-	// while(test)
-	// {
-	//     t_redirection *test2 = test->redirections;
-	//     while(test->cmds_array[i])
-	//     {
-	//         printf("command[%d] == %s\n",i,test->cmds_array[i]);
-	//         i++;
-	//     }
-	//     printf("command[%d] == %s\n",i,test->cmds_array[i]);
-	//     i = 0;
-	//     while(test2)
-	//     {
-	//         printf("type = %d | file = %s\n",test2->r_type,test2->file_name);
-	//         test2 = test2->next;
-	//     }
-	//     printf("file = %p\n",test2);
-	//     test = test->forward;
-	//     printf("end\n");
-	// }

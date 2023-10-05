@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:41 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/06 01:39:14 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 01:10:44 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,7 @@
 // # define STDOUT 1
 // # define STDERR 2
 
-// # define SKIP 1
-// # define NOSKIP 0
-
-// # define BUFF_SIZE 4096
-// # define ERROR 1
-// # define SUCCESS 0
+# define SUCCESS 0
+# define ERROR 1
 
 #endif

@@ -6,11 +6,30 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/05 01:08:08 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 04:33:48 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+static t_token	*create_token(char *prompt,int i,int moves ,int  backward)
+{
+	t_token	*token;
+
+	token = (t_token *)ft_calloc(sizeof(t_token), 1);
+	if (!token)
+		return (NULL);
+	token->content = ft_calloc(moves, sizeof(char));
+	if (!token->content)
+		return (free(token),NULL);
+	ft_strlcpy(token->content, &prompt[backward], moves);
+
+	if (ft_iswhite_space(prompt[i]) == TRUE || prompt[i] == '\0')
+		token->space_after = 1;
+	else
+		token->space_after = 0;
+	return (token);
+}
 
 static t_token	*char_handler(char *prompt, int *i)
 {
@@ -19,9 +38,6 @@ static t_token	*char_handler(char *prompt, int *i)
 	t_token	*token;
 
 	moves = 0;
-	token = (t_token *)ft_calloc(sizeof(t_token), 1);
-	if (!token)
-		return (NULL);
 	while (prompt[*i] && ft_iswhite_space(prompt[*i]) == FALSE
 		&& ft_iseparateur(prompt[*i]) == FALSE && prompt[*i] != 39
 		&& prompt[*i] != 34)
@@ -30,18 +46,9 @@ static t_token	*char_handler(char *prompt, int *i)
 		moves++;
 	}
 	backward = (*i) - moves;
-	token->content = ft_calloc(moves + 1, sizeof(char));
-	if (!token->content)
-	{
-		free(token);
-		return (NULL);
-	}
-	ft_strlcpy(token->content, &prompt[backward], moves + 1);
-	token->type = WORD;
-	if (ft_iswhite_space(prompt[*i]) == TRUE || prompt[*i] == '\0')
-		token->space_after = 1;
-	else
-		token->space_after = 0;
+	token = create_token(prompt,*i,moves+1,backward);
+	if (token)
+		token->type = WORD;
 	return (token);
 }
 
@@ -52,9 +59,6 @@ static t_token	*QUOT_handler(char *prompt, int *i, char QUOT_type)
 	t_token	*token;
 
 	moves = 0;
-	token = (t_token *)ft_calloc(sizeof(t_token), 1);
-	if (!token)
-		return (NULL);
 	(*i)++;
 	while (prompt[*i] != QUOT_type)
 	{
@@ -63,20 +67,10 @@ static t_token	*QUOT_handler(char *prompt, int *i, char QUOT_type)
 	}
 	(*i)++;
 	backward = (*i) - moves - 2;
-	token->content = ft_calloc(moves + 3, sizeof(char));
-	if (!token->content)
-	{
-		free(token);
-		return (NULL);
-	}
-	ft_strlcpy(token->content, &prompt[backward], moves + 3);
-	if (ft_iswhite_space(prompt[*i]) == TRUE || prompt[*i] == '\0')
-		token->space_after = 1;
-	else
-		token->space_after = 0;
-	if (QUOT_type == 39)
+	token = create_token(prompt,*i,moves+3,backward);
+	if (token && QUOT_type == 39)
 		token->type = SINGLE_QUOT;
-	else
+	else if (token && QUOT_type == 34)
 		token->type = DOUBLE_QUOT;
 	return (token);
 }
@@ -88,9 +82,6 @@ static t_token	*separateur_handler(char *prompt, int *i)
 	t_token	*token;
 
 	moves = 0;
-	token = (t_token *)ft_calloc(sizeof(t_token), 1);
-	if (!token)
-		return (NULL);
 	if (prompt[*i] == '|')
 	{
 		(*i)++;
@@ -107,18 +98,9 @@ static t_token	*separateur_handler(char *prompt, int *i)
 		}
 	}
 	backward = (*i) - moves;
-	token->content = ft_calloc(moves + 1, sizeof(char));
-	if (!token->content)
-	{
-		free(token);
-		return (NULL);
-	}
-	ft_strlcpy(token->content, &prompt[backward], moves + 1);
-	token->type = get_type(token->content, moves);
-	if (ft_iswhite_space(prompt[*i]) == TRUE || prompt[*i] == '\0')
-		token->space_after = 1;
-	else
-		token->space_after = 0;
+	token = create_token(prompt,*i,moves+1,backward);
+	if(token)
+		token->type = get_type(token->content, moves);
 	return (token);
 }
 

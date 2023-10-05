@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 00:59:42 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 01:11:52 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # include "mini_defs.h"
-# include "mini_structs.h"
+# include "mini_structs.h" // headers inc
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <sys/uio.h>
