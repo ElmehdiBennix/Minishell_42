@@ -6,27 +6,11 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 07:20:02 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/05 07:23:49 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	multi_key(int c)
-{
-	if ((c >= 65 && c <= 90) || (c >= 97 && c < 123) || (c >= '0' && c <= '9')
-		|| c == '_')
-		return (1);
-	return (0);
-}
-
-int	single_key(int c)
-{
-	if (c == '?' || c == '@' || c == '#' || c == '$' || c == '-' || c == '&'
-		|| c == '*' || c == ';' || c == '!' || (c >= '0' && c <= '9'))
-		return (1);
-	return (0);
-}
 
 static void	expand_variable(t_expansions *exp, char *content, t_mini_data *var)
 {

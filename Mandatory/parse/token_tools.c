@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:21:30 by ebennix           #+#    #+#             */
-/*   Updated: 2023/09/28 17:52:27 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 07:27:47 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,46 @@ int	ft_lstdoubly(t_token **head, t_token *node)
 		return (1);
 	else if (*head == NULL)
 		*head = node;
+	else
+	{
+		while (arrow->forward != NULL)
+			arrow = arrow->forward;
+		arrow->forward = node;
+		node->backward = arrow;
+		node->forward = NULL;
+	}
+	return (0);
+}
+
+int	multi_key(int c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c < 123) || (c >= '0' && c <= '9')
+		|| c == '_')
+		return (1);
+	return (0);
+}
+
+int	single_key(int c)
+{
+	if (c == '?' || c == '@' || c == '#' || c == '$' || c == '-' || c == '&'
+		|| c == '*' || c == ';' || c == '!' || (c >= '0' && c <= '9'))
+		return (1);
+	return (0);
+}
+
+bool	ft_lstcmds(t_command_table **head, t_command_table *node)
+{
+	t_command_table	*arrow;
+
+	arrow = *head;
+	if (node == NULL)
+		return (1);
+	else if (*head == NULL)
+	{
+		*head = node;
+		node->forward = NULL;
+		node->backward = NULL;
+	}
 	else
 	{
 		while (arrow->forward != NULL)

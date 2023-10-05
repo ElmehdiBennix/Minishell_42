@@ -6,7 +6,7 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:51:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 07:05:02 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/05 07:27:33 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static bool	skip_space_history(char *prompt)
 
 static bool	first_index(char *prompt)
 {
-	int	i;
+	unsigned int	i;
 
 	i = 0;
 	while (prompt[i] && ft_iswhite_space(prompt[i]) == TRUE)
@@ -38,7 +38,7 @@ static bool	first_index(char *prompt)
 
 static bool	last_index(char *prompt)
 {
-	int	i;
+	unsigned int	i;
 
 	i = ft_strlen(prompt) - 1;
 	while (prompt[i] && ft_iswhite_space(prompt[i]) == TRUE)
