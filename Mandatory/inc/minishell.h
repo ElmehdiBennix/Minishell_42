@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 01:11:52 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 22:19:23 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,17 @@
 # include <sys/uio.h>
 # include <sys/wait.h>
 
-char *join_it(char *s1, char *s2, int flag);
 
-
-t_type	get_type(char *token, int moves);
-
-// void                ft_lstdoubly_cmds(t_command_table **head ,t_command_table *node);
+int	    single_key(int c);
+int	    multi_key(int c);
 int		ft_iseparateur(char c);
 int		ft_iswhite_space(char c);
-int		ft_lstdoubly(t_token **head, t_token *node);
+t_type	get_type(char *token, int moves);
+
+char    *join_it(char *s1, char *s2, int flag);
+bool	toks_doubly(t_token **head, t_token *node);
+bool	cmds_doubly(t_command_table **head, t_command_table *node);
+
 char	*get_value(char *content, t_mini_data *var);
 
 //parse functions

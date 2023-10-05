@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_catcher.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/05 07:28:48 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/05 23:08:33 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,11 @@ bool	token_catcher(char *prompt, t_mini_data *var)
 		if (ft_iswhite_space(prompt[i]) == TRUE)
 			i++;
 		else if (prompt[i] == '|' || prompt[i] == '<' || prompt[i] == '>')
-			err = ft_lstdoubly(&tokens, separateur_handler(prompt, &i));
+			err = toks_doubly(&tokens, separateur_handler(prompt, &i));
 		else if (prompt[i] == 34 || prompt[i] == 39)
-			err = ft_lstdoubly(&tokens, quot_handler(prompt, &i, prompt[i]));
+			err = toks_doubly(&tokens, quot_handler(prompt, &i, prompt[i]));
 		else
-			err = ft_lstdoubly(&tokens, char_handler(prompt, &i));
+			err = toks_doubly(&tokens, char_handler(prompt, &i));
 	}
 	free(prompt);
 	var->tokens = tokens;
@@ -129,4 +129,3 @@ bool	token_catcher(char *prompt, t_mini_data *var)
 		return (1);
 	return (0);
 }
-// can optimize this after

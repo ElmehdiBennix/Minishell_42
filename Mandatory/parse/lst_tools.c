@@ -1,54 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_tools.c                                      :+:      :+:    :+:   */
+/*   lst_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:21:30 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 07:27:47 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/05 22:19:43 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_iseparateur(char c)
+char *join_it(char *s1, char *s2, int flag)
 {
-	if (c == 124 || c == 60 || c == 62)
-		return (1);
-	return (0);
+	char *new_string;
+	char *tmp1;
+	char *tmp2;
+
+	tmp1 = s1;
+	tmp2 = s2;
+	new_string = ft_strjoin(s1,s2);
+	if (flag == 1)
+		return (free(tmp1),new_string);
+	else if (flag == 2)
+		return (free(tmp2),new_string);
+	else if (flag == 3)
+		return (free(tmp1),free(tmp2),new_string);
+	return (new_string);
 }
 
-int	ft_iswhite_space(char c)
-{
-	if (c == ' ' || c == '\r' || c == '\n' || c == '\f' || c == '\t'
-		|| c == '\v')
-		return (1);
-	return (0);
-}
-
-t_type	get_type(char *token, int moves)
-{
-	if (moves == 1)
-	{
-		if (*token == '|')
-			return (PIPE);
-		else if (*token == '>')
-			return (GREAT);
-		else if (*token == '<')
-			return (LESS);
-	}
-	else
-	{
-		if (ft_strncmp(token, ">>", 2) == 0)
-			return (APPEND);
-		else if (ft_strncmp(token, "<<", 2) == 0)
-			return (HERE_DOC);
-	}
-	return (10);
-}
-
-int	ft_lstdoubly(t_token **head, t_token *node)
+bool	toks_doubly(t_token **head, t_token *node)
 {
 	t_token	*arrow;
 
@@ -68,23 +50,7 @@ int	ft_lstdoubly(t_token **head, t_token *node)
 	return (0);
 }
 
-int	multi_key(int c)
-{
-	if ((c >= 65 && c <= 90) || (c >= 97 && c < 123) || (c >= '0' && c <= '9')
-		|| c == '_')
-		return (1);
-	return (0);
-}
-
-int	single_key(int c)
-{
-	if (c == '?' || c == '@' || c == '#' || c == '$' || c == '-' || c == '&'
-		|| c == '*' || c == ';' || c == '!' || (c >= '0' && c <= '9'))
-		return (1);
-	return (0);
-}
-
-bool	ft_lstcmds(t_command_table **head, t_command_table *node)
+bool	cmds_doubly(t_command_table **head, t_command_table *node)
 {
 	t_command_table	*arrow;
 

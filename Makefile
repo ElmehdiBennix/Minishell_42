@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/10/04 22:41:53 by ebennix          ###   ########.fr        #
+#    Updated: 2023/10/05 22:17:02 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ FILES := Mandatory/minishell\
 		 Mandatory/parse/expand\
 		 Mandatory/parse/allocate_groups\
 		 Mandatory/parse/linker\
-		 Mandatory/parse/token_tools\
+		 Mandatory/parse/checks_tools\
+		 Mandatory/parse/lst_tools\
 		 Mandatory/utils/ft_lstnew_env \
 		 Mandatory/utils/ft_lstadd_back_env \
 		 Mandatory/utils/ft_remove_node \

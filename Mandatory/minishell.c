@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 06:58:32 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/05 22:25:24 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,23 +59,7 @@ static void	exec_loop(t_mini_data *var)
 	unlink_opened_files();
 }
 
-char *join_it(char *s1, char *s2, int flag)
-{
-	char *new_string;
-	char *tmp1;
-	char *tmp2;
 
-	tmp1 = s1;
-	tmp2 = s2;
-	new_string = ft_strjoin(s1,s2);
-	if (flag == 1)
-		return (free(tmp1),new_string);
-	else if (flag == 2)
-		return (free(tmp2),new_string);
-	else if (flag == 3)
-		return (free(tmp1),free(tmp2),new_string);
-	return (new_string);
-}
 
 static bool	parse_loop(t_mini_data *var, char *prompt) // norms notes
 {
@@ -83,16 +67,16 @@ static bool	parse_loop(t_mini_data *var, char *prompt) // norms notes
 
 	prompty = prompt;
 	prompt = ft_strtrim(prompty, " ");
-	free(prompty); // check on it
-	if (token_catcher(prompt, var) == TRUE) // not ok 
+	free(prompty);
+	if (token_catcher(prompt, var) == TRUE)
 		return (tok_free(var->tokens, 1), var->err_no = 258, 1);
-	if (parser(var) == TRUE) // ok 
+	if (parser(var) == TRUE)
 		return (tok_free(var->tokens, 1), var->err_no = 258, 1);
-	if (expander(var) == TRUE) // not ok 
+	if (expander(var) == TRUE)
 		return (tok_free(var->tokens, 1), var->err_no = 258, 1);
-	if (allocate_groups(var) == TRUE) // ok
+	if (allocate_groups(var) == TRUE)
 		return (cmd_free(var->exec_data, 1), tok_free(var->tokens, 1), var->err_no = 258, 1);
-	if (linker(var) == TRUE) // ok
+	if (linker(var) == TRUE)
 		return (cmd_free(var->exec_data, 1), var->err_no = 258, 1);
 	t_command_table *test = var->exec_data;
 	int i = 0;
