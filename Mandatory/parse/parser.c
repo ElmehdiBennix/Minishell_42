@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:18:41 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 00:20:23 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 01:10:56 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	forbidden_tokens(t_token *token)
 	|| (token->type == GREAT && token->space_after == TRUE
 		&& token->forward->type == PIPE))
 		return (1);
-	return(0);
+	return (0);
 }
 
 bool	tokens_checker(t_token *token, int *nodes)
