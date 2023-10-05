@@ -6,35 +6,11 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 00:04:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 06:55:39 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/05 07:26:30 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-static bool	ft_lstcmds(t_command_table **head, t_command_table *node)
-{
-	t_command_table	*arrow;
-
-	arrow = *head;
-	if (node == NULL)
-		return (1);
-	else if (*head == NULL)
-	{
-		*head = node;
-		node->forward = NULL;
-		node->backward = NULL;
-	}
-	else
-	{
-		while (arrow->forward != NULL)
-			arrow = arrow->forward;
-		arrow->forward = node;
-		node->backward = arrow;
-		node->forward = NULL;
-	}
-	return (0);
-}
 
 static bool	create_redirection(t_command_table *node, int red_nbr)
 {
