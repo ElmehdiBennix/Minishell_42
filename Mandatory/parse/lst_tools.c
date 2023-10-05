@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   lst_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 03:21:30 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 22:19:43 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/06 00:32:41 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char *join_it(char *s1, char *s2, int flag)
+char	*join_it(char *s1, char *s2, int flag)
 {
-	char *new_string;
-	char *tmp1;
-	char *tmp2;
+	char	*new_string;
+	char	*tmp1;
+	char	*tmp2;
 
 	tmp1 = s1;
 	tmp2 = s2;
-	new_string = ft_strjoin(s1,s2);
+	new_string = ft_strjoin(s1, s2);
 	if (flag == 1)
-		return (free(tmp1),new_string);
+		return (free(tmp1), new_string);
 	else if (flag == 2)
-		return (free(tmp2),new_string);
+		return (free(tmp2), new_string);
 	else if (flag == 3)
-		return (free(tmp1),free(tmp2),new_string);
+		return (free(tmp1), free(tmp2), new_string);
 	return (new_string);
 }
 

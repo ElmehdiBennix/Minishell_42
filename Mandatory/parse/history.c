@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:51:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 23:32:50 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/06 00:32:34 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static int open_quot(char *prompt, int *i)
+static int	open_quot(char *prompt, int *i)
 {
-	int status;
-	char quot;
+	int		status;
+	char	quot;
 
 	quot = prompt[*i];
 	status = TRUE;
