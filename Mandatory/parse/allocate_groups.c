@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   allocate_groups.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 00:04:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 07:26:30 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/05 22:44:05 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ bool	allocate_groups(t_mini_data *var)
 		node->redirections = NULL;
 		node->fdin = 0;
 		node->fdout = 1;
-		if (ft_lstcmds(&var->exec_data, create_node(&arrow, node)) == TRUE)
+		if (cmds_doubly(&var->exec_data, create_node(&arrow, node)) == TRUE)
 			return (free(node), 1);
 		node = NULL;
 	}
