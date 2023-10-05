@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 00:04:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 22:44:05 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 23:20:01 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,17 @@ static bool	create_redirection(t_command_table *node, int red_nbr)
 
 static t_command_table	*create_node(t_token **tokens, t_command_table *node)
 {
-	int	content;
-	int	red_nbr;
+	int	count[2];
 
-	content = 0;
-	red_nbr = 0;
+	ft_bzero(&count, sizeof(int) * 2);
 	while (*tokens)
 	{
 		if (((*tokens)->type >= WORD && (*tokens)->type <= DOUBLE_QUOT)
 			&& ((*tokens)->space_after || ((*tokens)->forward->type >= PIPE
 					&& (*tokens)->forward->type <= HERE_DOC)))
-			content++;
+			count[0]++;
 		else if ((*tokens)->type >= GREAT && (*tokens)->type <= HERE_DOC)
-			red_nbr++;
+			count[1]++;
 		else if ((*tokens)->type == PIPE)
 		{
 			(*tokens) = (*tokens)->forward;
@@ -57,10 +55,10 @@ static t_command_table	*create_node(t_token **tokens, t_command_table *node)
 		}
 		(*tokens) = (*tokens)->forward;
 	}
-	node->cmds_array = ft_calloc(sizeof(char *), content - red_nbr + 1);
+	node->cmds_array = ft_calloc(sizeof(char *), count[0] - count[1] + 1);
 	if (!node->cmds_array)
 		return (NULL);
-	if (create_redirection(node, red_nbr) == TRUE)
+	if (create_redirection(node, count[1]) == TRUE)
 		return (free2d(node->cmds_array),
 			red_free(node->redirections, 0), NULL);
 	return (node);
