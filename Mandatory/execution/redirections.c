@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/04 20:10:49 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/04 22:29:18 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	here_doc(int *fdin, char *str, char **f_name, t_mini_data *var)
 		line = rd;
 		rd = ft_strjoin(rd, "\n");
 		free(line);
-		ft_putstr_fd(rd, *fdin);
+		ft_fprintf(*fdin,"%s",rd);
 		free(rd);
 		rd = NULL;
 	}

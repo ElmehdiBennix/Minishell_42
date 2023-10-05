@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:11 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/03 01:36:56 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/04 22:29:05 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,7 @@ int	ft_env(int fd, char **av, t_env *env)
 	while (env)
 	{
 		if (env->value)
-		{
-			ft_putstr_fd(env->key, fd);
-			ft_putchar_fd('=', fd);
-			ft_putstr_fd(env->value, fd);
-			ft_putchar_fd('\n', fd);
-		}
+			ft_fprintf(fd,"%s=%s\n",env->key,env->value);
 		env = env->next;
 	}
 	return (0);

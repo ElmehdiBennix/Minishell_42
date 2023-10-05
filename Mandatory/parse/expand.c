@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/04 01:40:51 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 01:02:22 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	*get_value(char *content, t_mini_data *var)// algor wroking fine need work 
 	return (buffer);
 }
 
-bool	expander(t_mini_data *var) // ok
+bool	expander(t_mini_data *var)
 {
 	char c;
 	char *tmp;
@@ -128,24 +128,14 @@ bool	expander(t_mini_data *var) // ok
 			}
 			if (arrow->type == WORD || arrow->type == DOUBLE_QUOT)
 			{
+				tmp = arrow->content;
 				if (arrow->type == WORD && ft_strncmp(arrow->content, "~", 2) == 0)
-				{
-					tmp = arrow->content;
 					arrow->content = ft_strdup(value_by_key(var->env_var, "HOME"));
-					free(tmp);
-				}
 				else if (arrow->type == WORD && ft_strncmp(arrow->content, "~/", 2) == 0)
-				{
-					tmp = arrow->content;
 					arrow->content = ft_strjoin(value_by_key(var->env_var, "HOME"), get_value(arrow->content + 1, var));
-					free(tmp);
-				}
 				else
-				{
-					tmp = arrow->content;
 					arrow->content = get_value(arrow->content, var);
-					free(tmp);
-				}
+				free(tmp);
 			}
 		}
 		arrow = arrow->forward;

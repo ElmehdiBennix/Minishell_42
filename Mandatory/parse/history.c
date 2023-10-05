@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:51:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/02 17:19:01 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 01:07:31 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static bool	last_index(char *prompt)
 	return (0);
 }
 
+
+
 static int	open_quote(t_mini_data *var, char *prompt)
 {
 	int		i;
@@ -56,9 +58,9 @@ static int	open_quote(t_mini_data *var, char *prompt)
 	int		command_table;
 
 	command_table = 1;
-	i = 0;
+	i = -1;
 	status = FALSE;
-	while (prompt[i])
+	while (prompt[++i])
 	{
 		if (prompt[i] && prompt[i] == '|')
 		{
@@ -90,7 +92,7 @@ bool	shell_history(t_mini_data *var, char *prompt)
 	int	err;
 
 	if (!prompt)
-		return (printf("exit"), exit(0), 1);
+		return (ft_fprintf(1,"exit"), exit(0), 1);
 	if (prompt[0] == '\0' || skip_space_history(prompt) == TRUE)
 		return (free(prompt), 1);
 	add_history(prompt); // could be argouded against

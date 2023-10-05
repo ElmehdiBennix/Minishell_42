@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/02 23:59:32 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 01:08:08 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ bool	token_catcher(char *prompt, t_mini_data *var)
 	tokens = NULL;
 	i = 0;
 	err = 0;
-	while (prompt[i] && err == 0) // name error numbers in defs
+	while (prompt[i] && err == 0)
 	{
 		if (ft_iswhite_space(prompt[i]) == TRUE)
 			i++;

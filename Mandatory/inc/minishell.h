@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/04 03:06:19 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/05 00:59:42 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,16 @@
 # include <sys/uio.h>
 # include <sys/wait.h>
 
+char *join_it(char *s1, char *s2, int flag);
+
+
 t_type	get_type(char *token, int moves);
-void	tok_free(t_token *node, bool free_content);
-void	cmd_free(t_command_table *node, bool free_content);
-void	red_free(t_redirection *node, bool free_content);
 
 // void                ft_lstdoubly_cmds(t_command_table **head ,t_command_table *node);
 int		ft_iseparateur(char c);
 int		ft_iswhite_space(char c);
 int		ft_lstdoubly(t_token **head, t_token *node);
 char	*get_value(char *content, t_mini_data *var);
-			// algor wroking fine need work need to be done to make it understandable
 
 //parse functions
 bool	shell_history(t_mini_data *var, char *prompt);
@@ -76,9 +75,9 @@ int		open_red(t_command_table *exec_data);
 int		multi_cmd(t_command_table *exec_data, t_env **env);
 
 //free functions
+void	tok_free(t_token *node, bool free_content);
+void	cmd_free(t_command_table *node, bool free_content);
+void	red_free(t_redirection *node, bool free_content);
 void	unlink_opened_files(void);
-void	free_struct_data(t_token *token);
-void	free_struct_env(t_env *env);
-void	free_array(char **arr);
 
 #endif

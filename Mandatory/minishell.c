@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/04 20:58:14 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/05 01:02:10 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
-
-void god_leaks()
-{
-	system("leaks Minishell");
-}
 
 static void	exec_loop(t_mini_data *var)
 {
@@ -64,22 +59,38 @@ static void	exec_loop(t_mini_data *var)
 	unlink_opened_files();
 }
 
-static bool	parse_loop(t_mini_data *var, char *prompt)
+char *join_it(char *s1, char *s2, int flag)
+{
+	char *new_string;
+	char *tmp1;
+	char *tmp2;
+
+	tmp1 = s1;
+	tmp2 = s2;
+	new_string = ft_strjoin(s1,s2);
+	if (flag == 1)
+		free(tmp1);
+	else if (flag == 2)
+		free(tmp2);
+	return (new_string);
+}
+
+static bool	parse_loop(t_mini_data *var, char *prompt) // norms notes
 {
 	char	*prompty;
 
 	prompty = prompt;
 	prompt = ft_strtrim(prompty, " ");
-	free(prompty);
-	if (token_catcher(prompt, var) == TRUE)
+	free(prompty); // check on it
+	if (token_catcher(prompt, var) == TRUE) // not ok 
 		return (tok_free(var->tokens, 1), var->err_no = 258, 1);
-	if (parser(var) == TRUE)
+	if (parser(var) == TRUE) // ok 
 		return (tok_free(var->tokens, 1), var->err_no = 258, 1);
-	if (expander(var) == TRUE)
+	if (expander(var) == TRUE) // not ok 
 		return (tok_free(var->tokens, 1), var->err_no = 258, 1);
-	if (allocate_groups(var) == TRUE)
+	if (allocate_groups(var) == TRUE) // ok
 		return (cmd_free(var->exec_data, 1), tok_free(var->tokens, 1), var->err_no = 258, 1);
-	if (linker(var) == TRUE)
+	if (linker(var) == TRUE) // ok
 		return (cmd_free(var->exec_data, 1), var->err_no = 258, 1);
 	return (0);
 }
@@ -127,7 +138,6 @@ int	main(int ac, char **av, char **env)
 	t_mini_data	var;
 
 	(void)av;
-	// atexit(god_leaks);
 	var.env_var = NULL;
 	get_env(&var.env_var, env);
 	tmp = ft_itoa(ft_atoi(value_by_key(var.env_var, "SHLVL")) + 1);
@@ -151,33 +161,32 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			if (parse_loop(&var, prompt) == TRUE)
 				continue ;
-			exec_loop(&var);
+			// exec_loop(&var);
 			cmd_free(var.exec_data, 1);
-			system("leaks Minishell");
 		}
 		return (0);
 	}
 	return (ft_fprintf(2, "le minishell: this shell does not accept any arguments !!\n"), 127);
 }
 
-// t_command_table *test = var->exec_data;
-// int i = 0;
-// while(test)
-// {
-//     t_redirection *test2 = test->redirections;
-//     while(test->cmds_array[i])
-//     {
-//         printf("command[%d] == %s\n",i,test->cmds_array[i]);
-//         i++;
-//     }
-//     printf("command[%d] == %s\n",i,test->cmds_array[i]);
-//     i = 0;
-//     while(test2)
-//     {
-//         printf("type = %d | file = %s\n",test2->r_type,test2->file_name);
-//         test2 = test2->next;
-//     }
-// 	printf("file = %p\n",test2);
-//     test = test->forward;
-//     printf("end\n");
-// }
+	// t_command_table *test = var->exec_data;
+	// int i = 0;
+	// while(test)
+	// {
+	//     t_redirection *test2 = test->redirections;
+	//     while(test->cmds_array[i])
+	//     {
+	//         printf("command[%d] == %s\n",i,test->cmds_array[i]);
+	//         i++;
+	//     }
+	//     printf("command[%d] == %s\n",i,test->cmds_array[i]);
+	//     i = 0;
+	//     while(test2)
+	//     {
+	//         printf("type = %d | file = %s\n",test2->r_type,test2->file_name);
+	//         test2 = test2->next;
+	//     }
+	//     printf("file = %p\n",test2);
+	//     test = test->forward;
+	//     printf("end\n");
+	// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:30 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/03 20:21:55 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/04 22:29:18 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,9 @@ void	me_pwd(int fd, t_env **env)
 	if (!str)
 	{
 		tmp = *env;
-		ft_putstr_fd(value_by_key(tmp, "PWD"), fd);
-		ft_putstr_fd("\n", fd);
+		ft_fprintf(fd,"%s\n",value_by_key(tmp, "PWD"));		
 	}
 	else
-	{
-		ft_putstr_fd(str, fd);
-		ft_putstr_fd("\n", fd);
-	}
+		ft_fprintf(fd,"%s\n",str);
 	free(str);
 }
