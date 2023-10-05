@@ -6,59 +6,36 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:51:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 23:23:35 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 23:32:50 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static bool	skip_space_history(char *prompt)
+static int open_quot(char *prompt, int *i)
 {
-	unsigned int	i;
+	int status;
+	char quot;
 
-	i = 0;
-	while (prompt[i] && ft_iswhite_space(prompt[i]) == TRUE)
-		i++;
-	if (prompt[i] == '\0')
-		return (1);
-	return (0);
+	quot = prompt[*i];
+	status = TRUE;
+	(*i)++;
+	while (prompt[*i] && prompt[*i] != quot)
+		(*i)++;
+	if (prompt[*i] == quot)
+		status = FALSE;
+	return (status);
 }
 
-static bool	first_index(char *prompt)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (prompt[i] && ft_iswhite_space(prompt[i]) == TRUE)
-		i++;
-	if (prompt[i] && (prompt[i] == ')' || prompt[i] == '(' || prompt[i] == '|'))
-		return (ft_fprintf(2, SYNX_1, prompt[i]), 1);
-	return (0);
-}
-
-static bool	last_index(char *prompt)
-{
-	unsigned int	i;
-
-	i = ft_strlen(prompt) - 1;
-	while (prompt[i] && ft_iswhite_space(prompt[i]) == TRUE)
-		i--;
-	if (prompt[i] && (prompt[i] == '<' || prompt[i] == '|' || prompt[i] == '>'))
-		return (ft_fprintf(2, SYNX_2), 1);
-	return (0);
-}
-
-static int	open_quote(t_mini_data *var, char *prompt)
+static int	pipe_quot(t_mini_data *var, char *prompt)
 {
 	int		i;
 	bool	status;
-	char	quot;
 	int		command_table;
 
 	command_table = 1;
-	i = 0;
-	status = FALSE;
-	while (prompt[i])
+	i = -1;
+	while (prompt[++i])
 	{
 		if (prompt[i] && prompt[i] == '|')
 		{
@@ -68,18 +45,9 @@ static int	open_quote(t_mini_data *var, char *prompt)
 			command_table++;
 		}
 		if (prompt[i] && (prompt[i] == 34 || prompt[i] == 39))
-		{
-			quot = prompt[i];
-			status = TRUE;
-			i++;
-			while (prompt[i] && prompt[i] != quot)
-				i++;
-			if (prompt[i] == quot)
-				status = FALSE;
-		}
+			status = open_quot(prompt, &i);
 		if (prompt[i] == '\0')
 			break ;
-		i++;
 	}
 	var->nodes = command_table;
 	return (status);
@@ -96,7 +64,7 @@ bool	shell_history(t_mini_data *var, char *prompt)
 	add_history(prompt);
 	if (first_index(prompt) == TRUE || last_index(prompt) == TRUE)
 		return (free(prompt), var->err_no = 258, 1);
-	err = open_quote(var, prompt);
+	err = pipe_quot(var, prompt);
 	if (err == 1)
 		return (ft_fprintf(2, SYNX_3), free(prompt), var->err_no = 258, 1);
 	else if (err == -1)
