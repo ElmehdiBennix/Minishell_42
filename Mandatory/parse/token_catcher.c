@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   token_catcher.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 23:36:05 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/05 04:33:48 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 06:41:20 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static t_token	*create_token(char *prompt,int i,int moves ,int  backward)
+static t_token	*create_token(char *prompt, int i, int moves, int backward)
 {
 	t_token	*token;
 
@@ -21,9 +21,8 @@ static t_token	*create_token(char *prompt,int i,int moves ,int  backward)
 		return (NULL);
 	token->content = ft_calloc(moves, sizeof(char));
 	if (!token->content)
-		return (free(token),NULL);
+		return (free(token), NULL);
 	ft_strlcpy(token->content, &prompt[backward], moves);
-
 	if (ft_iswhite_space(prompt[i]) == TRUE || prompt[i] == '\0')
 		token->space_after = 1;
 	else
@@ -46,13 +45,13 @@ static t_token	*char_handler(char *prompt, int *i)
 		moves++;
 	}
 	backward = (*i) - moves;
-	token = create_token(prompt,*i,moves+1,backward);
+	token = create_token(prompt, *i, moves + 1, backward);
 	if (token)
 		token->type = WORD;
 	return (token);
 }
 
-static t_token	*QUOT_handler(char *prompt, int *i, char QUOT_type)
+static t_token	*quot_handler(char *prompt, int *i, char quot_type)
 {
 	int		moves;
 	int		backward;
@@ -60,17 +59,17 @@ static t_token	*QUOT_handler(char *prompt, int *i, char QUOT_type)
 
 	moves = 0;
 	(*i)++;
-	while (prompt[*i] != QUOT_type)
+	while (prompt[*i] != quot_type)
 	{
 		(*i)++;
 		moves++;
 	}
 	(*i)++;
 	backward = (*i) - moves - 2;
-	token = create_token(prompt,*i,moves+3,backward);
-	if (token && QUOT_type == 39)
+	token = create_token(prompt, *i, moves + 3, backward);
+	if (token && quot_type == 39)
 		token->type = SINGLE_QUOT;
-	else if (token && QUOT_type == 34)
+	else if (token && quot_type == 34)
 		token->type = DOUBLE_QUOT;
 	return (token);
 }
@@ -98,8 +97,8 @@ static t_token	*separateur_handler(char *prompt, int *i)
 		}
 	}
 	backward = (*i) - moves;
-	token = create_token(prompt,*i,moves+1,backward);
-	if(token)
+	token = create_token(prompt, *i, moves + 1, backward);
+	if (token)
 		token->type = get_type(token->content, moves);
 	return (token);
 }
@@ -118,11 +117,11 @@ bool	token_catcher(char *prompt, t_mini_data *var)
 		if (ft_iswhite_space(prompt[i]) == TRUE)
 			i++;
 		else if (prompt[i] == '|' || prompt[i] == '<' || prompt[i] == '>')
-			err = ft_lstdoubly(&tokens, separateur_handler(prompt, &i)); // if returns null free all prev nodes and return (NULL);
+			err = ft_lstdoubly(&tokens, separateur_handler(prompt, &i));
 		else if (prompt[i] == 34 || prompt[i] == 39)
-			err = ft_lstdoubly(&tokens, QUOT_handler(prompt, &i, prompt[i]));
+			err = ft_lstdoubly(&tokens, quot_handler(prompt, &i, prompt[i]));
 		else
-			err = ft_lstdoubly(&tokens, char_handler(prompt, &i)); // can optimize this after
+			err = ft_lstdoubly(&tokens, char_handler(prompt, &i));
 	}
 	free(prompt);
 	var->tokens = tokens;
@@ -130,3 +129,4 @@ bool	token_catcher(char *prompt, t_mini_data *var)
 		return (1);
 	return (0);
 }
+// can optimize this after

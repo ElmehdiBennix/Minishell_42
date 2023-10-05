@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   allocate_groups.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 00:04:51 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 00:14:35 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 06:55:39 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,33 +59,35 @@ static bool	create_redirection(t_command_table *node, int red_nbr)
 	return (0);
 }
 
-static t_command_table *create_node(t_token **tokens, t_command_table *node)
+static t_command_table	*create_node(t_token **tokens, t_command_table *node)
 {
-    int content;
-    int red_nbr;
+	int	content;
+	int	red_nbr;
 
 	content = 0;
 	red_nbr = 0;
-    while (*tokens)
-    {
-        if (((*tokens)->type >= WORD && (*tokens)->type <= DOUBLE_QUOT) &&
-            ((*tokens)->space_after || ((*tokens)->forward->type >= PIPE && (*tokens)->forward->type <= HERE_DOC)))
-            content++;
-        else if ((*tokens)->type >= GREAT && (*tokens)->type <= HERE_DOC)
-            red_nbr++;
-        else if ((*tokens)->type == PIPE)
-        {
-            (*tokens) = (*tokens)->forward;
-            break;
-        }
-        (*tokens) = (*tokens)->forward;
-    }
-    node->cmds_array = ft_calloc(sizeof(char *), content - red_nbr + 1);
-    if (!node->cmds_array)
-        return NULL;
-    if (create_redirection(node, red_nbr) == TRUE)
-        return (free2d(node->cmds_array), red_free(node->redirections, 0), NULL);
-    return (node);
+	while (*tokens)
+	{
+		if (((*tokens)->type >= WORD && (*tokens)->type <= DOUBLE_QUOT)
+			&& ((*tokens)->space_after || ((*tokens)->forward->type >= PIPE
+					&& (*tokens)->forward->type <= HERE_DOC)))
+			content++;
+		else if ((*tokens)->type >= GREAT && (*tokens)->type <= HERE_DOC)
+			red_nbr++;
+		else if ((*tokens)->type == PIPE)
+		{
+			(*tokens) = (*tokens)->forward;
+			break ;
+		}
+		(*tokens) = (*tokens)->forward;
+	}
+	node->cmds_array = ft_calloc(sizeof(char *), content - red_nbr + 1);
+	if (!node->cmds_array)
+		return (NULL);
+	if (create_redirection(node, red_nbr) == TRUE)
+		return (free2d(node->cmds_array),
+			red_free(node->redirections, 0), NULL);
+	return (node);
 }
 
 bool	allocate_groups(t_mini_data *var)

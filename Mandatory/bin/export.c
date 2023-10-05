@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:24 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/04 22:42:11 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 06:43:11 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,10 @@ void	export_item(char **arg, t_env **ev)
 	int		plus_flg;
 	char	*key;
 	char	*value;
-	int		assigned;
 	t_env	*tmp;
 
 	i = 1;
 	plus_flg = 0;
-	assigned = 0;
 	while (arg[i])
 	{
 		key = get_key(arg[i]);

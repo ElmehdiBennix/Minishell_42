@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_defs.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:41 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 01:10:44 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 07:07:30 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,17 @@
 # define TRUE 1
 # define FALSE 0
 
-// # define STDIN 0
-// # define STDOUT 1
-// # define STDERR 2
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+
+# define SYNX_0 "le minishell: this shell does not accept any arguments !!\n"
+# define SYNX_1 "le minishell: syntax error near unexpected token `%c'\n"
+# define SYNX_2 "le minishell: syntax error near unexpected token `newline'\n"
+# define SYNX_3 "le minishell: syntax error `open quote'\n"
+# define SYNX_4 "le minishell: syntax error near unexpected token `|'\n"
+# define SYNX_5 "le minishell: fork: Resource temporarily unavailable \n"
+# define SYNX_6 "le minishell: syntax error near unexpected token `%s'\n"
 
 # define SUCCESS 0
 # define ERROR 1

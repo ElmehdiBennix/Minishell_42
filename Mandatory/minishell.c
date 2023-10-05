@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 02:30:34 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 06:58:32 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,6 @@ int	main(int ac, char **av, char **env)
 		}
 		return (0);
 	}
-	return (ft_fprintf(2, "le minishell: this shell does not accept any arguments !!\n"), 127);
+	return (ft_fprintf(2, SYNX_0), 127);
 }
 
