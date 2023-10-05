@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 23:33:58 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/06 00:33:27 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@
 # include <sys/uio.h>
 # include <sys/wait.h>
 
-
-int	    single_key(int c);
-int	    multi_key(int c);
+int		single_key(int c);
+int		multi_key(int c);
 int		ft_iseparateur(char c);
 int		ft_iswhite_space(char c);
 t_type	get_type(char *token, int moves);
 
-char    *join_it(char *s1, char *s2, int flag);
+char	*join_it(char *s1, char *s2, int flag);
 bool	toks_doubly(t_token **head, t_token *node);
 bool	cmds_doubly(t_command_table **head, t_command_table *node);
 

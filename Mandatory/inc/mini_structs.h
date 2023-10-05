@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_structs.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 03:58:44 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/06 00:33:43 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../../lib/inc/utils.h"
 
-typedef enum	s_type
+typedef enum s_type
 {
 	WORD = 1,
 	SINGLE_QUOT = 2,
@@ -25,41 +25,41 @@ typedef enum	s_type
 	LESS = 6,
 	APPEND = 7,
 	HERE_DOC = 8,
-}				t_type;
+}							t_type;
 
-typedef struct	s_env
+typedef struct s_env
 {
 	char					*key;
 	char					*value;
 	struct s_env			*next;
-}				t_env;
+}							t_env;
 
-typedef struct	s_expansions // needs changings
+typedef struct s_expansions
 {
 	char *new_arg;
 	char *buffer;
 	int i;
 	int j;
 	int f;
-}				t_expansions;
+}							t_expansions;
 
-typedef struct 	s_token
+typedef struct s_token
 {
 	char					*content;
 	bool					space_after;
 	t_type					type;
 	struct s_token			*forward;
 	struct s_token			*backward;
-} 				t_token;
+}							t_token;
 
-typedef struct	s_redirection
+typedef struct s_redirection
 {
 	t_type					r_type;
 	char					*file_name;
-	struct s_redirection 	*next;
-}				t_redirection;
+	struct s_redirection	*next;
+}							t_redirection;
 
-typedef struct	s_command_table
+typedef struct s_command_table
 {
 	char					**cmds_array;
 	int						fdin;
@@ -68,9 +68,9 @@ typedef struct	s_command_table
 	struct s_mini_data		*var;
 	struct s_command_table	*forward;
 	struct s_command_table	*backward;
-}				t_command_table;
+}							t_command_table;
 
-typedef struct	s_mini_data
+typedef struct s_mini_data
 {
 	int						err_no;
 	struct s_env			*env_var;
@@ -78,6 +78,6 @@ typedef struct	s_mini_data
 	int						shell_lev;
 	struct s_token			*tokens;
 	struct s_command_table	*exec_data;
-}				t_mini_data;
+}							t_mini_data;
 
 #endif

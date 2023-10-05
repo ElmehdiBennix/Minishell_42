@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 23:17:16 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/06 00:31:54 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ static void	exp_cases(t_mini_data *var, t_token *arrow)
 
 bool	expander(t_mini_data *var)
 {
-	char c;
-	char *tmp;
-	t_token *arrow;
+	char	c;
+	char	*tmp;
+	t_token	*arrow;
 
 	arrow = var->tokens;
 	while (arrow)
