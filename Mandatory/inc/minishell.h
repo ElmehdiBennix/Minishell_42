@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 22:19:23 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 23:33:58 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ bool	toks_doubly(t_token **head, t_token *node);
 bool	cmds_doubly(t_command_table **head, t_command_table *node);
 
 char	*get_value(char *content, t_mini_data *var);
+
+bool	last_index(char *prompt);
+bool	first_index(char *prompt);
+bool	skip_space_history(char *prompt);
 
 //parse functions
 bool	shell_history(t_mini_data *var, char *prompt);

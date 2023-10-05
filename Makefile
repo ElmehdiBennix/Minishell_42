@@ -6,7 +6,7 @@
 #    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/10/05 22:17:02 by ebennix          ###   ########.fr        #
+#    Updated: 2023/10/05 23:34:24 by ebennix          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ FILES := Mandatory/minishell\
 		 Mandatory/parse/token_catcher\
 		 Mandatory/parse/history\
 		 Mandatory/parse/expand\
+		 Mandatory/parse/history_tools\
 		 Mandatory/parse/allocate_groups\
 		 Mandatory/parse/linker\
 		 Mandatory/parse/checks_tools\
