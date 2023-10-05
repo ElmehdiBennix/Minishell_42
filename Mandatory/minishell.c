@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 22:25:24 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/06 00:44:24 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 static void	exec_loop(t_mini_data *var)
 {
 	t_command_table	*data_iter;
-	int				return_type = 0;
+	int				return_type;
 
+	return_type = 0;
 	data_iter = var->exec_data;
 	while (data_iter)
 	{
@@ -59,9 +60,7 @@ static void	exec_loop(t_mini_data *var)
 	unlink_opened_files();
 }
 
-
-
-static bool	parse_loop(t_mini_data *var, char *prompt) // norms notes
+static bool	parse_loop(t_mini_data *var, char *prompt)
 {
 	char	*prompty;
 
@@ -75,81 +74,24 @@ static bool	parse_loop(t_mini_data *var, char *prompt) // norms notes
 	if (expander(var) == TRUE)
 		return (tok_free(var->tokens, 1), var->err_no = 258, 1);
 	if (allocate_groups(var) == TRUE)
-		return (cmd_free(var->exec_data, 1), tok_free(var->tokens, 1), var->err_no = 258, 1);
+		return (cmd_free(var->exec_data, 1), tok_free(var->tokens, 1),
+			var->err_no = 258, 1);
 	if (linker(var) == TRUE)
 		return (cmd_free(var->exec_data, 1), var->err_no = 258, 1);
-	t_command_table *test = var->exec_data;
-	int i = 0;
-	while(test)
-	{
-	    t_redirection *test2 = test->redirections;
-	    while(test->cmds_array[i])
-	    {
-	        printf("command[%d] == %s\n",i,test->cmds_array[i]);
-	        i++;
-	    }
-	    printf("command[%d] == %s\n",i,test->cmds_array[i]);
-	    i = 0;
-	    while(test2)
-	    {
-	        printf("type = %d | file = %s\n",test2->r_type,test2->file_name);
-	        test2 = test2->next;
-	    }
-	    printf("file = %p\n",test2);
-	    test = test->forward;
-	    printf("end\n");
-	}
 	return (0);
-}
-
-void	signal_handler(int signal)
-{
-	(void)signal;
-	if (waitpid(-1, NULL, WNOHANG) == 0)
-		return ;
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-char	*prompt_generator(t_mini_data *var)
-{
-	char *prompt;
-	char *code;
-	char *tmp;
-
-	if (var->err_no == 0)
-		code = GREEN;
-	else
-		code = RED;
-
-	code = ft_strjoin(code,"->");
-	tmp = getcwd(NULL, 0);
-    prompt = ft_strjoin(CYAN "  le minishit " YELLOW, tmp);
-	free(tmp);
-	tmp = prompt;
-	prompt = ft_strjoin(code , prompt);
-	free(code);
-	free(tmp);
-	tmp = prompt;
-	prompt = ft_strjoin(prompt , DEFAULT "$ ");
-	free(tmp);
-	return (prompt);
 }
 
 int	main(int ac, char **av, char **env)
 {
 	char		*prompt;
-	char 		*tmp;
+	char		*tmp;
 	t_mini_data	var;
 
 	(void)av;
-	var.env_var = NULL;
+	ft_bzero(&var, sizeof(var));
 	get_env(&var.env_var, env);
 	tmp = ft_itoa(ft_atoi(value_by_key(var.env_var, "SHLVL")) + 1);
 	var.env_var = update_env(&var.env_var, tmp, "SHLVL");
-	var.err_no = 0;
 	free(tmp);
 	if (ac == 1)
 	{
@@ -171,8 +113,6 @@ int	main(int ac, char **av, char **env)
 			// exec_loop(&var);
 			cmd_free(var.exec_data, 1);
 		}
-		return (0);
 	}
 	return (ft_fprintf(2, SYNX_0), 127);
 }
-

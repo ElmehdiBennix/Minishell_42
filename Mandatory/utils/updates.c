@@ -6,11 +6,35 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 15:05:44 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/05 07:31:03 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 00:42:52 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+char	*prompt_generator(t_mini_data *var)
+{
+	char	*prompt;
+	char	*code;
+	char	*tmp;
+
+	if (var->err_no == 0)
+		code = GREEN;
+	else
+		code = RED;
+	code = ft_strjoin(code, "->");
+	tmp = getcwd(NULL, 0);
+	prompt = ft_strjoin(CYAN "  le minishit " YELLOW, tmp);
+	free(tmp);
+	tmp = prompt;
+	prompt = ft_strjoin(code, prompt);
+	free(code);
+	free(tmp);
+	tmp = prompt;
+	prompt = ft_strjoin(prompt, DEFAULT "$ ");
+	free(tmp);
+	return (prompt);
+}
 
 t_env	*update_env(t_env **env, char *value, char *key)
 {
@@ -35,7 +59,8 @@ t_env	*update_env(t_env **env, char *value, char *key)
 	}
 	tmp = *env;
 	if (!fod)
-		ft_lstadd_back_env(&tmp, ft_lstnew_env(ft_strdup(key), ft_strdup(value)));
+		ft_lstadd_back_env(&tmp, ft_lstnew_env(ft_strdup(key),
+					ft_strdup(value)));
 	return (tmp);
 }
 
