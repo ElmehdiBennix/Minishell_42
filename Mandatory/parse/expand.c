@@ -6,7 +6,7 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 06:56:26 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/05 07:20:02 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,24 @@ char	*get_value(char *content, t_mini_data *var)
 	return (exp.buffer);
 }
 
+static void	exp_cases(t_mini_data *var, t_token *arrow)
+{
+	char	*tmp;
+
+	tmp = arrow->content;
+	if (arrow->type == WORD && ft_strncmp(arrow->content, "~", 2) == 0)
+		arrow->content = ft_strdup(value_by_key(var->env_var, "HOME"));
+	else if (arrow->type == WORD && ft_strncmp(arrow->content, "~/", 2) == 0)
+		arrow->content = ft_strjoin(value_by_key(var->env_var, "HOME"),
+				get_value(arrow->content + 1, var));
+	else
+		arrow->content = get_value(arrow->content, var);
+	free(tmp);
+}
+
 bool	expander(t_mini_data *var)
 {
 	char	c;
-	char	*tmp;
 	t_token	*arrow;
 
 	arrow = var->tokens;
@@ -113,21 +127,10 @@ bool	expander(t_mini_data *var)
 			if (arrow->type == DOUBLE_QUOT || arrow->type == SINGLE_QUOT)
 			{
 				c = *arrow->content;
-				tmp = arrow->content;
-				arrow->content = ft_strtrim(tmp, &c);
-				free(tmp);
+				arrow->content = join_it(arrow->content, &c, 1);
 			}
 			if (arrow->type == WORD || arrow->type == DOUBLE_QUOT)
-			{
-				tmp = arrow->content;
-				if (arrow->type == WORD && ft_strncmp(arrow->content, "~", 2) == 0)
-					arrow->content = ft_strdup(value_by_key(var->env_var, "HOME"));
-				else if (arrow->type == WORD && ft_strncmp(arrow->content, "~/", 2) == 0)
-					arrow->content = ft_strjoin(value_by_key(var->env_var, "HOME"), get_value(arrow->content + 1, var));
-				else
-					arrow->content = get_value(arrow->content, var);
-				free(tmp);
-			}
+				exp_cases(var, arrow);
 		}
 		arrow = arrow->forward;
 	}
