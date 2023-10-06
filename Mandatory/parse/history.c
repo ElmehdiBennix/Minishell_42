@@ -6,7 +6,7 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:51:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/06 00:32:34 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 19:51:43 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ bool	shell_history(t_mini_data *var, char *prompt)
 		return (free(prompt), 1);
 	add_history(prompt);
 	if (first_index(prompt) == TRUE || last_index(prompt) == TRUE)
-		return (free(prompt), var->err_no = 258, 1);
+		return (free(prompt), g_err = 258, 1);
 	err = pipe_quot(var, prompt);
 	if (err == 1)
-		return (ft_fprintf(2, SYNX_3), free(prompt), var->err_no = 258, 1);
+		return (ft_fprintf(2, SYNX_3), free(prompt), g_err = 258, 1);
 	else if (err == -1)
-		return (ft_fprintf(2, SYNX_4), free(prompt), var->err_no = 258, 1);
+		return (ft_fprintf(2, SYNX_4), free(prompt), g_err = 258, 1);
 	if (var->nodes >= 400)
-		return (ft_fprintf(2, SYNX_5), free(prompt), var->err_no = 258, 1);
+		return (ft_fprintf(2, SYNX_5), free(prompt), g_err = 258, 1);
 	return (0);
 }
