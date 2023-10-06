@@ -6,7 +6,7 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:57:12 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 19:35:05 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 19:45:58 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,10 @@ int	multi_cmd(t_command_table *exec_data, t_env **env)
 		if (forked == -1)
 			print_err();
 		if (!forked)
+		{
+			signal(SIGQUIT, SIG_DFL);
 			child_process(arrow, fd, env);
+		}
 		parent_process(arrow, fd, &status);
 		arrow = arrow->forward;
 	}

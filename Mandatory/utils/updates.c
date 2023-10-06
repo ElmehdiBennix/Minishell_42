@@ -6,19 +6,19 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 15:05:44 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 19:34:27 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 19:52:47 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*prompt_generator(t_mini_data *var)
+char	*prompt_generator(void)
 {
 	char	*prompt;
 	char	*code;
 	char	*tmp;
 
-	if (var->err_no == 0)
+	if (g_err == 0)
 		code = GREEN;
 	else
 		code = RED;

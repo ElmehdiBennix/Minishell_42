@@ -6,7 +6,7 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/06 19:34:18 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 19:53:05 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ static void	exec_loop(t_mini_data *var)
 		if (return_type == 1)
 			break ;
 		else if (return_type == 2)
-			var->err_no = 1;
+			g_err = 1;
 		data_iter = data_iter->forward;
 	}
 	if (var->nodes == 1)
 	{
 		if (one_cmd(var->exec_data, &var->env_var) == 2)
 		{
-			if (!var->err_no)
-				var->err_no = 127;
+			if (!g_err)
+				g_err = 127;
 		}
 		else
-			var->err_no = 0;
+			g_err = 0;
 	}
 	else
 	{
@@ -50,11 +50,11 @@ static void	exec_loop(t_mini_data *var)
 		{
 			if ((multi_cmd(data_iter, &var->env_var)) == 1)
 			{
-				if (!var->err_no)
-					var->err_no = 127;
+				if (!g_err)
+					g_err = 127;
 			}
 			else
-				var->err_no = 0;
+				g_err = 0;
 		}
 	}
 	data_iter = var->exec_data;
@@ -78,16 +78,16 @@ static bool	parse_loop(t_mini_data *var, char *prompt)
 	prompt = ft_strtrim(prompty, " ");
 	free(prompty);
 	if (token_catcher(prompt, var) == TRUE)
-		return (tok_free(var->tokens, 1), var->err_no = 258, 1);
+		return (tok_free(var->tokens, 1), g_err = 258, 1);
 	if (parser(var) == TRUE)
-		return (tok_free(var->tokens, 1), var->err_no = 258, 1);
+		return (tok_free(var->tokens, 1), g_err = 258, 1);
 	if (expander(var) == TRUE)
-		return (tok_free(var->tokens, 1), var->err_no = 258, 1);
+		return (tok_free(var->tokens, 1), g_err = 258, 1);
 	if (allocate_groups(var) == TRUE)
 		return (cmd_free(var->exec_data, 1), tok_free(var->tokens, 1),
-			var->err_no = 258, 1);
+			g_err = 258, 1);
 	if (linker(var) == TRUE)
-		return (cmd_free(var->exec_data, 1), var->err_no = 258, 1);
+		return (cmd_free(var->exec_data, 1), g_err = 258, 1);
 	return (0);
 }
 
@@ -98,6 +98,7 @@ int	main(int ac, char **av, char **env)
 	t_mini_data	var;
 
 	(void)av;
+	g_err = 0;
 	ft_bzero(&var, sizeof(var));
 	get_env(&var.env_var, env);
 	tmp = ft_itoa(ft_atoi(value_by_key(var.env_var, "SHLVL")) + 1);
@@ -113,7 +114,7 @@ int	main(int ac, char **av, char **env)
 			prompt = NULL;
 			signal(SIGQUIT, SIG_IGN);
 			signal(SIGINT, signal_handler);
-			tmp = prompt_generator(&var);
+			tmp = prompt_generator();
 			prompt = readline(tmp);
 			free(tmp);
 			if (shell_history(&var, prompt) == TRUE)

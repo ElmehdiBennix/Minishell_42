@@ -6,7 +6,7 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 21:05:55 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 19:35:12 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 19:51:23 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	one_cmd(t_command_table *exec_data, t_env **env)
 			return (2);
 	}
 	else if (multi_cmd(exec_data, env) == 1)
-		return (exec_data->var->err_no = 127, 2);
+		return (g_err = 127, 2);
 	close(out);
 	return (0);
 }

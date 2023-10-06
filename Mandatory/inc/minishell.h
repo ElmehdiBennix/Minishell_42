@@ -6,7 +6,7 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/06 19:34:56 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 19:53:37 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <readline/readline.h>
 # include <sys/uio.h>
 # include <sys/wait.h>
+
+int g_err;
 
 void	signal_handler(int signal);
 
@@ -37,7 +39,7 @@ bool	toks_doubly(t_token **head, t_token *node);
 bool	cmds_doubly(t_command_table **head, t_command_table *node);
 
 //parse functions
-char	*prompt_generator(t_mini_data *var);
+char	*prompt_generator(void);
 bool	shell_history(t_mini_data *var, char *prompt);
 bool	token_catcher(char *prompt, t_mini_data *var);
 bool	parser(t_mini_data *var);

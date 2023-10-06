@@ -6,7 +6,7 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 19:35:08 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 19:57:01 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@ char	*herdoc_name(void)
 	return (s);
 }
 
+int	herdoc_helper(void)
+{
+	if (isatty(STDIN_FILENO) == 0)
+	{
+		dup2(STDIN_FILENO, open(ttyname(1), O_RDONLY, 0644));
+		return (1);
+	}
+	return (0);
+}
+
 void	fhandler(int sig)
 {
 	(void)sig;
@@ -48,7 +58,9 @@ void	write_into_fd(char *str, int *fdin, t_mini_data *var)
 	while (1)
 	{
 		signal(SIGINT, fhandler);
-		rd = readline(">");
+		rd = readline("> ");
+		if (loop_herdoc_helper())
+			break ;
 		if (!rd)
 			break ;
 		line = rd;
@@ -120,11 +132,11 @@ int	loop_init_red(t_redirection *red, t_command_table *exec_data, int *status,
 	else if (red->r_type == HERE_DOC)
 	{
 		here_doc(&exec_data->fdin, red->file_name, &f_name, exec_data->var);
-		if (isatty(STDIN_FILENO) == 0)
-		{
-			dup2(STDIN_FILENO, open(ttyname(1), O_RDONLY, 0654));
-			return (1);
-		}
+		// if (isatty(STDIN_FILENO) == 0)
+		// {
+		// 	dup2(STDIN_FILENO, open(ttyname(1), O_RDONLY, 0654));
+		// 	return (1);
+		// }
 		*status = red_open(&exec_data->fdin, HERE_DOC, f_name);
 		free(f_name);
 	}

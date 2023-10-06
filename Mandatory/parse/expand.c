@@ -6,7 +6,7 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:27:01 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/06 00:31:54 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 19:51:33 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	expand_variable(t_expansions *exp, char *content, t_mini_data *var)
 	key = ft_calloc(exp->j + 1, sizeof(char));
 	ft_memcpy(key, content + exp->i - exp->j, exp->j);
 	if (key && *key == '?')
-		expnd_d = join_it(exp->new_arg, ft_itoa(var->err_no), 3);
+		expnd_d = join_it(exp->new_arg, ft_itoa(g_err), 3);
 	else
 		expnd_d = join_it(exp->new_arg, value_by_key(var->env_var, key), 1);
 	free(key);

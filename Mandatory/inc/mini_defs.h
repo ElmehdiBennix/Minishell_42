@@ -6,7 +6,7 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:41 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/05 07:07:30 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 19:54:16 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
+
+# define RED    "\x1b[1;31m"
+# define CYAN    "\x1b[1;36m"
+# define RESET    "\x1b[0m"
 
 # define SYNX_0 "le minishell: this shell does not accept any arguments !!\n"
 # define SYNX_1 "le minishell: syntax error near unexpected token `%c'\n"
