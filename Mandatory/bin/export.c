@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:24 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 19:35:25 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 21:01:30 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,9 +178,9 @@ void	export_it(char **av, t_env **env)
 		while (tmp != 0)
 		{
 			if (!tmp->value)
-				printf("declare -x %s\n", tmp->key);
+				ft_fprintf(1, "declare -x %s\n", tmp->key);
 			else
-				printf("declare -x %s=%c%s%c\n", tmp->key, '"', tmp->value,
+				ft_fprintf(1, "declare -x %s=%c%s%c\n", tmp->key, '"', tmp->value,
 						'"');
 			tmp = tmp->next;
 		}

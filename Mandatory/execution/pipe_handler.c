@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:57:12 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 19:45:58 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 21:01:42 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	child_process(t_command_table *arrow, int fd[], t_env **env)
 
 void	print_err(void)
 {
-	printf("le minishell: fork: Resource\
+	ft_fprintf(2, "le minishell: fork: Resource\
 			temporarily unavailable \n");
 	return ;
 }

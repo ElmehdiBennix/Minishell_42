@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:51:37 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/06 19:51:43 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 20:53:19 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int	pipe_quot(t_mini_data *var, char *prompt)
 	int		command_table;
 
 	command_table = 1;
+	status = FALSE;
 	i = -1;
 	while (prompt[++i])
 	{
