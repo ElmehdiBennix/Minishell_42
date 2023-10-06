@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 22:30:50 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/04 22:31:38 by ebennix          ###   ########.fr       */
+/*   Created: 2023/08/01 09:53:03 by otaraki           #+#    #+#             */
+/*   Updated: 2023/10/06 19:35:17 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ void	my_echo(char **cmd_array)
 	{
 		if (!flag)
 			write(1, " ", 1);
-		ft_fprintf(1,"%s",cmd_array[i]);
+		ft_fprintf(1, "%s", cmd_array[i]);
 		flag = 0;
 		i++;
 	}
 	if (option == 0)
-		ft_fprintf(1,"\n");
+		ft_fprintf(1, "\n");
 }

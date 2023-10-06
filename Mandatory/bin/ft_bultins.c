@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:50:58 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/03 01:12:58 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/05 04:57:52 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int	ft_bultin(t_command_table *exec_data, t_env **env)
 	else if (ft_strncmp(exec_data->cmds_array[0], "unset", 6) == 0)
 		ft_unset(exec_data->cmds_array, env);
 	else if (ft_strncmp(exec_data->cmds_array[0], "cd", 3) == 0)
-		me_cd(exec_data->cmds_array, env);
+		exit_s = me_cd(exec_data->cmds_array, env);
 	else if (ft_strncmp(exec_data->cmds_array[0], "echo", 5) == 0)
 		my_echo(exec_data->cmds_array);
 	else if (ft_strncmp(exec_data->cmds_array[0], "pwd", 4) == 0)
 		me_pwd(1, env);
 	else if (ft_strncmp(exec_data->cmds_array[0], "exit", 5) == 0)
-		mini_exit(exec_data->cmds_array, exit_s);
+		exit_s = mini_exit(exec_data->cmds_array, exit_s);
 	else if (ft_strncmp(exec_data->cmds_array[0], "export", 7) == 0)
 		export_it(exec_data->cmds_array, env);
 	return (exit_s);

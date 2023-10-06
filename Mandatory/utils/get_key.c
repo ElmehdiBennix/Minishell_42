@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_key.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 11:39:43 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 00:41:47 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/05 00:04:10 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ char	*get_key_plus(char *line)
 	int		i;
 
 	i = 0;
+	if (line == NULL)
+		return (NULL);
 	while (line[i] && (line[i] != '=' && line[i] != '+'))
 		i++;
 	key = malloc(sizeof(char) * i + 1);

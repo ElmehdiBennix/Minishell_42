@@ -6,7 +6,7 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/06 00:44:24 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 19:34:18 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,31 @@ static void	exec_loop(t_mini_data *var)
 	}
 	else
 	{
-		if (multi_cmd(var->exec_data, &var->env_var) == 1)
+		data_iter = var->exec_data;
+		while (data_iter && data_iter->cmds_array == NULL)
 		{
-			if (!var->err_no)
-				var->err_no = 127;
+			var->nodes--;
+			data_iter = data_iter->forward;
 		}
-		else
-			var->err_no = 0;
+		if (var->nodes)
+		{
+			if ((multi_cmd(data_iter, &var->env_var)) == 1)
+			{
+				if (!var->err_no)
+					var->err_no = 127;
+			}
+			else
+				var->err_no = 0;
+		}
 	}
+	data_iter = var->exec_data;
 	while (var->nodes != 0)
 	{
-		if (var->exec_data->fdout != 1)
-			close(var->exec_data->fdout);
-		if (var->exec_data->fdin != 0)
-			close(var->exec_data->fdin);
-		var->exec_data = var->exec_data->forward;
+		if (data_iter->fdout != 1)
+			close(data_iter->fdout);
+		if (data_iter->fdin != 0)
+			close(data_iter->fdin);
+		data_iter = data_iter->forward;
 		var->nodes--;
 	}
 	unlink_opened_files();
@@ -110,7 +120,7 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			if (parse_loop(&var, prompt) == TRUE)
 				continue ;
-			// exec_loop(&var);
+			exec_loop(&var);
 			cmd_free(var.exec_data, 1);
 		}
 	}

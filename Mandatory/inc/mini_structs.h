@@ -6,7 +6,7 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:21 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/06 00:33:43 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 19:34:58 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ typedef struct s_env
 
 typedef struct s_expansions
 {
-	char *new_arg;
-	char *buffer;
-	int i;
-	int j;
-	int f;
+	char					*new_arg;
+	char					*buffer;
+	int						i;
+	int						j;
+	int						f;
 }							t_expansions;
 
 typedef struct s_token

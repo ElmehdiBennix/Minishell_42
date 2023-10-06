@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:18 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/04 21:39:39 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/05 03:57:33 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	check_valid_args(char **cmd_array, int *ex, int *index)
 			i++;
 		else
 		{
-			ft_fprintf(2,"problem encountered\n");
+			ft_fprintf(2, "exit: problem encountered\n");
 			exit(255);
 		}
 	}
@@ -37,7 +37,7 @@ void	check_valid_args(char **cmd_array, int *ex, int *index)
 	{
 		*ex = 1;
 		*index = -1;
-		ft_fprintf(2 ,"too many args\n");
+		ft_fprintf(2, "exit: too many args\n");
 	}
 }
 
