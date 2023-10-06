@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 02:37:18 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/03 23:21:20 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/06 19:34:49 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ char	*get_key(char *line)
 	int		i;
 
 	i = 0;
+	if (!line)
+		return (NULL);
 	while (line[i] && (line[i] != '='))
 		i++;
 	key = malloc(sizeof(char) * i + 1);
@@ -77,10 +79,12 @@ char	*get_val(char *line)
 	int		j;
 
 	i = 0;
+	if (!line)
+		return (NULL);
 	while (line[i] && line[i] != '=')
 		i++;
 	if (line[i] == '=' && line[i + 1] == 0)
-		return (ft_strdup(""));
+		return (ft_strdup("")); // assi
 	if (!line[i] || !line[i + 1])
 		return (NULL);
 	j = i + 1;

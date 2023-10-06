@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exc.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 21:05:55 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/04 20:53:24 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/06 19:35:12 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,71 +39,83 @@ char	*check_path(char **s_path, char *cmd)
 	return (NULL);
 }
 
-int	excute_one_cmd(char **contents, t_env **env)
+int	exec_cmd(char **contents, t_env **env)
 {
 	char	*path;
-	char	*str;
 	char	**splited_path;
+	char	*str;
 
+	path = value_by_key(*env, "PATH");
+	if (path == NULL)
+		return (ft_fprintf(2, "%s: No such file or directory\n", contents[0]),
+			2);
+	splited_path = ft_split(path, ':');
+	str = check_path(splited_path, contents[0]);
+	free2d(splited_path);
+	if (!str)
+		return (ft_fprintf(2, "%s: command not found\n", contents[0]), 2);
+	if (execve(str, contents, get_normal_env(*env)) < 0)
+		return (perror(""), free(str), 2);
+	return (1);
+}
+
+int	excute_one_cmd(char **contents, t_env **env)
+{
+	int	ret;
+
+	ret = 0;
+	if (!contents)
+		return (2);
 	if (ft_strchr(contents[0], ' '))
 		contents = ft_split(contents[0], ' ');
 	if (ft_strchr(contents[0], '/'))
 	{
 		if (access(contents[0], X_OK) < 0)
-			return (ft_fprintf(2, "%s: No such file or directory\n", contents[0]), 2);
-		else
-		{
-			if (execve(contents[0], contents, get_normal_env(*env)) < 0)
-				return (perror(""), 2);
-		}
+			return (ft_fprintf(2, "%s: No such file or directory\n",
+					contents[0]), 2);
+		else if (execve(contents[0], contents, get_normal_env(*env)) < 0)
+			return (perror(""), 2);
 	}
 	else
+		ret = exec_cmd(contents, env);
+	return (ret);
+}
+
+void	dub_for_bultins(t_command_table *exec_data)
+{
+	if (exec_data->fdin != 0)
 	{
-		path = value_by_key(*env, "PATH");
-		if (path == NULL)
-			return (ft_fprintf(2, "%s: No such file or directory\n", contents[0]), 2);
-		splited_path = ft_split(path, ':');
-		str = check_path(splited_path, contents[0]);
-		if (!str)
-			return (ft_fprintf(2, "%s: command not found\n", contents[0]), 2);
-		free2d(splited_path);
-		if (execve(str, contents, get_normal_env(*env)) < 0)
-			return (perror(""), 2);
-		return (1);
+		dup2(exec_data->fdin, STDIN_FILENO);
+		close(exec_data->fdin);
 	}
-	return (1);
+	if (exec_data->fdout != 1)
+	{
+		dup2(exec_data->fdout, STDOUT_FILENO);
+		close(exec_data->fdout);
+	}
 }
 
 int	one_cmd(t_command_table *exec_data, t_env **env)
 {
-	int	save;
-	int	out;
+	int		save;
+	int		out;
+	char	**cmd;
 
-	if (exec_data->cmds_array == NULL || !exec_data->cmds_array[0])
-		return (2);
+	cmd = exec_data->cmds_array;
 	out = dup(1);
 	save = 0;
-	if (is_bult_in(exec_data->cmds_array[0]) == 1)
+	if (cmd == NULL || !cmd[0])
+		return (2);
+	if (is_bult_in(cmd[0]) == 1)
 	{
-		if (exec_data->fdin != 0)
-		{
-			dup2(exec_data->fdin, STDIN_FILENO);
-			close(exec_data->fdin);
-		}
-		if (exec_data->fdout != 1)
-		{
-			dup2(exec_data->fdout, STDOUT_FILENO);
-			close(exec_data->fdout);
-		}
+		dub_for_bultins(exec_data);
 		save = ft_bultin(exec_data, env);
 		dup2(out, STDOUT_FILENO);
-		return (save);
+		if (save == -1)
+			return (2);
 	}
-	else
-	{
-		if (multi_cmd(exec_data, env) == 1)
-			return (exec_data->var->err_no = 127, 2);
-	}
+	else if (multi_cmd(exec_data, env) == 1)
+		return (exec_data->var->err_no = 127, 2);
 	close(out);
 	return (0);
 }

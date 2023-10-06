@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
+#    By: bennix <bennix@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/10/05 23:34:24 by ebennix          ###   ########.fr        #
+#    Updated: 2023/10/06 19:28:37 by bennix           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ FILES := Mandatory/minishell\
 		 Mandatory/parse/checks_tools\
 		 Mandatory/parse/lst_tools\
 		 Mandatory/utils/ft_lstnew_env \
+		 Mandatory/utils/signals \
 		 Mandatory/utils/ft_lstadd_back_env \
 		 Mandatory/utils/ft_remove_node \
 		 Mandatory/utils/ft_strcmp \

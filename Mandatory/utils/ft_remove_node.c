@@ -3,37 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_remove_node.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 11:25:30 by otaraki           #+#    #+#             */
-/*   Updated: 2023/09/28 02:27:27 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/06 19:34:46 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_remove_node(t_env **begin_list, void *data_ref, int (*cmp)())
+void	ft_remove_node(t_env **env, void *arg, int (*cmp)())
 {
-	t_env	*cur;
+	t_env	*current;
 
-	if (begin_list == NULL || *begin_list == NULL)
+	if (env == NULL || *env == NULL)
 		return ;
-	cur = *begin_list;
-	if (cmp(cur->key, data_ref) == 0)
+	current = *env;
+	if (cmp(current->key, arg) == 0)
 	{
-		if (cur->next)
+		if (current->next)
 		{
-			*begin_list = cur->next;
-			free(cur);
+			*env = current->next;
+			free(current->key);
+			free(current->value);
+			free(current);
 		}
 		else
 		{
-			free(cur);
-			*begin_list = NULL;
+			free(current->key);
+			free(current->value);
+			free(current);
+			*env = NULL;
 		}
-		ft_remove_node(begin_list, data_ref, cmp);
+		ft_remove_node(env, arg, cmp);
 	}
-	cur = *begin_list;
-	if (cur)
-		ft_remove_node(&cur->next, data_ref, cmp);
+	current = *env;
+	if (current)
+		ft_remove_node(&current->next, arg, cmp);
 }

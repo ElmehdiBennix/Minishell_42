@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/04 22:29:18 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/06 19:35:08 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,14 @@ char	*herdoc_name(void)
 void	fhandler(int sig)
 {
 	(void)sig;
-	close (STDIN_FILENO);
+	close(STDIN_FILENO);
 }
 
-int	here_doc(int *fdin, char *str, char **f_name, t_mini_data *var)
+void	write_into_fd(char *str, int *fdin, t_mini_data *var)
 {
 	char	*rd;
 	char	*line;
 
-	*f_name = herdoc_name();
-	*fdin = open((*f_name), O_RDWR | O_CREAT | O_TRUNC, 0654);
-	if (*fdin < 0)
-		return (-1);
 	while (1)
 	{
 		signal(SIGINT, fhandler);
@@ -59,15 +55,26 @@ int	here_doc(int *fdin, char *str, char **f_name, t_mini_data *var)
 		rd = get_value(rd, var);
 		free(line);
 		if (!ft_strcmp(rd, str))
+		{
+			free(rd);
 			break ;
+		}
 		line = rd;
 		rd = ft_strjoin(rd, "\n");
 		free(line);
-		ft_fprintf(*fdin,"%s",rd);
+		ft_fprintf(*fdin, "%s", rd);
 		free(rd);
 		rd = NULL;
 	}
-	free(rd);
+}
+
+int	here_doc(int *fdin, char *str, char **f_name, t_mini_data *var)
+{
+	*f_name = herdoc_name();
+	*fdin = open((*f_name), O_RDWR | O_CREAT | O_TRUNC, 0654);
+	if (*fdin < 0)
+		return (-1);
+	write_into_fd(str, fdin, var);
 	close(*fdin);
 	return (0);
 }
@@ -101,40 +108,57 @@ int	red_open(int *fds, t_type red, char *f_name)
 	return (0);
 }
 
+int	loop_init_red(t_redirection *red, t_command_table *exec_data, int *status,
+		char *f_name)
+{
+	if (red->r_type == GREAT)
+		*status = red_open(&exec_data->fdout, GREAT, red->file_name);
+	if (red->r_type == LESS)
+		*status = red_open(&exec_data->fdin, LESS, red->file_name);
+	else if (red->r_type == APPEND)
+		*status = red_open(&exec_data->fdout, APPEND, red->file_name);
+	else if (red->r_type == HERE_DOC)
+	{
+		here_doc(&exec_data->fdin, red->file_name, &f_name, exec_data->var);
+		if (isatty(STDIN_FILENO) == 0)
+		{
+			dup2(STDIN_FILENO, open(ttyname(1), O_RDONLY, 0654));
+			return (1);
+		}
+		*status = red_open(&exec_data->fdin, HERE_DOC, f_name);
+		free(f_name);
+	}
+	return (0);
+}
+
+void	free_red(t_redirection *red, t_command_table *red_table)
+{
+	if (red->file_name)
+		free(red->file_name);
+	if (red_table->cmds_array)
+		free2d(red_table->cmds_array);
+	red_table->cmds_array = NULL;
+	red_table->fdin = 0;
+	free(red);
+}
+
 int	open_red(t_command_table *exec_data)
 {
-	int		status;
-	char	*f_name;
-	t_redirection *red = exec_data->redirections;
+	t_redirection	*red;
+	int				status;
+	char			*f_name;
 
 	f_name = NULL;
 	status = 0;
+	red = exec_data->redirections;
 	while (red && (status >= 0))
 	{
-		if (red->r_type == GREAT)
-			status = red_open(&exec_data->fdout, GREAT, red->file_name);
-		if (red->r_type == LESS)
-			status = red_open(&exec_data->fdin, LESS, red->file_name);
-		else if (red->r_type == APPEND)
-			status = red_open(&exec_data->fdout, APPEND, red->file_name);
-		else if (red->r_type == HERE_DOC)
-		{
-			here_doc(&exec_data->fdin, red->file_name, &f_name, exec_data->var);
-			if (isatty(STDIN_FILENO) == 0)
-			{
-				dup2(STDIN_FILENO, open(ttyname(1), O_RDONLY, 0654));
-				return (1);
-			}
-			status = red_open(&exec_data->fdin, HERE_DOC, f_name);
-			free(f_name);
-		}
+		if (loop_init_red(red, exec_data, &status, f_name) == 1)
+			return (1);
 		if (status < 0)
 		{
 			ft_fprintf(2, "%s: No such file or directory\n", red->file_name);
-			if (exec_data->cmds_array)
-				free2d(exec_data->cmds_array);
-			exec_data->cmds_array = NULL;
-			exec_data->fdin = 0;
+			free_red(red, exec_data);
 			return (2);
 		}
 		red = red->next;

@@ -6,7 +6,7 @@
 /*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/06 00:46:46 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 19:34:56 by bennix           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <readline/readline.h>
 # include <sys/uio.h>
 # include <sys/wait.h>
+
+void	signal_handler(int signal);
 
 int		single_key(int c);
 int		multi_key(int c);
@@ -61,15 +63,15 @@ t_env	*update_env(t_env **env, char *value, char *key);
 char	**get_normal_env(t_env *env);
 
 //built-in functions:
-int		ft_env(int fd, char **av, t_env *env);
-int		mini_exit(char **av, int exit_status);
 int		ft_bultin(t_command_table *data, t_env **env);
+void	export_it(char **av, t_env **env);
+int		me_cd(char **av, t_env **env);
+int		mini_exit(char **av, int exit_status);
 void	ft_unset(char **arg, t_env **env);
-void	me_cd(char **av, t_env **env);
+int		ft_env(int fd, char **av, t_env *env);
+int		is_bult_in(char *arg);
 void	my_echo(char **av);
 void	me_pwd(int fd, t_env **env);
-void	export_it(char **av, t_env **env);
-int		is_bult_in(char *arg);
 
 //exec functions:
 int		one_cmd(t_command_table *exec_data, t_env **env);
