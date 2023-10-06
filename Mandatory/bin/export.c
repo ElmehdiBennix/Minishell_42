@@ -6,7 +6,7 @@
 /*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:24 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 21:01:30 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/06 21:17:28 by ebennix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ void	export_item(char **arg, t_env **ev)
 		if (check_valid_key(key, &plus_flg) == -1)
 		{
 			free(key);
+			g_err = 1;
 			ft_fprintf(2, "`%s': not a valid identifier\n", arg[i]);
 		}
 		else
