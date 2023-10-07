@@ -6,7 +6,7 @@
 #    By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
-#    Updated: 2023/10/06 21:36:37 by otaraki          ###   ########.fr        #
+#    Updated: 2023/10/07 23:08:13 by otaraki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,7 @@ ARCH := lib/lib_42.a
 
 CC := cc 
 
-CFLAGS := -g -Wall  -Wextra
-#-fsanitize=address 
+CFLAGS := -g -Wall  -Wextra 
 
 HEADER := Mandatory/inc/minishell.h
 
@@ -38,6 +37,7 @@ FILES := Mandatory/minishell\
 		 Mandatory/utils/ft_strcmp \
 		 Mandatory/utils/get_back_env\
 		 Mandatory/utils/get_key \
+		 Mandatory/utils/utils_file\
 		 Mandatory/utils/updates \
 		 Mandatory/utils/reset_structs \
 		 Mandatory/utils/ft_sort_list \
@@ -50,7 +50,10 @@ FILES := Mandatory/minishell\
 		 Mandatory/bin/exit \
 		 Mandatory/bin/export\
 		 Mandatory/execution/exc \
+		 Mandatory/execution/exec_loop_utils \
+		 Mandatory/execution/exc_utils \
 		 Mandatory/execution/redirections \
+		 Mandatory/execution/redirections_utils \
 		 Mandatory/execution/pipe_handler\
 
 SRC := $(FILES:=.c)

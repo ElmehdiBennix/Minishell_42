@@ -6,12 +6,12 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:48:41 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/06 21:33:28 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/07 21:40:48 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_DEF_H
-# define MINI_DEF_H
+#ifndef MINI_DEFS_H
+# define MINI_DEFS_H
 
 # define TRUE 1
 # define FALSE 0

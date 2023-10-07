@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/07 01:08:33 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/07 23:09:04 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 
 int	g_err;
 
+int		herdoc_helper(void);
+void	fhandler(int sig);
 void	signal_handler(int signal);
 
 int		single_key(int c);
@@ -66,7 +68,6 @@ char	**get_normal_env(t_env *env);
 
 //built-in functions:
 int		ft_bultin(t_command_table *data, t_env **env);
-int		export_it(char **av, t_env **env);
 int		me_cd(char **av, t_env **env);
 int		mini_exit(char **av, int exit_status);
 int		ft_unset(char **arg, t_env **env);
@@ -74,6 +75,16 @@ int		ft_env(int fd, char **av, t_env *env);
 int		is_bult_in(char *arg);
 void	my_echo(char **av);
 void	me_pwd(int fd, t_env **env);
+int		export_it(char **av, t_env **env);
+
+//export utility
+void	set_new_value(t_env *tmp, char *new_val, int plus_flg);
+void	set_new_value_tow(t_env *tmp, char *new_val, int plus_flg);
+int		compare(char *a, char *b);
+int		seen_it(char *seen, t_env **env);
+int		ft_isdigit(int c);
+int		ft_isalnum(int c);
+int		check_valid_key(char *key, int *plus_flg);
 
 //exec functions:
 int		one_cmd(t_command_table *exec_data, t_env **env);
@@ -82,6 +93,24 @@ int		here_doc(int *fdin, char *str, char **f_name, t_mini_data *var);
 int		excute_one_cmd(char **contents, t_env **env);
 int		open_red(t_command_table *exec_data);
 int		multi_cmd(t_command_table *exec_data, t_env **env);
+
+// main exec_loop functions
+void	one_cmd_exec(t_mini_data *var);
+void	multi_cmd_exec(t_mini_data *var);
+void	open_red_exec(t_mini_data *var);
+void	close_red_exec(t_mini_data *var);
+
+//exec utils
+void	dup_fdin(int *fdin);
+void	dup_fdout(int *fdout);
+void	close_pipe_fds(int fd[]);
+void	print_err(void);
+
+//red utility functions
+char	*herdoc_name(void);
+int		herdoc_helper(void);
+void	fhandler(int sig);
+void	write_into_fd(char *str, int *fdin, t_mini_data *var);
 
 //free functions
 void	tok_free(t_token *node, bool free_content);
