@@ -6,41 +6,18 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:57:12 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 22:59:58 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/07 23:09:57 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	dup_fdin(int *fdin)
-{
-	if (*fdin != 0)
-	{
-		dup2(*fdin, STDIN_FILENO);
-		close(*fdin);
-	}
-}
-
-void	dup_fdout(int *fdout)
-{
-	if (*fdout != 1)
-	{
-		dup2(*fdout, STDOUT_FILENO);
-		close(*fdout);
-	}
-}
-
-void	close_pipe_fds(int fd[])
-{
-	close(fd[1]);
-	close(fd[0]);
-}
 
 void	child_process(t_command_table *arrow, int fd[], t_env **env)
 {
 	int	returned;
 
 	returned = 0;
+	signal(SIGQUIT, SIG_DFL);
 	dup_fdin(&arrow->fdin);
 	if (arrow->forward && (arrow->fdout == 1))
 		dup2(fd[1], STDOUT_FILENO);
@@ -62,13 +39,6 @@ void	child_process(t_command_table *arrow, int fd[], t_env **env)
 		exit(EXIT_SUCCESS);
 	else
 		exit(EXIT_FAILURE);
-}
-
-void	print_err(void)
-{
-	ft_fprintf(2, "le minishell: fork: Resource\
-			temporarily unavailable \n");
-	return ;
 }
 
 void	parent_process(t_command_table *arrow, int *fd, int *status)

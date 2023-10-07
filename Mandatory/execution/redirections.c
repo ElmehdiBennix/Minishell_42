@@ -6,79 +6,11 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/07 00:31:38 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/07 21:38:11 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-char	*herdoc_name(void)
-{
-	int		i;
-	char	*s;
-	char	*n;
-
-	i = 0;
-	n = ft_itoa(i);
-	s = ft_strjoin("/tmp/here_doc", n);
-	free(n);
-	while (access(s, F_OK) == 0)
-	{
-		n = NULL;
-		free(s);
-		i++;
-		n = ft_itoa(i);
-		s = ft_strjoin("/tmp/here_doc", n);
-		free(n);
-	}
-	return (s);
-}
-
-int	herdoc_helper(void)
-{
-	if (isatty(STDIN_FILENO) == 0)
-	{
-		dup2(STDIN_FILENO, open(ttyname(1), O_RDONLY, 0644));
-		return (1);
-	}
-	return (0);
-}
-
-void	fhandler(int sig)
-{
-	(void)sig;
-	close(STDIN_FILENO);
-}
-
-void	write_into_fd(char *str, int *fdin, t_mini_data *var)
-{
-	char	*rd;
-	char	*line;
-
-	while (1)
-	{
-		signal(SIGINT, fhandler);
-		rd = readline("> ");
-		if (herdoc_helper())
-			break ;
-		if (!rd)
-			break ;
-		line = rd;
-		rd = get_value(rd, var);
-		free(line);
-		if (!ft_strcmp(rd, str))
-		{
-			free(rd);
-			break ;
-		}
-		line = rd;
-		rd = ft_strjoin(rd, "\n");
-		free(line);
-		ft_fprintf(*fdin, "%s", rd);
-		free(rd);
-		rd = NULL;
-	}
-}
 
 int	here_doc(int *fdin, char *str, char **f_name, t_mini_data *var)
 {

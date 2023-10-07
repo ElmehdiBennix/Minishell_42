@@ -6,7 +6,7 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 15:05:44 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 21:31:53 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/07 23:06:31 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,14 @@ char	*prompt_generator(void)
 {
 	char	*prompt;
 	char	*code;
-	char	*tmp;
 
 	if (g_err == 0)
 		code = GREEN;
 	else
 		code = RED;
-	code = ft_strjoin(code, "->");
-	tmp = getcwd(NULL, 0);
-	prompt = ft_strjoin(CYAN "  le minishit " YELLOW, tmp);
-	free(tmp);
-	tmp = prompt;
-	prompt = ft_strjoin(code, prompt);
-	free(code);
-	free(tmp);
-	tmp = prompt;
-	prompt = ft_strjoin(prompt, DEFAULT "$ ");
-	free(tmp);
+	prompt = join_it("->" YELLOW "  le minishit " CYAN, getcwd(NULL, 0),2);
+	prompt = join_it(code, prompt, 2);
+	prompt = join_it(prompt, DEFAULT "$ ",1);
 	return (prompt);
 }
 

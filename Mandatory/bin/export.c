@@ -6,105 +6,11 @@
 /*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:24 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/07 01:14:21 by otaraki          ###   ########.fr       */
+/*   Updated: 2023/10/07 21:29:44 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	compare(char *a, char *b)
-{
-	int	cmpa;
-
-	cmpa = ft_strcmp(a, b);
-	if (cmpa > 0)
-		return (0);
-	else
-		return (-1);
-}
-
-static int	seen_it(char *seen, t_env **env)
-{
-	t_env	*tmp;
-
-	tmp = *env;
-	while (tmp)
-	{
-		if (ft_strcmp(seen, tmp->key) == 0)
-			return (0);
-		tmp = tmp->next;
-	}
-	return (1);
-}
-
-int	ft_isdigit(int c)
-{
-	return (c >= '0' && c <= '9');
-}
-
-int	ft_isalnum(int c)
-{
-	return (ft_isalpha(c) || ft_isdigit(c));
-}
-
-static int	check_valid_key(char *key, int *plus_flg)
-{
-	int	i;
-
-	i = 0;
-	if (!ft_isalpha(key[i]))
-		return (-1);
-	while (key[i])
-	{
-		if (key[i] == '+')
-			(*plus_flg)++;
-		if (!(key[i] == '_' || key[i] == '+' || ft_isalnum(key[i]))
-			|| ((*plus_flg) > 1))
-			return (-1);
-		i++;
-	}
-	if (key)
-		free(key);
-	return (i);
-}
-void	set_new_value(t_env *tmp, char *new_val, int plus_flg)
-{
-	char	*str;
-
-	str = NULL;
-	if (!(tmp->value) && (plus_flg == 0) && new_val)
-	{
-		str = new_val;
-		tmp->value = ft_strdup(new_val);
-		free(str);
-	}
-	else if ((tmp->value) && (plus_flg == 0) && new_val)
-	{
-		free(tmp->value);
-		str = new_val;
-		tmp->value = ft_strdup(new_val);
-		free(str);
-	}
-}
-
-void	set_new_value_tow(t_env *tmp, char *new_val, int plus_flg)
-{
-	char	*str;
-	char	*ftr;
-
-	str = NULL;
-	ftr = NULL;
-	if (!(tmp->value) && !(new_val) && (plus_flg == 0))
-		tmp->value = ft_strdup("");
-	else if ((tmp->value) && (plus_flg != 0) && new_val)
-	{
-		str = tmp->value;
-		ftr = new_val;
-		tmp->value = ft_strjoin(tmp->value, new_val);
-		free(str);
-		free(ftr);
-	}
-}
 
 int	seen_bef(char *seen, char *new_val, t_env **env, int plus_flg)
 {
@@ -167,7 +73,7 @@ int	export_item(char **arg, t_env **ev)
 		if (check_valid_key(key, &plus_flg) == -1)
 		{
 			free(key);
-			return(ft_fprintf(2, "`%s': not a valid identifier\n", arg[i]), -1);
+			return (ft_fprintf(2, "`%s': not a valid identifier\n", arg[i]), -1);
 		}
 		else
 		{
@@ -195,8 +101,8 @@ int	export_it(char **av, t_env **env)
 			if (!tmp->value)
 				ft_fprintf(1, "declare -x %s\n", tmp->key);
 			else
-				ft_fprintf(1, "declare -x %s=%c%s%c\n", tmp->key, '"', tmp->value,
-						'"');
+				ft_fprintf(1, "declare -x %s=%c%s%c\n", tmp->key, '"', \
+					tmp->value, '"');
 			tmp = tmp->next;
 		}
 	}
