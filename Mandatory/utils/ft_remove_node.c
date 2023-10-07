@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_remove_node.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 11:25:30 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 19:34:46 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 20:09:33 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	ft_free_node(t_env *node)
+{
+	free(node->key);
+	free(node->value);
+	free(node);
+}
 
 void	ft_remove_node(t_env **env, void *arg, int (*cmp)())
 {
@@ -24,15 +31,11 @@ void	ft_remove_node(t_env **env, void *arg, int (*cmp)())
 		if (current->next)
 		{
 			*env = current->next;
-			free(current->key);
-			free(current->value);
-			free(current);
+			ft_free_node(current);
 		}
 		else
 		{
-			free(current->key);
-			free(current->value);
-			free(current);
+			ft_free_node(current);
 			*env = NULL;
 		}
 		ft_remove_node(env, arg, cmp);

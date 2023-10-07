@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:12:28 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/06 19:53:37 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/07 01:08:33 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 # define MINISHELL_H
 
 # include "mini_defs.h"
-# include "mini_structs.h" // headers inc
+# include "mini_structs.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <sys/uio.h>
 # include <sys/wait.h>
 
-int g_err;
+int	g_err;
 
 void	signal_handler(int signal);
 
@@ -66,10 +66,10 @@ char	**get_normal_env(t_env *env);
 
 //built-in functions:
 int		ft_bultin(t_command_table *data, t_env **env);
-void	export_it(char **av, t_env **env);
+int		export_it(char **av, t_env **env);
 int		me_cd(char **av, t_env **env);
 int		mini_exit(char **av, int exit_status);
-void	ft_unset(char **arg, t_env **env);
+int		ft_unset(char **arg, t_env **env);
 int		ft_env(int fd, char **av, t_env *env);
 int		is_bult_in(char *arg);
 void	my_echo(char **av);

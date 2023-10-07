@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 02:37:18 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/06 19:34:49 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 21:32:09 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*get_val(char *line)
 	while (line[i] && line[i] != '=')
 		i++;
 	if (line[i] == '=' && line[i + 1] == 0)
-		return (ft_strdup("")); // assi
+		return (ft_strdup(""));
 	if (!line[i] || !line[i + 1])
 		return (NULL);
 	j = i + 1;

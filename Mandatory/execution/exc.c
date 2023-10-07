@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exc.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 21:05:55 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 19:51:23 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 22:47:49 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	one_cmd(t_command_table *exec_data, t_env **env)
 		save = ft_bultin(exec_data, env);
 		dup2(out, STDOUT_FILENO);
 		if (save == -1)
-			return (2);
+			return (3);
 	}
 	else if (multi_cmd(exec_data, env) == 1)
 		return (g_err = 127, 2);

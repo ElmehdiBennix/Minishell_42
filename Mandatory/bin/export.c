@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:53:24 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 21:17:28 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/07 01:14:21 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,28 @@ static int	seen_it(char *seen, t_env **env)
 	return (1);
 }
 
+int	ft_isdigit(int c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+int	ft_isalnum(int c)
+{
+	return (ft_isalpha(c) || ft_isdigit(c));
+}
+
 static int	check_valid_key(char *key, int *plus_flg)
 {
 	int	i;
 
 	i = 0;
+	if (!ft_isalpha(key[i]))
+		return (-1);
 	while (key[i])
 	{
 		if (key[i] == '+')
 			(*plus_flg)++;
-		if (!(key[i] == '_' || key[i] == '+' || ft_isalpha(key[i]))
+		if (!(key[i] == '_' || key[i] == '+' || ft_isalnum(key[i]))
 			|| ((*plus_flg) > 1))
 			return (-1);
 		i++;
@@ -139,7 +151,7 @@ void	add_key(char *arg, int plus_flg, char *value, t_env **ev)
 	free(key);
 }
 
-void	export_item(char **arg, t_env **ev)
+int	export_item(char **arg, t_env **ev)
 {
 	int		i;
 	int		plus_flg;
@@ -155,8 +167,7 @@ void	export_item(char **arg, t_env **ev)
 		if (check_valid_key(key, &plus_flg) == -1)
 		{
 			free(key);
-			g_err = 1;
-			ft_fprintf(2, "`%s': not a valid identifier\n", arg[i]);
+			return(ft_fprintf(2, "`%s': not a valid identifier\n", arg[i]), -1);
 		}
 		else
 		{
@@ -165,13 +176,16 @@ void	export_item(char **arg, t_env **ev)
 		}
 		i++;
 	}
+	return (0);
 }
 
-void	export_it(char **av, t_env **env)
+int	export_it(char **av, t_env **env)
 {
 	t_env	*tmp;
+	int		ret;
 
 	tmp = *env;
+	ret = 0;
 	if (tmp)
 		sort_list(tmp, compare);
 	if (!av[1] || !(*av[1]))
@@ -187,5 +201,6 @@ void	export_it(char **av, t_env **env)
 		}
 	}
 	else
-		export_item(av, env);
+		ret = export_item(av, env);
+	return (ret);
 }
