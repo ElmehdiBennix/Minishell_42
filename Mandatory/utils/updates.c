@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   updates.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 15:05:44 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 19:52:47 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 21:31:53 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_env	*update_env(t_env **env, char *value, char *key)
 	tmp = *env;
 	if (!fod)
 		ft_lstadd_back_env(&tmp, ft_lstnew_env(ft_strdup(key),
-					ft_strdup(value)));
+				ft_strdup(value)));
 	return (tmp);
 }
 

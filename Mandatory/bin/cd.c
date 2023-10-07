@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:52:57 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 19:35:15 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/07 00:37:29 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	update_old_current(t_env *env, char *path, int flag)
 		env = update_env(&env, path, "OLDPWD");
 	else if (flag == 1)
 		env = update_env(&env, path, "PWD");
-	if (path)
-		free(path);
 }
 
 int	dr_chdir(char *dir_name, char *msg_err, char *path, t_env **env)
@@ -72,11 +70,13 @@ int	me_cd(char **cmd_array, t_env **env)
 		return (perror("getcwd"), -1);
 	}
 	ret = change_dr(cmd_array, env, path, &flg);
+	free(path);
 	path = getcwd(NULL, 0);
 	if (!path)
 		return (perror("getcwd: "), -1);
 	update_old_current(*env, path, 1);
 	if (flg)
 		me_pwd(1, env);
+	free(path);
 	return (ret);
 }

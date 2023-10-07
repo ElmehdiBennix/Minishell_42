@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 01:35:38 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 20:59:53 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/07 00:31:38 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,25 +95,25 @@ int	red_open(int *fds, t_type red, char *f_name)
 {
 	if (red == GREAT)
 	{
-		*fds = open(f_name, O_WRONLY | O_CREAT | O_TRUNC, 0654);
+		*fds = open(f_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (*fds < 0)
 			return (-1);
 	}
 	else if (red == LESS)
 	{
-		*fds = open(f_name, O_RDONLY, 0654);
+		*fds = open(f_name, O_RDONLY, 0644);
 		if (*fds < 0)
 			return (-1);
 	}
 	else if (red == APPEND)
 	{
-		*fds = open(f_name, O_APPEND | O_WRONLY | O_CREAT, 0654);
+		*fds = open(f_name, O_APPEND | O_WRONLY | O_CREAT, 0644);
 		if (*fds < 0)
 			return (-1);
 	}
 	else if (red == HERE_DOC)
 	{
-		*fds = open(f_name, O_RDONLY, 0654);
+		*fds = open(f_name, O_RDONLY, 0644);
 		if (*fds < 0)
 			return (-1);
 	}

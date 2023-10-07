@@ -3,16 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bennix <bennix@student.42.fr>              +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 01:39:52 by ebennix           #+#    #+#             */
-/*   Updated: 2023/10/06 19:53:05 by bennix           ###   ########.fr       */
+/*   Updated: 2023/10/06 23:07:06 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
 
-static void	exec_loop(t_mini_data *var)
+void	one_cmd_exec(t_mini_data *var)
+{
+	t_command_table	*cmd;
+	int				ret;
+
+	cmd = var->exec_data;
+	ret = one_cmd(cmd, &var->env_var);
+	if (cmd->cmds_array[0] && ret == 2)
+	{
+		if (g_err == 0)
+			g_err = 127;
+	}
+	else if (ret == 3)
+		g_err = 1;
+	else
+		g_err = 0;
+}
+
+void	multi_cmd_exec(t_mini_data *var)
+{
+	t_command_table	*m_cmd;
+
+	m_cmd = var->exec_data;
+	while (m_cmd && m_cmd->cmds_array == NULL)
+	{
+		var->nodes--;
+		m_cmd = m_cmd->forward;
+	}
+	if (var->nodes)
+	{
+		if ((multi_cmd(m_cmd, &var->env_var)) == 1)
+		{
+			if (!g_err)
+				g_err = 127;
+		}
+		else
+			g_err = 0;
+	}
+}
+void	open_red_exec(t_mini_data *var)
 {
 	t_command_table	*data_iter;
 	int				return_type;
@@ -28,35 +67,12 @@ static void	exec_loop(t_mini_data *var)
 			g_err = 1;
 		data_iter = data_iter->forward;
 	}
-	if (var->nodes == 1)
-	{
-		if (one_cmd(var->exec_data, &var->env_var) == 2)
-		{
-			if (!g_err)
-				g_err = 127;
-		}
-		else
-			g_err = 0;
-	}
-	else
-	{
-		data_iter = var->exec_data;
-		while (data_iter && data_iter->cmds_array == NULL)
-		{
-			var->nodes--;
-			data_iter = data_iter->forward;
-		}
-		if (var->nodes)
-		{
-			if ((multi_cmd(data_iter, &var->env_var)) == 1)
-			{
-				if (!g_err)
-					g_err = 127;
-			}
-			else
-				g_err = 0;
-		}
-	}
+}
+
+void	close_red_exec(t_mini_data *var)
+{
+	t_command_table	*data_iter;
+
 	data_iter = var->exec_data;
 	while (var->nodes != 0)
 	{
@@ -67,6 +83,16 @@ static void	exec_loop(t_mini_data *var)
 		data_iter = data_iter->forward;
 		var->nodes--;
 	}
+}
+
+static void	exec_loop(t_mini_data *var)
+{
+	open_red_exec(var);
+	if (var->nodes == 1)
+		one_cmd_exec(var);
+	else
+		multi_cmd_exec(var);
+	close_red_exec(var);
 	unlink_opened_files();
 }
 

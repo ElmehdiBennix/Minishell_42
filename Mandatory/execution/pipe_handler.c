@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:57:12 by otaraki           #+#    #+#             */
-/*   Updated: 2023/10/06 21:01:42 by ebennix          ###   ########.fr       */
+/*   Updated: 2023/10/06 22:59:58 by otaraki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void	child_process(t_command_table *arrow, int fd[], t_env **env)
 	}
 	if (returned == 0)
 		exit(EXIT_SUCCESS);
-	exit(EXIT_FAILURE);
+	else
+		exit(EXIT_FAILURE);
 }
 
 void	print_err(void)
@@ -93,17 +94,12 @@ int	multi_cmd(t_command_table *exec_data, t_env **env)
 	save = dup(0);
 	while (arrow)
 	{
-		if (arrow->cmds_array && !ft_strcmp(arrow->cmds_array[0], "cd"))
-			ft_bultin(arrow, env);
 		pipe(fd);
 		forked = fork();
 		if (forked == -1)
 			print_err();
 		if (!forked)
-		{
-			signal(SIGQUIT, SIG_DFL);
 			child_process(arrow, fd, env);
-		}
 		parent_process(arrow, fd, &status);
 		arrow = arrow->forward;
 	}
