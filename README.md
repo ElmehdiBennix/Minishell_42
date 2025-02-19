@@ -19,9 +19,16 @@
 ### Compilation
 To compile the project, use the provided `Makefile`:
 ```sh
+git clone https://github.com/ElmehdiBennix/Minishell_42.git
+cd Minishel_42
 make
 ```
 This will generate the `Minishell` binary.
+- NOTE : u will need readline library in ur system
+```sh
+sudo apt update
+sudo apt install libreadline-dev
+```
 
 ### Running the Shell
 To start `minishell`, simply run:
