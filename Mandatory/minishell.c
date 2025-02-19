@@ -12,6 +12,8 @@
 
 #include "inc/minishell.h"
 
+int g_err = 0;
+
 static void	exec_loop(t_mini_data *var)
 {
 	open_red_exec(var);
