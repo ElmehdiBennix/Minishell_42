@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: otaraki <otaraki@student.42.fr>            +#+  +:+       +#+         #
+#    By: ebennix <ebennix@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 07:56:09 by ebennix           #+#    #+#              #
 #    Updated: 2023/10/07 23:08:13 by otaraki          ###   ########.fr        #
@@ -14,9 +14,9 @@ EXE := Minishell
 
 ARCH := lib/lib_42.a
 
-CC := cc 
+CC := cc
 
-CFLAGS := -g -Wall  -Wextra 
+CFLAGS := -g -Wall -Wextra -Werror
 
 HEADER := Mandatory/inc/minishell.h
 
@@ -72,6 +72,8 @@ CPPFLAGS := "-I/Users/$(USER)/.brew/opt/readline/include"
 
 VAR := $(CPPFLAGS) $(LDFLAGS)
 
+# **************************************************************************** #
+
 all : $(EXE)
 
 library:
@@ -93,11 +95,13 @@ fclean : clean
 
 re : fclean all
 
-git :
+push :
 	make fclean
 	git add .
 	git status
 	git commit -m "$(m)"
 	git push
+
+# **************************************************************************** #
 
 .PHONY : all clean fclean re git

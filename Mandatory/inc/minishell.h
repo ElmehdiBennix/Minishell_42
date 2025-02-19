@@ -20,7 +20,7 @@
 # include <sys/uio.h>
 # include <sys/wait.h>
 
-int	g_err;
+extern int	g_err;
 
 int		herdoc_helper(void);
 void	fhandler(int sig);
@@ -51,7 +51,6 @@ bool	allocate_groups(t_mini_data *var);
 bool	linker(t_mini_data *var);
 
 /// merge
-
 int		get_env(t_env **Henv, char **env);
 char	*get_val(char *line);
 char	*get_key(char *line);
